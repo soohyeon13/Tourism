@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.tourism.viewmodel.ImageItemViewModel" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="8dp"
+        android:clickable="true"
+        android:foreground="?selectableItemBackground"
+        android:onClick="@{viewmodel::onItemClick}"
+        android:orientation = "horizontal"
+        app:cardUseCompatPadding="true"
+        tools:showIn = "@layout/image_recycler_list"
+        >
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            bind:imageUrl = "@{viewModel.repoImageUrl}"
+            />
+    </androidx.cardview.widget.CardView>
+</layout>
