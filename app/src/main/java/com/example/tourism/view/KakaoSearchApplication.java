@@ -41,13 +41,13 @@ public class KakaoSearchApplication extends Application {
             @NotNull
             @Override
             public Response intercept(@NotNull Chain chain) throws IOException {
-                return chain.proceed(chain.request().newBuilder().addHeader("Authorization","KakaoAK"+ " " + getResources().getString(R.string.kakao_REST_API_key)).build());
+                return chain.proceed(chain.request().newBuilder().addHeader("Authorization: ","KakaoAK"+ " " + getResources().getString(R.string.kakao_REST_API_key)).build());
             }
         }).build();
 
         retrofit = new Retrofit.Builder()
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl("https://dapi.kakao.com")
+                .baseUrl("https://apis.daum.net")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();

@@ -12,17 +12,16 @@
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer"
-        tools:openDrawer="start"
-        tools:context="com.example.tourism.view.FirstActivity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        >
+        tools:context="com.example.tourism.view.FirstActivity"
+        tools:openDrawer="start">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <include
                 layout="@layout/toolbar"
@@ -35,7 +34,8 @@
 
                 <include
                     layout="@layout/image_recycler_list"
-                    />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -45,10 +45,9 @@
             android:id="@+id/navigation"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity ="start"
+            android:layout_gravity="start"
             app:headerLayout="@layout/navigation_header"
-            app:menu="@menu/navigation_item"
-            />
+            app:menu="@menu/navigation_item" />
 
 
     </androidx.drawerlayout.widget.DrawerLayout>

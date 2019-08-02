@@ -31,7 +31,6 @@ public class ImageListViewModel {
             @Override
             public void accept(KakaoSearch.Images images) throws Exception {
                 imageRecyclerViewContract.showImages(images);
-//                Log.d(images,"aaaaaaaaa");
             }
 
         });
