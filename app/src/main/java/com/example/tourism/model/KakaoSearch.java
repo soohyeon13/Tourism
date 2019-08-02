@@ -5,6 +5,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface KakaoSearch {
 
@@ -25,8 +26,8 @@ public interface KakaoSearch {
     }
 
 
-    @GET("v2/search/image?query={search}")
-    Observable<Images> listImage(@Path("search") String query);
+    @GET("/v2/search/image={search}/")
+    Observable<Images> listImage(@Query("search") String query);
 
 }
 

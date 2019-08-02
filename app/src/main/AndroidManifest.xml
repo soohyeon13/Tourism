@@ -16,7 +16,8 @@
             android:value="@string/kakao_REST_API_key">
 
         </meta-data>
-        <activity android:name=".view.FirstActivity">
+        <activity android:name=".view.FirstActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
