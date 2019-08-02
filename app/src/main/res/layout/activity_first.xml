@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.tourism.viewmodel.ImageItemViewModel" />
+            type="com.example.tourism.viewmodel.ImageListViewModel" />
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout

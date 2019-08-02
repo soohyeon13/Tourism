@@ -16,7 +16,7 @@
         android:layout_margin="8dp"
         android:clickable="true"
         android:foreground="?selectableItemBackground"
-        android:onClick="@{viewmodel::onItemClick}"
+        android:onClick="@{viewModel::onItemClick}"
         android:orientation = "horizontal"
         app:cardUseCompatPadding="true"
         tools:showIn = "@layout/image_recycler_list"
@@ -27,7 +27,7 @@
             android:id="@+id/imageview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            bind:imageUrl = "@{viewModel.repoImageUrl}"
+            bind:imageUrl="@{viewModel.repoImageUrl}"
             />
     </androidx.cardview.widget.CardView>
 </layout>
