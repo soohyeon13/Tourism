@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.tourism.contract.ImageRecyclerViewContract;
 import com.example.tourism.model.KakaoSearch;
 
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.Observable;
@@ -30,9 +31,18 @@ public class ImageListViewModel {
 
             @Override
             public void accept(KakaoSearch.Images images) throws Exception {
-                imageRecyclerViewContract.showImages(images);
-            }
 
+                Log.d("222222", images.toString());
+                imageRecyclerViewContract.showImages(images);
+
+
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                imageRecyclerViewContract.showError(throwable);
+            }
         });
     }
+
 }

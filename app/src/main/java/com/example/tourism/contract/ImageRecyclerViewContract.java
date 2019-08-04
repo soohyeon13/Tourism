@@ -5,5 +5,5 @@ import com.example.tourism.model.KakaoSearch;
 public interface ImageRecyclerViewContract {
     void showImages(KakaoSearch.Images images);
 
-    void showError();
+    void showError(Throwable e);
 }

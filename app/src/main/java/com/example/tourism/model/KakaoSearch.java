@@ -24,7 +24,7 @@ public interface KakaoSearch {
         }
     }
 
-    @GET("/v2/search/image/")
+    @GET("/v2/search/image")
     Observable<Images> listImage(@Query("query") String query);
 
 }

@@ -2,6 +2,7 @@ package com.example.tourism.view;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,11 @@ import com.example.tourism.model.KakaoSearch;
 import com.example.tourism.view.adapter.ImageRecyclerAdapter;
 import com.example.tourism.viewmodel.ImageListViewModel;
 import com.google.android.material.navigation.NavigationView;
+
+import java.io.IOException;
+
+import okhttp3.Response;
+import retrofit2.HttpException;
 
 public class FirstActivity extends AppCompatActivity implements ImageRecyclerViewContract {
 
@@ -58,7 +64,15 @@ public class FirstActivity extends AppCompatActivity implements ImageRecyclerVie
     }
 
     @Override
-    public void showError() {
-        Toast.makeText(this,"읽을 수 없습니다",Toast.LENGTH_LONG).show();
+    public void showError(Throwable e) {
+
+        HttpException error = (HttpException)e;
+        try {
+            String errorBody = error.response().errorBody().string();
+            Log.d("asd", errorBody);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+
     }
 }
