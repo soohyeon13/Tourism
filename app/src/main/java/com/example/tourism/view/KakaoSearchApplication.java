@@ -1,8 +1,6 @@
 package com.example.tourism.view;
 
 import android.app.Application;
-import android.os.Bundle;
-import android.util.Log;
 
 import com.example.tourism.R;
 import com.example.tourism.model.KakaoSearch;
@@ -14,7 +12,6 @@ import java.io.IOException;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -29,13 +26,6 @@ public class KakaoSearchApplication extends Application {
     }
 
     private void setupAPIClient() {
-//        HttpLoggingInterceptor logging = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-//            @Override
-//            public void log(String message) {
-//                Log.d("API LOG",message);
-//            }
-//        });
-//        logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
 
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
             @NotNull
@@ -47,7 +37,7 @@ public class KakaoSearchApplication extends Application {
 
         retrofit = new Retrofit.Builder()
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl("https://apis.daum.net")
+                .baseUrl("https://dapi.kakao.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();
@@ -56,7 +46,7 @@ public class KakaoSearchApplication extends Application {
 
     }
 
-    public KakaoSearch kakaoSearch() {
+    public KakaoSearch getKakaoSearch() {
         return kakaoSearch;
     }
 }

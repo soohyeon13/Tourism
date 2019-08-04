@@ -19,7 +19,7 @@
         android:onClick="@{viewModel::onItemClick}"
         android:orientation = "horizontal"
         app:cardUseCompatPadding="true"
-        tools:showIn = "@layout/image_recycler_list"
+        tools:showIn = "@layout/activity_first"
         >
 
 

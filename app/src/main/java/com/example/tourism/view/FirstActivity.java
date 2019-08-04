@@ -21,13 +21,13 @@ import com.google.android.material.navigation.NavigationView;
 
 public class FirstActivity extends AppCompatActivity implements ImageRecyclerViewContract {
 
-    private KakaoSearch kakaoSearch;
     private ImageRecyclerAdapter imageRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityFirstBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_first);
+        final KakaoSearch kakaoSearch = ((KakaoSearchApplication)getApplication()).getKakaoSearch();
         binding.setViewModel(new ImageListViewModel((ImageRecyclerViewContract) this,kakaoSearch));
 
         setupViews();
