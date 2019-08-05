@@ -3,7 +3,6 @@ package com.example.tourism.view;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -22,19 +21,20 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.io.IOException;
 
-import okhttp3.Response;
 import retrofit2.HttpException;
 
 public class FirstActivity extends AppCompatActivity implements ImageRecyclerViewContract {
 
     private ImageRecyclerAdapter imageRecyclerAdapter;
-
+    private ActivityFirstBinding binding;
+    private RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityFirstBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_first);
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_first);
         final KakaoSearch kakaoSearch = ((KakaoSearchApplication)getApplication()).getKakaoSearch();
         binding.setViewModel(new ImageListViewModel((ImageRecyclerViewContract) this,kakaoSearch));
+
 
         setupViews();
     }
@@ -43,7 +43,7 @@ public class FirstActivity extends AppCompatActivity implements ImageRecyclerVie
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.imageRecycler);
+        recyclerView = (RecyclerView)findViewById(R.id.imageRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,true));
         imageRecyclerAdapter = new ImageRecyclerAdapter((Context)this,(ImageRecyclerViewContract) this);
         recyclerView.setAdapter(imageRecyclerAdapter);
@@ -51,7 +51,6 @@ public class FirstActivity extends AppCompatActivity implements ImageRecyclerVie
 
         DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.drawer);
         NavigationView navigationView = (NavigationView)findViewById(R.id.navigation);
-
 
 
     }

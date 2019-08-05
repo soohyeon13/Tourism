@@ -14,7 +14,6 @@ import com.example.tourism.contract.ImageRecyclerViewContract;
 import com.example.tourism.databinding.ImageItemBinding;
 import com.example.tourism.model.KakaoSearch;
 import com.example.tourism.viewmodel.ImageItemViewModel;
-import com.example.tourism.viewmodel.ImageListViewModel;
 
 import java.util.List;
 
