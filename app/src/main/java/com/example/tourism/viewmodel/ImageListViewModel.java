@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.util.Log;
 
 import com.example.tourism.contract.ImageRecyclerViewContract;
+import com.example.tourism.model.ImageVO;
 import com.example.tourism.model.KakaoSearch;
 
 
@@ -26,16 +27,20 @@ public class ImageListViewModel {
 
     @SuppressLint("CheckResult")
     private void loadImages() {
-        Observable observable = image.listImage("제주인기관광지");
-        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<KakaoSearch.Images>() {
+        Observable<ImageVO> observable = image.listImage("제주인기관광지");
+        observable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ImageVO>() {
 
             @Override
-            public void accept(KakaoSearch.Images images) throws Exception {
+            public void accept(ImageVO vo) throws Exception {
+                for (ImageVO.Document item :
+                        vo.getDocuments()) {
 
-                Log.d("222222", images.toString());
-                imageRecyclerViewContract.showImages(images);
+                }
 
-
+                imageRecyclerViewContract.showImages(vo.documents);
             }
         }, new Consumer<Throwable>() {
             @Override

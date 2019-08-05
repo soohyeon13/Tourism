@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tourism.R;
 import com.example.tourism.contract.ImageRecyclerViewContract;
 import com.example.tourism.databinding.ImageItemBinding;
+import com.example.tourism.model.ImageVO;
 import com.example.tourism.model.KakaoSearch;
 import com.example.tourism.viewmodel.ImageItemViewModel;
 import com.example.tourism.viewmodel.ImageListViewModel;
@@ -22,19 +23,19 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageRecyclerAdap
 
     private final Context context;
     private final ImageRecyclerViewContract view;
-    private List<KakaoSearch.ImageItems> items;
+    private List<ImageVO.Document> items;
 
     public ImageRecyclerAdapter(Context context, ImageRecyclerViewContract view) {
         this.context =context;
         this.view = view;
     }
 
-    public void setItemsAndRefresh(List<KakaoSearch.ImageItems> items) {
+    public void setItemsAndRefresh(List<ImageVO.Document> items) {
         this.items = items;
         notifyDataSetChanged();
     }
 
-    public KakaoSearch.ImageItems getItemAt(int position) {
+    public ImageVO.Document getItemAt(int position) {
         return items.get(position);
     }
 
@@ -49,7 +50,7 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageRecyclerAdap
 
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
-        final KakaoSearch.ImageItems item = getItemAt(position);
+        final ImageVO.Document item = getItemAt(position);
         holder.loadItem(item);
 
     }
@@ -70,7 +71,7 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageRecyclerAdap
             this.viewModel = viewModel;
         }
 
-        public void loadItem(KakaoSearch.ImageItems item) {
+        public void loadItem(ImageVO.Document item) {
             viewModel.loadItem(item);
         }
     }

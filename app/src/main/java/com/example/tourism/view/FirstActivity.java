@@ -15,12 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tourism.R;
 import com.example.tourism.contract.ImageRecyclerViewContract;
 import com.example.tourism.databinding.ActivityFirstBinding;
+import com.example.tourism.model.ImageVO;
 import com.example.tourism.model.KakaoSearch;
 import com.example.tourism.view.adapter.ImageRecyclerAdapter;
 import com.example.tourism.viewmodel.ImageListViewModel;
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.IOException;
+import java.util.List;
 
 import okhttp3.Response;
 import retrofit2.HttpException;
@@ -58,8 +60,8 @@ public class FirstActivity extends AppCompatActivity implements ImageRecyclerVie
 
 
     @Override
-    public void showImages(KakaoSearch.Images images) {
-        imageRecyclerAdapter.setItemsAndRefresh(images.items);
+    public void showImages(List<ImageVO.Document> itmes) {
+        imageRecyclerAdapter.setItemsAndRefresh(itmes);
 
     }
 
