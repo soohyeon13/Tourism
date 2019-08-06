@@ -3,10 +3,11 @@ package com.example.tourism.view;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.ImageViewCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,7 +25,6 @@ import com.google.android.material.navigation.NavigationView;
 import java.io.IOException;
 import java.util.List;
 
-import okhttp3.Response;
 import retrofit2.HttpException;
 
 public class FirstActivity extends AppCompatActivity implements ImageRecyclerViewContract {
@@ -53,6 +53,8 @@ public class FirstActivity extends AppCompatActivity implements ImageRecyclerVie
 
         DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.drawer);
         NavigationView navigationView = (NavigationView)findViewById(R.id.navigation);
+
+        ImageView imageView = (ImageView)findViewById(R.id.image_weather);
 
 
 

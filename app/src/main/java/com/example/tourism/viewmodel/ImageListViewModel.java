@@ -35,11 +35,6 @@ public class ImageListViewModel {
 
             @Override
             public void accept(ImageVO vo) throws Exception {
-                for (ImageVO.Document item :
-                        vo.getDocuments()) {
-
-                }
-
                 imageRecyclerViewContract.showImages(vo.documents);
             }
         }, new Consumer<Throwable>() {
