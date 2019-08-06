@@ -4,14 +4,13 @@ import android.view.View;
 
 import androidx.databinding.ObservableField;
 
-import com.example.tourism.contract.ImageRecyclerViewContract;
+import com.example.tourism.contract.FirstViewContract;
 import com.example.tourism.model.ImageVO;
-import com.example.tourism.model.KakaoSearch;
 
 public class ImageItemViewModel {
     public ObservableField<String> repoImageUrl = new ObservableField<>();
-    ImageRecyclerViewContract view;
-    public ImageItemViewModel(ImageRecyclerViewContract view) {
+    FirstViewContract view;
+    public ImageItemViewModel(FirstViewContract view) {
         this.view = view;
     }
 

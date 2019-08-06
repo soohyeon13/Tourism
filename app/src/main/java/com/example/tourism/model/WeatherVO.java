@@ -20,6 +20,9 @@ public class WeatherVO {
     @SerializedName("clouds")
     public Clouds clouds;
 
+    @SerializedName("rain")
+    public Rain rain;
+
     @SerializedName("sys")
     public Sys sys;
 
@@ -113,5 +116,12 @@ public class WeatherVO {
         private Long getSunset() {return sunset;}
 
 
+    }
+
+    public class Rain {
+        @SerializedName("3h")
+        Float h3;
+
+        private Float getH3() {return h3;}
     }
 }

@@ -1,11 +1,12 @@
 package com.example.tourism.viewmodel;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 
-import com.example.tourism.contract.ImageRecyclerViewContract;
+import com.example.tourism.contract.FirstViewContract;
 import com.example.tourism.model.ImageVO;
 import com.example.tourism.model.KakaoSearch;
+import com.example.tourism.model.WeatherService;
+import com.example.tourism.model.WeatherVO;
 
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -15,11 +16,11 @@ import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
 public class ImageListViewModel {
-    private final ImageRecyclerViewContract imageRecyclerViewContract;
+    private final FirstViewContract firstViewContract;
     private final KakaoSearch image;
 
-    public ImageListViewModel(ImageRecyclerViewContract imageRecyclerViewContract, KakaoSearch image) {
-        this.imageRecyclerViewContract = imageRecyclerViewContract;
+    public ImageListViewModel(FirstViewContract firstViewContract, KakaoSearch image) {
+        this.firstViewContract = firstViewContract;
         this.image = image;
         loadImages();
     }
@@ -35,14 +36,15 @@ public class ImageListViewModel {
 
             @Override
             public void accept(ImageVO vo) throws Exception {
-                imageRecyclerViewContract.showImages(vo.documents);
+                firstViewContract.showImages(vo.documents);
             }
         }, new Consumer<Throwable>() {
             @Override
             public void accept(Throwable throwable) throws Exception {
-                imageRecyclerViewContract.showError(throwable);
+                firstViewContract.showError(throwable);
             }
         });
+
     }
 
 }

@@ -7,19 +7,21 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.widget.ImageViewCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tourism.R;
-import com.example.tourism.contract.ImageRecyclerViewContract;
+import com.example.tourism.contract.FirstViewContract;
 import com.example.tourism.databinding.ActivityFirstBinding;
 import com.example.tourism.model.ImageVO;
 import com.example.tourism.model.KakaoSearch;
+import com.example.tourism.model.WeatherService;
+import com.example.tourism.model.WeatherVO;
 import com.example.tourism.view.adapter.ImageRecyclerAdapter;
 import com.example.tourism.viewmodel.ImageListViewModel;
+import com.example.tourism.viewmodel.WeatherViewModel;
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.IOException;
@@ -27,7 +29,7 @@ import java.util.List;
 
 import retrofit2.HttpException;
 
-public class FirstActivity extends AppCompatActivity implements ImageRecyclerViewContract {
+public class FirstActivity extends AppCompatActivity implements FirstViewContract {
 
     private ImageRecyclerAdapter imageRecyclerAdapter;
 
@@ -36,8 +38,7 @@ public class FirstActivity extends AppCompatActivity implements ImageRecyclerVie
         super.onCreate(savedInstanceState);
         ActivityFirstBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_first);
         final KakaoSearch kakaoSearch = ((KakaoSearchApplication)getApplication()).getKakaoSearch();
-        binding.setViewModel(new ImageListViewModel((ImageRecyclerViewContract) this,kakaoSearch));
-
+        binding.setViewModel(new ImageListViewModel((FirstViewContract) this,kakaoSearch));
         setupViews();
     }
 
@@ -47,7 +48,7 @@ public class FirstActivity extends AppCompatActivity implements ImageRecyclerVie
 
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.imageRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,true));
-        imageRecyclerAdapter = new ImageRecyclerAdapter((Context)this,(ImageRecyclerViewContract) this);
+        imageRecyclerAdapter = new ImageRecyclerAdapter((Context)this,(FirstViewContract) this);
         recyclerView.setAdapter(imageRecyclerAdapter);
 
 
@@ -60,6 +61,11 @@ public class FirstActivity extends AppCompatActivity implements ImageRecyclerVie
 
     }
 
+
+    @Override
+    public void shwoWeather(WeatherVO.Main weather) {
+
+    }
 
     @Override
     public void showImages(List<ImageVO.Document> itmes) {

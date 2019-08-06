@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Tourism</string>
     <string name="kakao_REST_API_key">5666bea258e8733799b6a71c5a938a4d</string>
+    <string name="openWeather_API_Key">dc30cb9f6d62581f6c4159dbdbc95bff</string>
 </resources>

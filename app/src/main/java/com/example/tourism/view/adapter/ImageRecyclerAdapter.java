@@ -10,22 +10,20 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tourism.R;
-import com.example.tourism.contract.ImageRecyclerViewContract;
+import com.example.tourism.contract.FirstViewContract;
 import com.example.tourism.databinding.ImageItemBinding;
 import com.example.tourism.model.ImageVO;
-import com.example.tourism.model.KakaoSearch;
 import com.example.tourism.viewmodel.ImageItemViewModel;
-import com.example.tourism.viewmodel.ImageListViewModel;
 
 import java.util.List;
 
 public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageRecyclerAdapter.ImageViewHolder> {
 
     private final Context context;
-    private final ImageRecyclerViewContract view;
+    private final FirstViewContract view;
     private List<ImageVO.Document> items;
 
-    public ImageRecyclerAdapter(Context context, ImageRecyclerViewContract view) {
+    public ImageRecyclerAdapter(Context context, FirstViewContract view) {
         this.context =context;
         this.view = view;
     }
