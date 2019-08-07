@@ -7,7 +7,7 @@ import com.example.tourism.model.WeatherVO;
 import java.util.List;
 
 public interface FirstViewContract {
-    void shwoWeather(WeatherVO weather );
+    void showWeather(WeatherVO weather );
 
     void showImages(List<ImageVO.Document> items);
 

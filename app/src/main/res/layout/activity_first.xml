@@ -7,8 +7,9 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.tourism.viewmodel.ImageListViewModel" />
+            type="com.example.tourism.viewmodel.FirstViewModel" />
     </data>
+
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer"
@@ -30,13 +31,14 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
 
                 <include
+                    android:id="@+id/include"
                     layout="@layout/current_weather"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="74dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -44,10 +46,14 @@
 
                 <include
                     layout="@layout/image_recycler_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="300dp"
-                    tools:layout_editor_absoluteY="642dp" />
+                    android:layout_width="398dp"
+                    android:layout_height="498dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.531"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/include"
+                    app:layout_constraintVertical_bias="0.0" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

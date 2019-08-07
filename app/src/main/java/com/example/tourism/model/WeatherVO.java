@@ -1,14 +1,20 @@
 package com.example.tourism.model;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+import java.util.List;
 
-public class WeatherVO {
+
+public class WeatherVO implements Serializable {
     @SerializedName("coord")
     public Coord coord;
 
     @SerializedName("weather")
-    public Weather weather;
+    public List<Weather> weather;
+
 
     @SerializedName("main")
     public Main main;
@@ -36,6 +42,11 @@ public class WeatherVO {
     public float cod;
 
 
+    @NonNull
+    @Override
+    public String toString() {
+        return coord.lat + ", " + coord.lon;
+    }
 
     public class Coord {
         @SerializedName("lon")

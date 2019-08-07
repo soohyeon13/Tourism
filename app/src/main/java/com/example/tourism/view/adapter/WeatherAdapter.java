@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.example.tourism.R;
 import com.example.tourism.contract.FirstViewContract;
+import com.example.tourism.model.WeatherVO;
+import com.example.tourism.viewmodel.WeatherItemViewModel;
 
 public class WeatherAdapter extends BaseAdapter {
     private final FirstViewContract view;
@@ -23,6 +25,8 @@ public class WeatherAdapter extends BaseAdapter {
     private final Context context;
     private final static String PATH_TO_WEATHER_FONT = "fonts/weather.ttf";
     Typeface weather_font;
+    private WeatherVO item;
+    private WeatherItemViewModel viewModel;
 
     public WeatherAdapter(Context context, FirstViewContract view, String icon, String temp, String country ) {
         this.context = context;
@@ -33,6 +37,10 @@ public class WeatherAdapter extends BaseAdapter {
 
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+    }
+
+    public void loadWeather(WeatherVO item) {
+        this.item = item;
     }
     @Override
     public int getCount() {
@@ -60,6 +68,9 @@ public class WeatherAdapter extends BaseAdapter {
         holder.weatherIcon = (TextView)rowView.findViewById(R.id.weather_icon_text);
         holder.country=(TextView)rowView.findViewById(R.id.country_text);
         holder.temp = (TextView)rowView.findViewById(R.id.temp_text);
+
+
+        viewModel.loadWeather(item);
 
         holder.weatherIcon.setTypeface(weather_font);
 
@@ -118,6 +129,7 @@ public class WeatherAdapter extends BaseAdapter {
         TextView weatherIcon;
         TextView country;
         TextView temp;
+
 
     }
 }

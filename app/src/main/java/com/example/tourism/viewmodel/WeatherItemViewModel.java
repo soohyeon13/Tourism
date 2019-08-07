@@ -5,7 +5,7 @@ import androidx.databinding.ObservableField;
 import com.example.tourism.contract.FirstViewContract;
 import com.example.tourism.model.WeatherVO;
 
-public class WeatherItemViewModel {
+public class WeatherItemViewModel{
     private FirstViewContract view;
     public ObservableField<String> weatherIcon = new ObservableField<>();
     public ObservableField<String> country = new ObservableField<>();
@@ -16,10 +16,8 @@ public class WeatherItemViewModel {
     }
 
     public void loadWeather(WeatherVO item) {
-        weatherIcon.set(item.weather.icon);
+        weatherIcon.set(item.weather.get(0).icon);
         country.set(item.sys.country);
         temp.set(item.main.temp);
-
     }
-
 }

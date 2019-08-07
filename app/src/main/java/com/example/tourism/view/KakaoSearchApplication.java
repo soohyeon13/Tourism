@@ -14,6 +14,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -35,6 +36,8 @@ public class KakaoSearchApplication extends Application {
             @NotNull
             @Override
             public Response intercept(@NotNull Chain chain) throws IOException {
+                Request.Builder builder = chain.request().newBuilder();
+
                 return chain.proceed(chain.request().newBuilder().addHeader("Authorization", "KakaoAK" + " " + getResources().getString(R.string.kakao_REST_API_key)).build());
             }
         }).build();

@@ -5,22 +5,27 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <application
-        android:name=".view.KakaoSearchApplication"
+        android:name=".view.WeatherApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service android:name="com.highbryds.gpstracker.GPSService"></service>
+        <receiver android:name=".GPSReceiver">
+            <intent-filter>
+                <action android:name="com.highbryds.tracker" />
+            </intent-filter>
+        </receiver>
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_REST_API_key">
 
         </meta-data>
-        <activity android:name=".view.FirstActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".view.FirstActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,22 +13,22 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.tourism.GPSTracker;
 import com.example.tourism.R;
 import com.example.tourism.contract.FirstViewContract;
 import com.example.tourism.databinding.ActivityFirstBinding;
 import com.example.tourism.model.ImageVO;
 import com.example.tourism.model.KakaoSearch;
-import com.example.tourism.model.WeatherService;
+import com.example.tourism.model.WeatherSearch;
 import com.example.tourism.model.WeatherVO;
+import com.example.tourism.service.WeatherService;
 import com.example.tourism.view.adapter.ImageRecyclerAdapter;
-import com.example.tourism.view.adapter.WeatherAdapter;
-import com.example.tourism.viewmodel.ImageListViewModel;
-import com.example.tourism.viewmodel.WeatherViewModel;
+import com.example.tourism.viewmodel.FirstViewModel;
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.HttpException;
 
@@ -44,8 +43,20 @@ public class FirstActivity extends AppCompatActivity implements FirstViewContrac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityFirstBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_first);
-        final KakaoSearch kakaoSearch = ((KakaoSearchApplication)getApplication()).getKakaoSearch();
-        binding.setViewModel(new ImageListViewModel((FirstViewContract) this,kakaoSearch));
+
+        final KakaoSearch kakaoSearch = ((WeatherApplication) getApplication())
+                .getData(KakaoSearch.class, new HashMap<String, String>() {{
+                    put("Authorization", "KakaoAK" + " " + getResources().getString(R.string.kakao_REST_API_key));
+                }});
+
+        final WeatherSearch weatherSearch = ((WeatherApplication) getApplication()).getData(WeatherSearch.class);
+        binding.setViewModel(new FirstViewModel(this,kakaoSearch, weatherSearch));
+
+        FirstViewModel viewModel = binding.getViewModel();
+        viewModel.loadImages();
+
+        viewModel.loadWeathers();
+
         setupViews();
     }
 
@@ -73,27 +84,78 @@ public class FirstActivity extends AppCompatActivity implements FirstViewContrac
     }
 
 
+
     @Override
-    public void shwoWeather(WeatherVO weather) {
+    public void showWeather(WeatherVO weather) {
+
+        System.out.println(weather.weather.get(0).icon);
+
+        country.setText(weather.sys.country);
+        temp.setText(weather.main.temp);
+
+        switch (weather.weather.get(0).icon) {
+            case "01d":
+                weatherIcon.setText(R.string.wi_day_sunny);
+                break;
+            case "02d":
+                weatherIcon.setText(R.string.wi_cloudy_gusts);
+                break;
+            case "03d":
+                weatherIcon.setText(R.string.wi_cloud_down);
+                break;
+            case "04d":
+                weatherIcon.setText(R.string.wi_cloudy);
+                break;
+            case "04n":
+                weatherIcon.setText(R.string.wi_night_cloudy);
+                break;
+            case "10d":
+                weatherIcon.setText(R.string.wi_day_rain_mix);
+                break;
+            case "11d":
+                weatherIcon.setText(R.string.wi_day_thunderstorm);
+                break;
+            case "13d":
+                weatherIcon.setText(R.string.wi_day_snow);
+                break;
+            case "01n":
+                weatherIcon.setText(R.string.wi_night_clear);
+                break;
+            case "02n":
+                weatherIcon.setText(R.string.wi_night_cloudy);
+                break;
+            case "03n":
+                weatherIcon.setText(R.string.wi_night_cloudy_gusts);
+                break;
+            case "10n":
+                weatherIcon.setText(R.string.wi_night_cloudy_gusts);
+                break;
+            case "11n":
+                weatherIcon.setText(R.string.wi_night_rain);
+                break;
+            case "13n":
+                weatherIcon.setText(R.string.wi_night_snow);
+                break;
+        }
 
     }
 
     @Override
     public void showImages(List<ImageVO.Document> itmes) {
         imageRecyclerAdapter.setItemsAndRefresh(itmes);
-
     }
 
     @Override
     public void showError(Throwable e) {
 
-        HttpException error = (HttpException)e;
-        try {
-            String errorBody = error.response().errorBody().string();
-            Log.d("asd", errorBody);
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
+        Exception error = (Exception) e;
+        e.printStackTrace();
+//        try {
+//            String errorBody = error.response().errorBody().string();
+//            Log.d("asd", errorBody);
+//        } catch (IOException e1) {
+//            e1.printStackTrace();
+//        }
 
     }
 }

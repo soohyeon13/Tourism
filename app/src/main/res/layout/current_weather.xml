@@ -6,7 +6,7 @@
     <data>
         <variable
             name="weather"
-            type="com.example.tourism.viewmodel.WeatherItemViewModel" />
+            type="com.example.tourism.viewmodel.WeatherViewModel" />
 
     </data>
 
@@ -19,9 +19,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="634dp"
             android:orientation="horizontal"
-            android:padding="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +28,7 @@
             <TextView
                 android:id="@+id/weather_icon_text"
                 android:layout_width="70dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:textSize="50dp" />
 
             <LinearLayout
@@ -43,14 +41,15 @@
                     android:id="@+id/country_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{weather.country}"
-                    android:textSize="20sp" />
+                    android:text="dsadw"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/temp_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{weather.temp}"
+                    android:text="asdwx"
 
                     />
 
