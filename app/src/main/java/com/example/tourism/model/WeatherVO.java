@@ -2,14 +2,13 @@ package com.example.tourism.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 
 public class WeatherVO {
     @SerializedName("coord")
     public Coord coord;
 
     @SerializedName("weather")
-    public ArrayList weather = new ArrayList();
+    public Weather weather;
 
     @SerializedName("main")
     public Main main;
@@ -56,17 +55,17 @@ public class WeatherVO {
         @SerializedName("description")
         String description;
         @SerializedName("icon")
-        String icon;
+        public String icon;
 
         private Integer getId(){return id; }
         private String getMain() {return main;}
         private String getDescription() {return description;}
-        private String getIcon() {return icon;}
+        public String getIcon() {return icon;}
     }
 
     public class Main {
         @SerializedName("temp")
-        Float temp;
+        public String temp;
         @SerializedName("humidity")
         Float humidity;
         @SerializedName("pressure")
@@ -77,7 +76,7 @@ public class WeatherVO {
         Float temp_max;
 
 
-        private Float getTemp() { return temp; }
+        public String getTemp() { return temp; }
         private Float getHumidity() { return humidity; }
         private Float getPressure() { return pressure; }
         private Float getTemp_min() { return temp_min; }
@@ -105,7 +104,7 @@ public class WeatherVO {
 
     public class Sys {
         @SerializedName("country")
-        String country;
+        public String country;
         @SerializedName("sunrise")
         Long sunrise;
         @SerializedName("sunset")

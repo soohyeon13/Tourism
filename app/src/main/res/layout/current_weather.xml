@@ -6,61 +6,59 @@
     <data>
         <variable
             name="weather"
-            type="com.example.tourism.viewmodel.WeatherViewModel" />
+            type="com.example.tourism.viewmodel.WeatherItemViewModel" />
 
     </data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="@{weather.cityName}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="634dp"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/image_weather"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@{weather.imageIcon}"
-                />
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/text_temp"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{weather.temp}"
-                />
+                android:id="@+id/weather_icon_text"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:textSize="50dp" />
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/country_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{weather.country}"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/temp_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{weather.temp}"
+
+                    />
+
+
+            </LinearLayout>
 
 
         </LinearLayout>
-
-        <View
-            android:id="@+id/visdf"
-            android:layout_width="match_parent"
-            android:layout_height="1.5dp"
-            android:layout_marginBottom="7dp"
-            android:background="#8f8e8e"
-            app:layout_constraintBottom_toBottomOf="@+id/linearLayout" />
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

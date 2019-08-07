@@ -29,6 +29,7 @@ public class GPSTracker extends Service implements LocationListener {
     private Location location;
     private double latitude;
     private double longitude;
+    private boolean isGPSTrackingEnabled =false;
 
     public GPSTracker(Context context) {
         this.context = context;
@@ -81,6 +82,27 @@ public class GPSTracker extends Service implements LocationListener {
         }catch (Exception e) {
             Log.e(TAG,"Impossible to connect to LoactionManager",e);
         }
+    }
+
+    public boolean getIsGPSTrackingEnabled() {
+
+        return this.isGPSTrackingEnabled;
+    }
+
+    public String getLatitude() {
+        if (location != null) {
+            latitude = location.getLatitude();
+        }
+
+        return String.valueOf(latitude);
+    }
+
+    public String getLongitude() {
+        if (location != null) {
+            longitude = location.getLongitude();
+        }
+
+        return String.valueOf(longitude);
     }
 
     private void updateGPSCoordinates() {
