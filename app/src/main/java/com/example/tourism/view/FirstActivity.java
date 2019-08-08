@@ -142,7 +142,7 @@ public class FirstActivity extends AppCompatActivity implements FirstViewContrac
         double K = Double.parseDouble(weather.main.temp);
         double C = K - 273.15;
         String name = weather.name;
-        country.setText(name);
+        country.setText(WeatherService.address);
         temp.setText((Math.round(C)) + "°C");
 
         switch (weather.weather.get(0).icon) {

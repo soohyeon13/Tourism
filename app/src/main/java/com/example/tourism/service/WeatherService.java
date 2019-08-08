@@ -38,6 +38,7 @@ public class WeatherService extends Service implements RetrofitService {
     private Context context;
     private double latitude;
     private double longitude;
+    public static String address;
 
 
     public WeatherService(FirstViewContract firstViewContract, WeatherSearch weatherSearch, Context context) {
@@ -54,7 +55,7 @@ public class WeatherService extends Service implements RetrofitService {
         latitude = gpsTracker.getLatitude();
         longitude = gpsTracker.getLongitude();
 
-        String address = getCurrentAddress(latitude, longitude,context);
+        address = getCurrentAddress(latitude, longitude,context);
     }
 
     public String getCurrentAddress(double latitude, double longitude,Context context) {
@@ -86,7 +87,12 @@ public class WeatherService extends Service implements RetrofitService {
         }
 
         Address address = addresses.get(0);
-        return address.getAddressLine(0).toString() + "\n";
+        String adminArea = address.getAdminArea();
+        String countryName = address.getCountryName();
+        String featureName = address.getFeatureName();
+        String city = address.getAddressLine(0).replace(adminArea,"").replace(countryName,"").replace(featureName,"");
+        city = city.trim();
+        return city;
 
     }
 
