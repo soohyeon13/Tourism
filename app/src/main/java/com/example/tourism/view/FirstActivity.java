@@ -1,14 +1,21 @@
 package com.example.tourism.view;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,6 +28,7 @@ import com.example.tourism.model.ImageVO;
 import com.example.tourism.model.KakaoSearch;
 import com.example.tourism.model.WeatherSearch;
 import com.example.tourism.model.WeatherVO;
+import com.example.tourism.service.WeatherService;
 import com.example.tourism.view.adapter.ImageRecyclerAdapter;
 import com.example.tourism.viewmodel.FirstViewModel;
 import com.google.android.material.navigation.NavigationView;
@@ -35,10 +43,14 @@ public class FirstActivity extends AppCompatActivity implements FirstViewContrac
     private Typeface weatherFont;
     private final static String PATH_TO_WEATHER_FONT = "fonts/weather.ttf";
 
+    private static final int GPS_ENABLE_REQUEST_CODE = 2001;
+    private static final int PERMISSIONS_REQUEST_CODE = 100;
+    String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityFirstBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_first);
+        ActivityFirstBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_first);
 
         final KakaoSearch kakaoSearch = ((TourApplication) getApplication())
                 .getData(KakaoSearch.class, new HashMap<String, String>() {{
@@ -46,7 +58,7 @@ public class FirstActivity extends AppCompatActivity implements FirstViewContrac
                 }});
 
         final WeatherSearch weatherSearch = ((TourApplication) getApplication()).getData(WeatherSearch.class);
-        binding.setViewModel(new FirstViewModel(this,kakaoSearch, weatherSearch));
+        binding.setViewModel(new FirstViewModel(this, kakaoSearch, weatherSearch));
 
         FirstViewModel viewModel = binding.getViewModel();
         viewModel.loadImages();
@@ -62,37 +74,76 @@ public class FirstActivity extends AppCompatActivity implements FirstViewContrac
         getSupportActionBar().setTitle(" ");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.imageRecycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,true));
-        imageRecyclerAdapter = new ImageRecyclerAdapter((Context)this,(FirstViewContract) this);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.imageRecycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
+        imageRecyclerAdapter = new ImageRecyclerAdapter((Context) this, (FirstViewContract) this);
         recyclerView.setAdapter(imageRecyclerAdapter);
 
 
-        DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.drawer);
-        NavigationView navigationView = (NavigationView)findViewById(R.id.navigation);
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation);
 
-        weatherIcon = (TextView)findViewById(R.id.weather_icon_text);
-        country = (TextView)findViewById(R.id.country_text);
-        temp = (TextView)findViewById(R.id.temp_text);
-
-        weatherFont = Typeface.createFromAsset(getAssets(),PATH_TO_WEATHER_FONT);
+        weatherIcon = (TextView) findViewById(R.id.weather_icon_text);
+        country = (TextView) findViewById(R.id.country_text);
+        temp = (TextView) findViewById(R.id.temp_text);
+        weatherFont = Typeface.createFromAsset(getAssets(), PATH_TO_WEATHER_FONT);
         weatherIcon.setTypeface(weatherFont);
 
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case GPS_ENABLE_REQUEST_CODE :
+                if (checkLocationServicesStatus()) {
+                    Log.d("LogLocation","GPS활성");
+                    checkRunTimePermission();
+                }
+                break;
+        }
+    }
 
+    private void checkRunTimePermission() {
+        int hasFineLocationPermission = ContextCompat.checkSelfPermission(FirstActivity.this,
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(FirstActivity.this,
+                Manifest.permission.ACCESS_COARSE_LOCATION);
+
+
+        if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
+                hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
+
+        } else {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(FirstActivity.this, REQUIRED_PERMISSIONS[0])) {
+                Toast.makeText(FirstActivity.this, "이 앱을 실행하려면 위치 접근 권한이 필요합니다.", Toast.LENGTH_LONG).show();
+                ActivityCompat.requestPermissions(FirstActivity.this, REQUIRED_PERMISSIONS,
+                        PERMISSIONS_REQUEST_CODE);
+            } else {
+                ActivityCompat.requestPermissions(FirstActivity.this, REQUIRED_PERMISSIONS,
+                        PERMISSIONS_REQUEST_CODE);
+            }
+        }
+    }
+
+    private boolean checkLocationServicesStatus() {
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    }
 
     @SuppressLint("SetTextI18n")
     @Override
     public void showWeather(WeatherVO weather) {
+
+
         double K = Double.parseDouble(weather.main.temp);
         double C = K - 273.15;
         String name = weather.name;
-        String city = weather.sys.country;
-
-        country.setText(city + " " + name);
-        temp.setText(Double.toString(Math.round(C)) + "°C");
+        country.setText(name);
+        temp.setText((Math.round(C)) + "°C");
 
         switch (weather.weather.get(0).icon) {
             case "01d":
@@ -148,15 +199,6 @@ public class FirstActivity extends AppCompatActivity implements FirstViewContrac
 
     @Override
     public void showError(Throwable e) {
-
-        Exception error = (Exception) e;
         e.printStackTrace();
-//        try {
-//            String errorBody = error.response().errorBody().string();
-//            Log.d("asd", errorBody);
-//        } catch (IOException e1) {
-//            e1.printStackTrace();
-//        }
-
     }
 }

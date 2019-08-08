@@ -6,8 +6,11 @@ import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Build;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -20,6 +23,10 @@ import com.example.tourism.model.WeatherVO;
 import com.example.tourism.view.FirstActivity;
 import com.highbryds.gpstracker.GPSService;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -28,32 +35,66 @@ public class WeatherService extends Service implements RetrofitService {
     private final FirstViewContract firstViewContract;
     private final WeatherSearch weatherSearch;
     private String App_Id = "dc30cb9f6d62581f6c4159dbdbc95bff";
+    private Context context;
+    private double latitude;
+    private double longitude;
+
 
     public WeatherService(FirstViewContract firstViewContract, WeatherSearch weatherSearch, Context context) {
         this.firstViewContract = firstViewContract;
         this.weatherSearch = weatherSearch;
-    }
-
-    private void getGPS(Context context) {
-        GPSService.LocationInterval = 20000;
-        GPSService.LocationFastestInterval = 15000;
-        PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
-                new Intent(context, FirstActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
-
-        GPSService.contentIntent = contentIntent;
-        GPSService.NotificationTitle = "your app is tracking you";
-        GPSService.NotificationTxt = "Amazing Stuff";
-        GPSService.drawable_small = R.drawable.ic_launcher_background;
-
-        startForegroundService(new Intent(context, GPSService.class));
+        this.context = context;
 
     }
 
+
+    public void getGPS() {
+        GPSTracker gpsTracker = new GPSTracker(context);
+
+        latitude = gpsTracker.getLatitude();
+        longitude = gpsTracker.getLongitude();
+
+        String address = getCurrentAddress(latitude, longitude,context);
+    }
+
+    public String getCurrentAddress(double latitude, double longitude,Context context) {
+        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+
+        List<Address> addresses;
+
+        try {
+
+            addresses = geocoder.getFromLocation(
+                    latitude,
+                    longitude,
+                    7);
+        } catch (IOException ioException) {
+            //네트워크 문제
+            Toast.makeText(this, "지오코더 서비스 사용불가", Toast.LENGTH_LONG).show();
+            return "지오코더 서비스 사용불가";
+        } catch (IllegalArgumentException illegalArgumentException) {
+            Toast.makeText(this, "잘못된 GPS 좌표", Toast.LENGTH_LONG).show();
+            return "잘못된 GPS 좌표";
+
+        }
+
+
+        if (addresses == null || addresses.size() == 0) {
+            Toast.makeText(this, "주소 미발견", Toast.LENGTH_LONG).show();
+            return "주소 미발견";
+
+        }
+
+        Address address = addresses.get(0);
+        return address.getAddressLine(0).toString() + "\n";
+
+    }
 
     @SuppressLint("CheckResult")
     @Override
     public void getData() {
-        Observable<WeatherVO> observable = weatherSearch.getCurrentWeatherData("35" , "139",App_Id);
+        getGPS();
+        Observable<WeatherVO> observable = weatherSearch.getCurrentWeatherData(String.valueOf(latitude), String.valueOf(longitude), App_Id);
         observable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -64,25 +105,5 @@ public class WeatherService extends Service implements RetrofitService {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
-    }
-
-
-    class GPSReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            double latitude = Double.valueOf(intent.getStringExtra("latitude"));
-            double longitude = Double.valueOf(intent.getStringExtra("longitude"));
-
-            double speed = Double.valueOf(intent.getStringExtra("speed"));
-            double altitude = Double.valueOf(intent.getStringExtra("altitude"));
-
-            System.out.println("broadcast latitude:" + latitude);
-            System.out.println("broadcast speed:" + speed);
-            System.out.println("broadcast altitude:" + altitude);
-            //Set it to some model class then maintain it in List saved in  sharedprefences - this will help you call the SendtoInternet Method
-            //less frequently - i mean based on the number of list items you can take decision that once the list contains 5 items- send it to //the server - Its totally upto you.
-//        SendtoInternet(latitude,longitude,altitude,speed)
-        }
     }
 }
