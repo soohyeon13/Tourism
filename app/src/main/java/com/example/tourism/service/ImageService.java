@@ -23,7 +23,7 @@ public class ImageService implements RetrofitService {
     @SuppressLint("CheckResult")
     @Override
     public void getData() {
-        Observable<ImageVO> observable = image.listImage("제주인기관광지");
+        Observable<ImageVO> observable = image.listImage("제주도 바다");
         observable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
