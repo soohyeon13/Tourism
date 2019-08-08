@@ -1,5 +1,6 @@
 package com.example.tourism.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -20,17 +21,12 @@ import com.example.tourism.model.ImageVO;
 import com.example.tourism.model.KakaoSearch;
 import com.example.tourism.model.WeatherSearch;
 import com.example.tourism.model.WeatherVO;
-import com.example.tourism.service.WeatherService;
 import com.example.tourism.view.adapter.ImageRecyclerAdapter;
 import com.example.tourism.viewmodel.FirstViewModel;
 import com.google.android.material.navigation.NavigationView;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import retrofit2.HttpException;
 
 public class FirstActivity extends AppCompatActivity implements FirstViewContract {
 
@@ -44,12 +40,12 @@ public class FirstActivity extends AppCompatActivity implements FirstViewContrac
         super.onCreate(savedInstanceState);
         ActivityFirstBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_first);
 
-        final KakaoSearch kakaoSearch = ((WeatherApplication) getApplication())
+        final KakaoSearch kakaoSearch = ((TourApplication) getApplication())
                 .getData(KakaoSearch.class, new HashMap<String, String>() {{
                     put("Authorization", "KakaoAK" + " " + getResources().getString(R.string.kakao_REST_API_key));
                 }});
 
-        final WeatherSearch weatherSearch = ((WeatherApplication) getApplication()).getData(WeatherSearch.class);
+        final WeatherSearch weatherSearch = ((TourApplication) getApplication()).getData(WeatherSearch.class);
         binding.setViewModel(new FirstViewModel(this,kakaoSearch, weatherSearch));
 
         FirstViewModel viewModel = binding.getViewModel();
@@ -63,6 +59,8 @@ public class FirstActivity extends AppCompatActivity implements FirstViewContrac
     private void setupViews() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(" ");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.imageRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,true));
@@ -85,13 +83,16 @@ public class FirstActivity extends AppCompatActivity implements FirstViewContrac
 
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void showWeather(WeatherVO weather) {
+        double K = Double.parseDouble(weather.main.temp);
+        double C = K - 273.15;
+        String name = weather.name;
+        String city = weather.sys.country;
 
-        System.out.println(weather.weather.get(0).icon);
-
-        country.setText(weather.sys.country);
-        temp.setText(weather.main.temp);
+        country.setText(city + " " + name);
+        temp.setText(Double.toString(Math.round(C)) + "°C");
 
         switch (weather.weather.get(0).icon) {
             case "01d":

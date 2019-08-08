@@ -20,7 +20,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class WeatherApplication extends Application {
+public class TourApplication extends Application {
     private String WeatherBaseUrl = "http://api.openweathermap.org/";
     private String ImageBaseUrl = "https://dapi.kakao.com";
 
@@ -40,8 +40,6 @@ public class WeatherApplication extends Application {
 
 
     public <T> T getData(Class<T> service, Map<String, String> headerParams) {
-
-
         final OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
             @NotNull
             @Override
@@ -52,12 +50,9 @@ public class WeatherApplication extends Application {
                 }
 
                 return chain.proceed(builder.build());
-//                return chain.proceed(chain.request().newBuilder().addHeader("Authorization", "KakaoAK" + " " + getResources().getString(R.string.kakao_REST_API_key)).build());
             }
         }).build();
-
         return getRetrofitObject(service, client,ImageBaseUrl);
-
     }
 
     private <T> T getRetrofitObject(Class<T> service, OkHttpClient client, String url) {
@@ -69,6 +64,4 @@ public class WeatherApplication extends Application {
                 .build()
                 .create(service);
     }
-
-//    public WeatherSearch getWeatherSearch() {return weatherSearch;}
 }

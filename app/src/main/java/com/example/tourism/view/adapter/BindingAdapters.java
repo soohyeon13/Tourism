@@ -11,6 +11,8 @@ public class BindingAdapters {
     public static void loadImage(final ImageView imageView,final String imageUrl) {
 
 
+
+
         Glide.with(imageView.getContext())
                 .load(imageUrl)
                 .centerCrop()

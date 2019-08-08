@@ -27,14 +27,11 @@ import io.reactivex.schedulers.Schedulers;
 public class WeatherService extends Service implements RetrofitService {
     private final FirstViewContract firstViewContract;
     private final WeatherSearch weatherSearch;
-//    private final GPSTracker gpsTracker;
     private String App_Id = "dc30cb9f6d62581f6c4159dbdbc95bff";
 
     public WeatherService(FirstViewContract firstViewContract, WeatherSearch weatherSearch, Context context) {
         this.firstViewContract = firstViewContract;
         this.weatherSearch = weatherSearch;
-//        getGPS(context);
-//        this.gpsTracker = new GPSTracker(context)
     }
 
     private void getGPS(Context context) {

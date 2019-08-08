@@ -29,6 +29,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <View
+                android:background="#a0a0a0 "
+                android:layout_width="match_parent"
+                android:layout_gravity="bottom"
+                android:layout_height="2px"/>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -39,6 +45,7 @@
                     layout="@layout/current_weather"
                     android:layout_width="0dp"
                     android:layout_height="74dp"
+                    android:layout_marginLeft="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -46,8 +53,8 @@
 
                 <include
                     layout="@layout/image_recycler_list"
-                    android:layout_width="398dp"
-                    android:layout_height="498dp"
+                    android:layout_width="405dp"
+                    android:layout_height="229dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.531"
