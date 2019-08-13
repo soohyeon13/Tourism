@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,12 +41,13 @@ public class FirstActivity extends AppCompatActivity implements FirstViewContrac
 
     private ImageRecyclerAdapter imageRecyclerAdapter;
     TextView weatherIcon, country, temp;
+
     private Typeface weatherFont;
     private final static String PATH_TO_WEATHER_FONT = "fonts/weather.ttf";
 
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int PERMISSIONS_REQUEST_CODE = 100;
-    String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+    String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +63,14 @@ public class FirstActivity extends AppCompatActivity implements FirstViewContrac
         binding.setViewModel(new FirstViewModel(this, kakaoSearch, weatherSearch));
 
         FirstViewModel viewModel = binding.getViewModel();
-        viewModel.loadImages();
 
+        viewModel.loadImages();
         viewModel.loadWeathers();
 
         setupViews();
     }
+
+
 
     private void setupViews() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -96,9 +100,9 @@ public class FirstActivity extends AppCompatActivity implements FirstViewContrac
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case GPS_ENABLE_REQUEST_CODE :
+            case GPS_ENABLE_REQUEST_CODE:
                 if (checkLocationServicesStatus()) {
-                    Log.d("LogLocation","GPS활성");
+                    Log.d("LogLocation", "GPS활성");
                     checkRunTimePermission();
                 }
                 break;
@@ -201,4 +205,15 @@ public class FirstActivity extends AppCompatActivity implements FirstViewContrac
     public void showError(Throwable e) {
         e.printStackTrace();
     }
+
+    @Override
+    public void onFoodClick(View view) {
+        startActivity(new Intent(view.getContext(),FoodActivity.class));
+    }
+
+    @Override
+    public void onTourClick(View view) {
+
+    }
+
 }

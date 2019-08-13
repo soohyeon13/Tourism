@@ -62,7 +62,8 @@
                     app:layout_constraintTop_toBottomOf="@+id/include" />
 
                 <include
-                    layout="@layout/big_catagory"
+                    android:id="@+id/category"
+                    layout="@layout/big_category"
                     android:layout_width="0dp"
                     android:layout_height="302dp"
                     app:layout_constraintEnd_toEndOf="parent"

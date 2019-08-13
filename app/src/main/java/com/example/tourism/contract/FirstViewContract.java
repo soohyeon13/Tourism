@@ -1,7 +1,8 @@
 package com.example.tourism.contract;
 
+import android.view.View;
+
 import com.example.tourism.model.ImageVO;
-import com.example.tourism.model.KakaoSearch;
 import com.example.tourism.model.WeatherVO;
 
 import java.util.List;
@@ -12,4 +13,9 @@ public interface FirstViewContract {
     void showImages(List<ImageVO.Document> items);
 
     void showError(Throwable e);
+
+    void onFoodClick(View view);
+
+    void onTourClick(View view);
+
 }
