@@ -31,80 +31,28 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class WeatherService extends Service implements RetrofitService {
-    private final FirstViewContract firstViewContract;
+public class WeatherService extends Service implements RetrofitService<WeatherVO> {
     private final WeatherSearch weatherSearch;
     private String App_Id = "dc30cb9f6d62581f6c4159dbdbc95bff";
-    private Context context;
     private double latitude;
     private double longitude;
-    public static String address;
 
-
-    public WeatherService(FirstViewContract firstViewContract, WeatherSearch weatherSearch, Context context) {
-        this.firstViewContract = firstViewContract;
+    public WeatherService(WeatherSearch weatherSearch) {
         this.weatherSearch = weatherSearch;
-        this.context = context;
-
     }
 
 
-    public void getGPS() {
-        GPSTracker gpsTracker = new GPSTracker(context);
-
-        latitude = gpsTracker.getLatitude();
-        longitude = gpsTracker.getLongitude();
-
-        address = getCurrentAddress(latitude, longitude,context);
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 
-    public String getCurrentAddress(double latitude, double longitude,Context context) {
-        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
-
-        List<Address> addresses;
-
-        try {
-
-            addresses = geocoder.getFromLocation(
-                    latitude,
-                    longitude,
-                    7);
-        } catch (IOException ioException) {
-            //네트워크 문제
-            Toast.makeText(this, "지오코더 서비스 사용불가", Toast.LENGTH_LONG).show();
-            return "지오코더 서비스 사용불가";
-        } catch (IllegalArgumentException illegalArgumentException) {
-            Toast.makeText(this, "잘못된 GPS 좌표", Toast.LENGTH_LONG).show();
-            return "잘못된 GPS 좌표";
-
-        }
-
-
-        if (addresses == null || addresses.size() == 0) {
-            Toast.makeText(this, "주소 미발견", Toast.LENGTH_LONG).show();
-            return "주소 미발견";
-
-        }
-
-        Address address = addresses.get(0);
-        String adminArea = address.getAdminArea();
-        String countryName = address.getCountryName();
-        String featureName = address.getFeatureName();
-        String city = address.getAddressLine(0).replace(adminArea,"").replace(countryName,"").replace(featureName,"");
-        city = city.trim();
-        return city;
-
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
-    @SuppressLint("CheckResult")
     @Override
-    public void getData() {
-        getGPS();
-        Observable<WeatherVO> observable = weatherSearch.getCurrentWeatherData(String.valueOf(latitude), String.valueOf(longitude), App_Id);
-        observable
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(firstViewContract::showWeather, firstViewContract::showError);
+    public Observable<WeatherVO> getData() {
+        return weatherSearch.getCurrentWeatherData(String.valueOf(latitude), String.valueOf(longitude), App_Id);
     }
 
     @Nullable

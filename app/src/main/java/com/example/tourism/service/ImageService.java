@@ -10,26 +10,17 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class ImageService implements RetrofitService {
-    private final FirstViewContract firstViewContract;
+public class ImageService implements RetrofitService<ImageVO> {
     private final KakaoSearch image;
 
-    public ImageService(FirstViewContract firstViewContract, KakaoSearch image) {
-        this.firstViewContract = firstViewContract;
+    public ImageService(KakaoSearch image) {
         this.image = image;
     }
 
 
     @SuppressLint("CheckResult")
     @Override
-    public void getData() {
-        Observable<ImageVO> observable = image.listImage("제주도 바다");
-        observable
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(vo -> firstViewContract.showImages(vo.documents),
-                        throwable -> firstViewContract.showError(throwable));
-
+    public Observable<ImageVO> getData() {
+        return image.listImage("제주도 바다");
     }
-
 }

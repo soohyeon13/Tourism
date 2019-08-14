@@ -2,7 +2,11 @@ package com.example.tourism.service;
 
 import android.annotation.SuppressLint;
 
-public interface RetrofitService {
+import com.example.tourism.model.ImageVO;
+
+import io.reactivex.Observable;
+
+public interface RetrofitService<E> {
     @SuppressLint("CheckResult")
-    void getData();
+    Observable<E> getData();
 }

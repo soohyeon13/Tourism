@@ -8,14 +8,12 @@ import com.example.tourism.model.WeatherVO;
 import java.util.List;
 
 public interface FirstViewContract {
-    void showWeather(WeatherVO weather );
+//    void showWeather(WeatherVO weather );
+//
+//    void showImages(List<ImageVO.Document> items);
+//
+//    void showError(Throwable e);
 
-    void showImages(List<ImageVO.Document> items);
-
-    void showError(Throwable e);
-
-    void onFoodClick(View view);
-
-    void onTourClick(View view);
+    void onClick(View view);
 
 }
