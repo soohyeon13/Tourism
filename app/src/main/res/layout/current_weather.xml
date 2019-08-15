@@ -28,6 +28,7 @@
             <TextView
                 android:id="@+id/weather_icon_text"
                 android:layout_width="70dp"
+                android:text="@{viewModel.icon}"
                 android:layout_height="wrap_content"
                 android:textSize="50dp" />
 

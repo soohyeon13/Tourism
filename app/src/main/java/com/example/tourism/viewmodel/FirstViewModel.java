@@ -1,13 +1,16 @@
 package com.example.tourism.viewmodel;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
+import android.content.Context;
+import android.graphics.Typeface;
 import android.view.View;
 
 import androidx.databinding.ObservableField;
 
+import com.example.tourism.R;
 import com.example.tourism.contract.FirstViewContract;
 import com.example.tourism.model.GPSVO;
+import com.example.tourism.model.ImageVO;
 import com.example.tourism.model.WeatherVO;
 import com.example.tourism.service.GPSService;
 import com.example.tourism.service.ImageService;
@@ -25,11 +28,14 @@ public class FirstViewModel {
     public final ObservableField<String> address = new ObservableField<>();
     public final ObservableField<String> temperature = new ObservableField<>();
     public final ObservableField<String> icon = new ObservableField<>();
+    public final Observable<ImageVO> imageVOObservable;
+    public final ObservableField<String> repoImageUrl = new ObservableField<>();
     private ImageService imageService;
     private WeatherService weatherService;
     private FirstViewContract firstViewContract;
     private double K,C;
     private final GPSVO gpsvo;
+    private static final String PATH_TO_WEATHER_FONT = "fonts/weather.ttf";
 
     public FirstViewModel(FirstViewContract firstViewContract, ImageService imageService, WeatherService weatherService, GPSService gpsService) {
         this.firstViewContract = firstViewContract;
@@ -41,30 +47,41 @@ public class FirstViewModel {
         weatherService.setLatitude(gpsvo.getLatitude());
         weatherService.setLongitude(gpsvo.getLongitude());
         weatherObservable = weatherService.getData();
+        imageVOObservable = imageService.getData();
     }
 
     public ObservableField<String> getTemperature() {
         return temperature;
     }
-    public ObservableField<String> getAddress() {
-        return address;
+    public ObservableField<String> getAddress() { return address; }
+    public ObservableField<String> getIcon() { return icon; }
+
+    public ObservableField<String> getRepoImageUrl() {
+        return repoImageUrl;
     }
-    public ObservableField<String> getIcon() {
-        return icon;
-    }
+
 
     @SuppressLint("CheckResult")
     public void loadImages() {
-        imageService.getData();
+        imageVOObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(vo -> {
+
+                });
     }
 
     @SuppressLint("CheckResult")
     public void loadWeathers() {
-        weatherObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(weatherVO -> {
-            K = Double.parseDouble(weatherVO.main.temp);
-            C = K - 273.15;
-            temperature.set((Math.round(C)) + "°C");
-            address.set(gpsvo.getAddress());
+        weatherObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(weatherVO -> {
+                    K = Double.parseDouble(weatherVO.main.temp);
+                    C = K - 273.15;
+                    temperature.set((Math.round(C)) + "°C");
+                    address.set(gpsvo.getAddress());
+                    firstViewContract.showWeather(weatherVO);
         }, Throwable::printStackTrace);
     }
 
@@ -76,5 +93,4 @@ public class FirstViewModel {
         firstViewContract.onClick(view);
     }
 
-    public void setIcon() {}
 }

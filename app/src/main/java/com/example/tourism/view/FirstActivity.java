@@ -43,10 +43,10 @@ import java.util.Objects;
 public class FirstActivity extends AppCompatActivity implements FirstViewContract {
 
     private ImageRecyclerAdapter imageRecyclerAdapter;
-//    TextView weatherIcon, country, temp;
+    TextView weatherIcon, country, temp;
 
-//    private Typeface weatherFont;
-//    private final static String PATH_TO_WEATHER_FONT = "fonts/weather.ttf";
+    private Typeface weatherFont;
+    private final static String PATH_TO_WEATHER_FONT = "fonts/weather.ttf";
 
 //    private static final int GPS_ENABLE_REQUEST_CODE = 2001;
 //    private static final int PERMISSIONS_REQUEST_CODE = 100;
@@ -90,11 +90,9 @@ public class FirstActivity extends AppCompatActivity implements FirstViewContrac
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation);
 
-//        weatherIcon = (TextView) findViewById(R.id.weather_icon_text);
-//        country = (TextView) findViewById(R.id.country_text);
-//        temp = (TextView) findViewById(R.id.temp_text);
-//        weatherFont = Typeface.createFromAsset(getAssets(), PATH_TO_WEATHER_FONT);
-//        weatherIcon.setTypeface(weatherFont);
+        weatherIcon = (TextView) findViewById(R.id.weather_icon_text);
+        weatherFont = Typeface.createFromAsset(getAssets(), PATH_TO_WEATHER_FONT);
+        weatherIcon.setTypeface(weatherFont);
     }
 //
 //    @Override
@@ -139,62 +137,55 @@ public class FirstActivity extends AppCompatActivity implements FirstViewContrac
 //                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 //    }
 
-//    @SuppressLint("SetTextI18n")
-//    @Override
-//    public void showWeather(WeatherVO weather) {
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void showWeather(WeatherVO weather) {
+        switch (weather.weather.get(0).icon) {
+            case "01d":
+                weatherIcon.setText(R.string.wi_day_sunny);
+                break;
+            case "02d":
+                weatherIcon.setText(R.string.wi_cloudy_gusts);
+                break;
+            case "03d":
+                weatherIcon.setText(R.string.wi_cloud_down);
+                break;
+            case "04d":
+                weatherIcon.setText(R.string.wi_cloudy);
+                break;
+            case "04n":
+                weatherIcon.setText(R.string.wi_night_cloudy);
+                break;
+            case "10d":
+                weatherIcon.setText(R.string.wi_day_rain_mix);
+                break;
+            case "11d":
+                weatherIcon.setText(R.string.wi_day_thunderstorm);
+                break;
+            case "13d":
+                weatherIcon.setText(R.string.wi_day_snow);
+                break;
+            case "01n":
+                weatherIcon.setText(R.string.wi_night_clear);
+                break;
+            case "02n":
+                weatherIcon.setText(R.string.wi_night_cloudy);
+                break;
+            case "03n":
+                weatherIcon.setText(R.string.wi_night_cloudy_gusts);
+                break;
+            case "10n":
+                weatherIcon.setText(R.string.wi_night_cloudy_gusts);
+                break;
+            case "11n":
+                weatherIcon.setText(R.string.wi_night_rain);
+                break;
+            case "13n":
+                weatherIcon.setText(R.string.wi_night_snow);
+                break;
+        }
 
-
-//        double K = Double.parseDouble(weather.main.temp);
-//        double C = K - 273.15;
-//        String name = weather.name;
-//        temp.setText((Math.round(C)) + "°C");
-//
-//        switch (weather.weather.get(0).icon) {
-//            case "01d":
-//                weatherIcon.setText(R.string.wi_day_sunny);
-//                break;
-//            case "02d":
-//                weatherIcon.setText(R.string.wi_cloudy_gusts);
-//                break;
-//            case "03d":
-//                weatherIcon.setText(R.string.wi_cloud_down);
-//                break;
-//            case "04d":
-//                weatherIcon.setText(R.string.wi_cloudy);
-//                break;
-//            case "04n":
-//                weatherIcon.setText(R.string.wi_night_cloudy);
-//                break;
-//            case "10d":
-//                weatherIcon.setText(R.string.wi_day_rain_mix);
-//                break;
-//            case "11d":
-//                weatherIcon.setText(R.string.wi_day_thunderstorm);
-//                break;
-//            case "13d":
-//                weatherIcon.setText(R.string.wi_day_snow);
-//                break;
-//            case "01n":
-//                weatherIcon.setText(R.string.wi_night_clear);
-//                break;
-//            case "02n":
-//                weatherIcon.setText(R.string.wi_night_cloudy);
-//                break;
-//            case "03n":
-//                weatherIcon.setText(R.string.wi_night_cloudy_gusts);
-//                break;
-//            case "10n":
-//                weatherIcon.setText(R.string.wi_night_cloudy_gusts);
-//                break;
-//            case "11n":
-//                weatherIcon.setText(R.string.wi_night_rain);
-//                break;
-//            case "13n":
-//                weatherIcon.setText(R.string.wi_night_snow);
-//                break;
-//        }
-
-//    }
+    }
 
 //    @Override
 //    public void showImages(List<ImageVO.Document> itmes) {
