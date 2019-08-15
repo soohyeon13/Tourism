@@ -9,10 +9,8 @@ import java.util.List;
 
 public interface FirstViewContract {
     void showWeather(WeatherVO weather );
-//
-//    void showImages(List<ImageVO.Document> items);
-//
-//    void showError(Throwable e);
+
+    void showImages(List<ImageVO.Document> items);
 
     void onClick(View view);
 

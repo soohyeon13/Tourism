@@ -1,22 +1,15 @@
 package com.example.tourism.view;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Typeface;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -43,14 +36,9 @@ import java.util.Objects;
 public class FirstActivity extends AppCompatActivity implements FirstViewContract {
 
     private ImageRecyclerAdapter imageRecyclerAdapter;
-    TextView weatherIcon, country, temp;
-
+    TextView weatherIcon;
     private Typeface weatherFont;
     private final static String PATH_TO_WEATHER_FONT = "fonts/weather.ttf";
-
-//    private static final int GPS_ENABLE_REQUEST_CODE = 2001;
-//    private static final int PERMISSIONS_REQUEST_CODE = 100;
-//    String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
     private FirstViewModel viewModel;
 
     @Override
@@ -86,7 +74,6 @@ public class FirstActivity extends AppCompatActivity implements FirstViewContrac
         imageRecyclerAdapter = new ImageRecyclerAdapter((Context) this, (FirstViewContract) this);
         recyclerView.setAdapter(imageRecyclerAdapter);
 
-
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation);
 
@@ -94,48 +81,6 @@ public class FirstActivity extends AppCompatActivity implements FirstViewContrac
         weatherFont = Typeface.createFromAsset(getAssets(), PATH_TO_WEATHER_FONT);
         weatherIcon.setTypeface(weatherFont);
     }
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        switch (requestCode) {
-//            case GPS_ENABLE_REQUEST_CODE:
-//                if (checkLocationServicesStatus()) {
-//                    Log.d("LogLocation", "GPS활성");
-//                    checkRunTimePermission();
-//                }
-//                break;
-//        }
-//    }
-//
-//    private void checkRunTimePermission() {
-//        int hasFineLocationPermission = ContextCompat.checkSelfPermission(FirstActivity.this,
-//                Manifest.permission.ACCESS_FINE_LOCATION);
-//        int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(FirstActivity.this,
-//                Manifest.permission.ACCESS_COARSE_LOCATION);
-//
-//
-//        if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
-//                hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
-//
-//        } else {
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(FirstActivity.this, REQUIRED_PERMISSIONS[0])) {
-//                Toast.makeText(FirstActivity.this, "이 앱을 실행하려면 위치 접근 권한이 필요합니다.", Toast.LENGTH_LONG).show();
-//                ActivityCompat.requestPermissions(FirstActivity.this, REQUIRED_PERMISSIONS,
-//                        PERMISSIONS_REQUEST_CODE);
-//            } else {
-//                ActivityCompat.requestPermissions(FirstActivity.this, REQUIRED_PERMISSIONS,
-//                        PERMISSIONS_REQUEST_CODE);
-//            }
-//        }
-//    }
-//
-//    private boolean checkLocationServicesStatus() {
-//        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-//
-//        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
-//                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-//    }
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -184,18 +129,12 @@ public class FirstActivity extends AppCompatActivity implements FirstViewContrac
                 weatherIcon.setText(R.string.wi_night_snow);
                 break;
         }
-
     }
 
-//    @Override
-//    public void showImages(List<ImageVO.Document> itmes) {
-//        imageRecyclerAdapter.setItemsAndRefresh(itmes);
-//    }
-//
-//    @Override
-//    public void showError(Throwable e) {
-//        e.printStackTrace();
-//    }
+    @Override
+    public void showImages(List<ImageVO.Document> itmes) {
+        imageRecyclerAdapter.setItemsAndRefresh(itmes);
+    }
 
     @Override
     public void onClick(View view) {

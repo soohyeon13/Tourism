@@ -1,13 +1,10 @@
 package com.example.tourism.viewmodel;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.graphics.Typeface;
 import android.view.View;
 
 import androidx.databinding.ObservableField;
 
-import com.example.tourism.R;
 import com.example.tourism.contract.FirstViewContract;
 import com.example.tourism.model.GPSVO;
 import com.example.tourism.model.ImageVO;
@@ -18,7 +15,6 @@ import com.example.tourism.service.WeatherService;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -35,7 +31,6 @@ public class FirstViewModel {
     private FirstViewContract firstViewContract;
     private double K,C;
     private final GPSVO gpsvo;
-    private static final String PATH_TO_WEATHER_FONT = "fonts/weather.ttf";
 
     public FirstViewModel(FirstViewContract firstViewContract, ImageService imageService, WeatherService weatherService, GPSService gpsService) {
         this.firstViewContract = firstViewContract;
@@ -67,7 +62,7 @@ public class FirstViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(vo -> {
-
+                    firstViewContract.showImages(vo.documents);
                 });
     }
 
