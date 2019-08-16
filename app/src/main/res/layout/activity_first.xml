@@ -94,12 +94,25 @@
                 <include
                     android:id="@+id/category"
                     layout="@layout/big_category"
-                    android:layout_width="0dp"
-                    android:layout_height="302dp"
+                    android:layout_width="414dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/include2" />
+                    app:layout_constraintTop_toBottomOf="@+id/include2"
+                    bind:viewModel="@{viewModel}" />
+
+                <com.google.android.material.bottomnavigation.BottomNavigationView
+                    android:id="@+id/bottomNavigationView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="?android:attr/windowBackground"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/category"
+                    app:menu="@menu/menu_bottom" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

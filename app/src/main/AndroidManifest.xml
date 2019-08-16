@@ -14,12 +14,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service android:name="com.highbryds.gpstracker.GPSService"></service>
-        <receiver android:name=".GPSReceiver">
-            <intent-filter>
-                <action android:name="com.highbryds.tracker" />
-            </intent-filter>
-        </receiver>
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_REST_API_key">
@@ -31,6 +25,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".view.FoodActivity">
         </activity>
     </application>
 
