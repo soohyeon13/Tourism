@@ -23,13 +23,11 @@ public class FirstViewModel {
     public final Observable<WeatherVO> weatherObservable;
     public final ObservableField<String> address = new ObservableField<>();
     public final ObservableField<String> temperature = new ObservableField<>();
-    public final ObservableField<String> icon = new ObservableField<>();
     public final Observable<ImageVO> imageVOObservable;
-    public final ObservableField<String> repoImageUrl = new ObservableField<>();
     private ImageService imageService;
     private WeatherService weatherService;
     private FirstViewContract firstViewContract;
-    private double K,C;
+    private double K, C;
     private final GPSVO gpsvo;
 
     public FirstViewModel(FirstViewContract firstViewContract, ImageService imageService, WeatherService weatherService, GPSService gpsService) {
@@ -48,13 +46,8 @@ public class FirstViewModel {
     public ObservableField<String> getTemperature() {
         return temperature;
     }
+
     public ObservableField<String> getAddress() { return address; }
-    public ObservableField<String> getIcon() { return icon; }
-
-    public ObservableField<String> getRepoImageUrl() {
-        return repoImageUrl;
-    }
-
 
     @SuppressLint("CheckResult")
     public void loadImages() {
@@ -77,7 +70,7 @@ public class FirstViewModel {
                     temperature.set((Math.round(C)) + "°C");
                     address.set(gpsvo.getAddress());
                     firstViewContract.showWeather(weatherVO);
-        }, Throwable::printStackTrace);
+                }, Throwable::printStackTrace);
     }
 
     public void onFoodClick(View view) {

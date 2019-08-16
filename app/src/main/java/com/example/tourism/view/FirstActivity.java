@@ -13,7 +13,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 
 import com.example.tourism.R;
 import com.example.tourism.contract.FirstViewContract;
@@ -69,8 +71,11 @@ public class FirstActivity extends AppCompatActivity implements FirstViewContrac
         Objects.requireNonNull(getSupportActionBar()).setTitle(" ");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        SnapHelper snapHelper;
+        snapHelper = new LinearSnapHelper();
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.imageRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
+        snapHelper.attachToRecyclerView(recyclerView);
         imageRecyclerAdapter = new ImageRecyclerAdapter((Context) this, (FirstViewContract) this);
         recyclerView.setAdapter(imageRecyclerAdapter);
 
