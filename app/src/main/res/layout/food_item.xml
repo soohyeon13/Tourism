@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.tourism.viewmodel.FoodItemViewModel" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="8dp"
+        android:clickable="true"
+        android:foreground="?selectableItemBackground"
+        android:orientation = "horizontal"
+        app:cardUseCompatPadding="true"
+        >
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/foodImg"
+            android:layout_width="match_parent"
+            android:layout_height="166dp"
+            android:src="@drawable/food" />
+
+        <TextView
+            android:id="@+id/foodName"
+            android:text="음식이름"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="bottom"
+            />
+
+
+    </androidx.cardview.widget.CardView>
+</layout>
