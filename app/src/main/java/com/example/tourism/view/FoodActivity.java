@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.SnapHelper;
 
 import com.example.tourism.R;
 import com.example.tourism.data.database.AppDatabase;
-import com.example.tourism.databinding.FoodCatagoryActivityBinding;
+import com.example.tourism.databinding.FoodCategoryActivityBinding;
 import com.example.tourism.view.adapter.FoodRecyclerAdapter;
 import com.example.tourism.viewmodel.FoodViewModel;
 
@@ -20,17 +20,16 @@ public class FoodActivity extends AppCompatActivity {
 
     private FoodRecyclerAdapter foodRecyclerAdapter;
     private SnapHelper snapHelper;
-    private AppDatabase foodDb;
-    private FoodViewModel mFoodViewModel;
+    private FoodViewModel foodViewModel;
     private FoodRecyclerAdapter foodsAdpater;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FoodCatagoryActivityBinding binding = DataBindingUtil.setContentView(this,R.layout.food_category_activity);
+        FoodCategoryActivityBinding binding = DataBindingUtil.setContentView(this,R.layout.food_category_activity);
         binding.setViewModel(new FoodViewModel(getApplication()));
 
 
-        FoodViewModel foodViewModel = ViewModelProviders.of(this).get(FoodViewModel.class);
+        foodViewModel = ViewModelProviders.of(this).get(FoodViewModel.class);
         foodViewModel.getAllFoods().observe(this,foods -> foodRecyclerAdapter.setFood(foods));
 
         setupViews();

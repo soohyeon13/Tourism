@@ -9,6 +9,7 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.tourism.data.FoodEntity;
+import com.example.tourism.data.TourEntity;
 import com.example.tourism.data.dao.FoodDao;
 import com.example.tourism.data.dao.TourDao;
 
@@ -16,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
 
-@Database(version = 1, entities = {FoodEntity.class})
+@Database(version = 1, entities = {FoodEntity.class, TourEntity.class})
 public abstract class AppDatabase extends RoomDatabase {
 
 
@@ -39,6 +40,7 @@ public abstract class AppDatabase extends RoomDatabase {
             if (INSTANCE == null) {
                 INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "app_database")
                         .allowMainThreadQueries()
+                        .fallbackToDestructiveMigration()
                         .addCallback(new Callback() {
                             @Override
                             public void onCreate(@NonNull SupportSQLiteDatabase db) {
