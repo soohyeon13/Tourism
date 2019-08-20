@@ -4,25 +4,17 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
-import androidx.room.Room;
 
 import com.example.tourism.R;
-import com.example.tourism.data.FoodEntity;
-import com.example.tourism.data.dao.FoodDao;
 import com.example.tourism.data.database.AppDatabase;
 import com.example.tourism.databinding.FoodCatagoryActivityBinding;
 import com.example.tourism.view.adapter.FoodRecyclerAdapter;
 import com.example.tourism.viewmodel.FoodViewModel;
-
-import java.util.List;
 
 public class FoodActivity extends AppCompatActivity {
 
@@ -34,7 +26,7 @@ public class FoodActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FoodCatagoryActivityBinding binding = DataBindingUtil.setContentView(this,R.layout.food_catagory_activity);
+        FoodCatagoryActivityBinding binding = DataBindingUtil.setContentView(this,R.layout.food_category_activity);
         binding.setViewModel(new FoodViewModel(getApplication()));
 
 

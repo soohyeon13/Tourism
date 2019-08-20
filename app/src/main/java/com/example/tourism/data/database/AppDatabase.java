@@ -10,6 +10,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.tourism.data.FoodEntity;
 import com.example.tourism.data.dao.FoodDao;
+import com.example.tourism.data.dao.TourDao;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +23,8 @@ public abstract class AppDatabase extends RoomDatabase {
     private static String TAG = "AppDatabase";
 
     public abstract FoodDao foodDao();
+
+    public abstract TourDao tourDao();
 
     private static AppDatabase INSTANCE;
 

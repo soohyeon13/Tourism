@@ -147,6 +147,7 @@ public class FirstActivity extends AppCompatActivity implements FirstViewContrac
 
     @Override
     public void onClick(View view) {
+
         Intent intent = new Intent(FirstActivity.this, FoodActivity.class);
         startActivity(intent);
     }

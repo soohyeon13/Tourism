@@ -8,26 +8,25 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.tourism.data.FoodEntity;
+import com.example.tourism.data.TourEntity;
 
 import java.util.List;
 
 @Dao
-public interface FoodDao {
-
-    @Query("SELECT * FROM food")
-    LiveData<List<FoodEntity>> findAll();
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void saveAll(List<FoodEntity> foods);
+public interface TourDao {
+    @Query("SELECT * FROM tour")
+    LiveData<List<TourEntity>> findAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void save(FoodEntity food);
+    void save(TourEntity tour);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void saveAll(List<TourEntity> tour);
 
     @Update
-    void update(FoodEntity food);
+    void update(TourEntity tour);
 
     @Delete
-    void delete(FoodEntity food);
+    void delete(TourEntity tour);
 
 }
