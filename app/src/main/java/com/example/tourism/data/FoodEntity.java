@@ -3,6 +3,7 @@ package com.example.tourism.data;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "food")
@@ -20,7 +21,7 @@ public class FoodEntity {
     private String foodName;
 
     @ColumnInfo(name = "food_call_num")
-    private int foodCallNum;
+    private String foodCallNum;
 
     @ColumnInfo(name = "food_date")
     private String foodDate;
@@ -28,6 +29,18 @@ public class FoodEntity {
     @ColumnInfo(name = "food_location")
     private String foodLocation;
 
+    public FoodEntity(){}
+
+    @Ignore
+    public FoodEntity(int id,String foodCity,String foodCategory,String foodName, String foodCallNum,String foodDate, String foodLocation) {
+        this.id = id;
+        this.foodCity = foodCity;
+        this.foodCategory = foodCategory;
+        this.foodName = foodName;
+        this.foodCallNum = foodCallNum;
+        this.foodDate = foodDate;
+        this.foodLocation = foodLocation;
+    }
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
@@ -41,8 +54,8 @@ public class FoodEntity {
     public String getFoodName() { return foodName; }
     public void setFoodName(String foodName) { this.foodName = foodName; }
 
-    public int getFoodCallNum() { return foodCallNum; }
-    public void setFoodCallNum(int foodCallNum) { this.foodCallNum = foodCallNum; }
+    public String getFoodCallNum() { return foodCallNum; }
+    public void setFoodCallNum(String foodCallNum) { this.foodCallNum = foodCallNum; }
 
     public String getFoodDate() { return foodDate; }
     public void setFoodDate(String foodDate) { this.foodDate = foodDate; }
