@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.tourism.viewmodel.FoodViewModel" />
+            type="com.example.tourism.viewmodel.food.FoodViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -50,7 +50,7 @@
                 android:id="@+id/foodRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:listitem="@layout/food_item">
+                tools:listitem="@layout/data_item">
 
             </androidx.recyclerview.widget.RecyclerView>
 

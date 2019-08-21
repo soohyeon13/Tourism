@@ -8,6 +8,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.amitshekhar.DebugDB;
 import com.example.tourism.data.FoodEntity;
 import com.example.tourism.data.TourEntity;
 import com.example.tourism.data.dao.FoodDao;
@@ -30,7 +31,13 @@ public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase INSTANCE;
 
     private final static List<FoodEntity> FOODS = Arrays.asList(
-            new FoodEntity(1,"asd","asd","asd","asd","asd","asd")
+            new FoodEntity(1,"asd","asd","asd","asd","asd","asd"),
+            new FoodEntity(2,"asd","asd","asd","asd","asd","asd"),
+            new FoodEntity(3,"qwe","qwe","qwe","qwe","qwe","qwe")
+    );
+
+    private final static List<TourEntity> TOURS = Arrays.asList(
+            new TourEntity(1,"qwe","qwe","qwe","qwe")
     );
 
     private static final Object sLock = new Object();
@@ -47,6 +54,19 @@ public abstract class AppDatabase extends RoomDatabase {
                                 super.onCreate(db);
                                 Executors.newSingleThreadExecutor().execute(
                                         () -> getInstance(context).foodDao().saveAll(FOODS));
+
+                            }
+                        })
+                        .addCallback(new Callback() {
+                            @Override
+                            public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                                super.onCreate(db);
+                                Executors.newSingleThreadExecutor().execute(
+                                        () -> getInstance(context).tourDao().saveAll(TOURS)
+                                );
+                                DebugDB.initialize(context);
+                                DebugDB.getAddressLog();
+
                             }
                         })
                         .build();

@@ -1,7 +1,6 @@
 package com.example.tourism.view.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tourism.R;
 import com.example.tourism.data.FoodEntity;
-import com.example.tourism.databinding.FoodItemBinding;
-import com.example.tourism.viewmodel.FoodItemViewModel;
-import com.example.tourism.viewmodel.FoodViewModel;
+import com.example.tourism.databinding.DataItemBinding;
+import com.example.tourism.viewmodel.food.FoodItemViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +31,7 @@ public class FoodRecyclerAdapter extends RecyclerView.Adapter<FoodRecyclerAdapte
     @NonNull
     @Override
     public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        FoodItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.food_item,parent,false);
+        DataItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.data_item,parent,false);
         binding.setViewModel(new FoodItemViewModel());
         return new FoodViewHolder(binding.getRoot(),binding.getViewModel());
     }
@@ -58,10 +56,7 @@ public class FoodRecyclerAdapter extends RecyclerView.Adapter<FoodRecyclerAdapte
 
     @Override
     public int getItemCount() {
-        if (mFood != null) {
-            return mFood.size();
-        }else
-            return 0;
+        return mFood.size();
      }
 
     public class FoodViewHolder extends RecyclerView.ViewHolder {

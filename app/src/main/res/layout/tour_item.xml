@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.tourism.viewmodel.FoodItemViewModel" />
+            type="com.example.tourism.viewmodel.tour.TourItemViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -24,7 +24,7 @@
             android:src="@drawable/food" />
 
         <TextView
-            android:id="@+id/foodName"
+            android:id="@+id/tourName"
             android:text="음식이름"
             android:textSize="20dp"
             android:textStyle="bold"

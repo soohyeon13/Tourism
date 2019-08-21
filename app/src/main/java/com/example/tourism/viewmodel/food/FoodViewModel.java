@@ -1,7 +1,6 @@
-package com.example.tourism.viewmodel;
+package com.example.tourism.viewmodel.food;
 
 import android.app.Application;
-import android.databinding.tool.util.L;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
