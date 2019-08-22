@@ -64,9 +64,6 @@ public abstract class AppDatabase extends RoomDatabase {
                                 Executors.newSingleThreadExecutor().execute(
                                         () -> getInstance(context).tourDao().saveAll(TOURS)
                                 );
-                                DebugDB.initialize(context);
-                                DebugDB.getAddressLog();
-
                             }
                         })
                         .build();
