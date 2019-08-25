@@ -29,10 +29,16 @@ public class FoodEntity {
     @ColumnInfo(name = "food_location")
     private String foodLocation;
 
+    @ColumnInfo(name = "food_price")
+    private String foodPrice;
+
+    @ColumnInfo(name = "food_picture_url")
+    private String foodPicture;
+
     public FoodEntity(){}
 
     @Ignore
-    public FoodEntity(int id,String foodCity,String foodCategory,String foodName, String foodCallNum,String foodDate, String foodLocation) {
+    public FoodEntity(int id,String foodCity,String foodCategory,String foodName, String foodCallNum,String foodDate, String foodLocation,String foodPrice,String foodPicture) {
         this.id = id;
         this.foodCity = foodCity;
         this.foodCategory = foodCategory;
@@ -40,6 +46,8 @@ public class FoodEntity {
         this.foodCallNum = foodCallNum;
         this.foodDate = foodDate;
         this.foodLocation = foodLocation;
+        this.foodPrice = foodPrice;
+        this.foodPicture = foodPicture;
     }
 
     public int getId() { return id; }
@@ -62,6 +70,13 @@ public class FoodEntity {
 
     public String getFoodLocation() { return foodLocation; }
     public void setFoodLocation(String foodLocation) { this.foodLocation = foodLocation; }
+
+    public String getFoodPrice() { return foodPrice; }
+    public void setFoodPrice(String foodPrice) { this.foodPrice = foodPrice; }
+
+    public String getFoodPicture() { return foodPicture; }
+    public void setFoodPicture(String foodPicture) { this.foodPicture = foodPicture; }
+
 
 
 }

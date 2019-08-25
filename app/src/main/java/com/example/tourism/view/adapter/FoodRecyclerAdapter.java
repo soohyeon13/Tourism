@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,7 +12,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.tourism.R;
+import com.example.tourism.contract.FoodViewContract;
 import com.example.tourism.data.FoodEntity;
 import com.example.tourism.databinding.DataItemBinding;
 import com.example.tourism.viewmodel.food.FoodItemViewModel;
@@ -38,7 +41,8 @@ public class FoodRecyclerAdapter extends RecyclerView.Adapter<FoodRecyclerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull FoodViewHolder holder, int position) {
-       holder.bind(mFood.get(position));
+
+       holder.loadFood(mFood.get(position));
     }
 
     public void setFood(List<FoodEntity> food) {
@@ -52,6 +56,7 @@ public class FoodRecyclerAdapter extends RecyclerView.Adapter<FoodRecyclerAdapte
         }else {
             mFood = food;
         }
+        notifyDataSetChanged();
     }
 
     @Override
@@ -63,15 +68,23 @@ public class FoodRecyclerAdapter extends RecyclerView.Adapter<FoodRecyclerAdapte
 
         private final FoodItemViewModel viewModel;
         private final TextView textItemView;
+        private final ImageView imgView;
 
         public FoodViewHolder(@NonNull View itemView, FoodItemViewModel viewModel) {
             super(itemView);
             this.viewModel = viewModel;
             textItemView = itemView.findViewById(R.id.foodName);
+            imgView = itemView.findViewById(R.id.foodImg);
         }
 
-        void bind(final FoodEntity food) {
+        public void loadFood(final FoodEntity food)
+        {
+//            viewModel.loadFood(food);
             textItemView.setText(food.getFoodName());
+            Glide.with(context)
+                    .load(food.getFoodPicture())
+                    .override(200,200)
+                    .into(imgView);
         }
 
     }

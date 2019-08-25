@@ -75,7 +75,7 @@
         app:layout_constraintTop_toBottomOf="@+id/check_jeju" />
 
     <CheckBox
-        android:id="@+id/check_kr"
+        android:id="@+id/check_east"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -85,14 +85,14 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <CheckBox
-        android:id="@+id/check_ch"
+        android:id="@+id/check_west"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="서부"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/check_kr"
+        app:layout_constraintStart_toEndOf="@+id/check_east"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <Button
@@ -101,7 +101,7 @@
         android:text="버튼 디자인 추천좀.."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/check_ch" />
+        app:layout_constraintTop_toBottomOf="@+id/check_west" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

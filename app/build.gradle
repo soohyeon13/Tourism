@@ -72,7 +72,7 @@ dependencies {
     }
     implementation 'com.github.smtrz:GPSTracker-Android:1.0.3'
     //debug
-    implementation 'com.amitshekhar.android:debug-db:1.0.1'
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
     //Lottie
     implementation 'com.airbnb.android:lottie:2.3.0'
     testImplementation 'junit:junit:4.13-beta-3'

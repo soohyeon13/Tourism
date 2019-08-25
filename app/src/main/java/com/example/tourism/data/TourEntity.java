@@ -34,45 +34,20 @@ public class TourEntity {
         this.tourName = tourName;
         this.tourLocation = tourLocation;
     }
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public String getTourCity() { return tourCity; }
+    public void setTourCity(String tourCity) { this.tourCity = tourCity; }
 
-    public String getTourCity() {
-        return tourCity;
-    }
+    public String getTourCategory() { return tourCategory; }
+    public void setTourCategory(String tourCategory) { this.tourCategory = tourCategory; }
 
-    public void setTourCity(String tourCity) {
-        this.tourCity = tourCity;
-    }
+    public String getTourName() { return tourName; }
+    public void setTourName(String tourName) { this.tourName = tourName; }
 
-    public String getTourCategory() {
-        return tourCategory;
-    }
-
-    public void setTourCategory(String tourCategory) {
-        this.tourCategory = tourCategory;
-    }
-
-    public String getTourName() {
-        return tourName;
-    }
-
-    public void setTourName(String tourName) {
-        this.tourName = tourName;
-    }
-
-    public String getTourLocation() {
-        return tourLocation;
-    }
-
-    public void setTourLocation(String tourLocation) {
-        this.tourLocation = tourLocation;
-    }
+    public String getTourLocation() { return tourLocation; }
+    public void setTourLocation(String tourLocation) { this.tourLocation = tourLocation; }
 
 
 }
