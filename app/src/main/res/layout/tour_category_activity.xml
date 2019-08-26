@@ -34,7 +34,9 @@
                 <include
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    layout="@layout/tour_small_category" />
+                    layout="@layout/tour_small_category"
+                    app:viewModel="@{viewModel}"
+                    />
 
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>

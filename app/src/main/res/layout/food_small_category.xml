@@ -65,7 +65,7 @@
             android:id="@+id/button2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn_shape"
+            android:background="@drawable/btn_select"
             android:text="버튼 디자인 추천좀.."
             android:onClick="@{viewModel::btnClick}"
             app:layout_constraintEnd_toEndOf="parent"
