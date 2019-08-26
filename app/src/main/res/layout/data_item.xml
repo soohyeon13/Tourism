@@ -17,6 +17,7 @@
             android:layout_width="0dp"
             android:layout_height="166dp"
             android:src="@drawable/food"
+            android:onClick="@{viewModel::imgClick}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

@@ -1,5 +1,7 @@
 package com.example.tourism.view;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -15,6 +17,7 @@ import com.example.tourism.R;
 import com.example.tourism.contract.FoodViewContract;
 import com.example.tourism.databinding.FoodCategoryActivityBinding;
 import com.example.tourism.view.adapter.FoodRecyclerAdapter;
+import com.example.tourism.viewmodel.food.FoodItemViewModel;
 import com.example.tourism.viewmodel.food.FoodViewModel;
 
 public class FoodActivity extends AppCompatActivity implements FoodViewContract{
@@ -22,6 +25,7 @@ public class FoodActivity extends AppCompatActivity implements FoodViewContract{
     private FoodRecyclerAdapter foodRecyclerAdapter;
     private SnapHelper snapHelper;
     private FoodViewModel foodViewModel;
+    private FoodItemViewModel foodItemViewModel;
     private RecyclerView recyclerView;
 
     @Override
@@ -46,7 +50,7 @@ public class FoodActivity extends AppCompatActivity implements FoodViewContract{
         recyclerView = findViewById(R.id.foodRecycler);
         snapHelper.attachToRecyclerView(recyclerView);
         recyclerView.setLayoutManager(gridLayoutManager);
-        foodRecyclerAdapter = new FoodRecyclerAdapter(this);
+        foodRecyclerAdapter = new FoodRecyclerAdapter((Context)this,(FoodViewContract)this);
         recyclerView.setAdapter(foodRecyclerAdapter);
 
     }
@@ -54,5 +58,11 @@ public class FoodActivity extends AppCompatActivity implements FoodViewContract{
     @Override
     public void btnClick(View view) {
         foodViewModel.getSelectedCateFood().observe(this,food ->foodRecyclerAdapter.setFood(food));
+    }
+
+    @Override
+    public void imgClick(View view) {
+        Intent intent = new Intent(FoodActivity.this,FoodDetailActivity.class);
+        startActivity(intent);
     }
 }

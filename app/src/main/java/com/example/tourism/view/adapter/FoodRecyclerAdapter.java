@@ -25,17 +25,19 @@ import java.util.List;
 public class FoodRecyclerAdapter extends RecyclerView.Adapter<FoodRecyclerAdapter.FoodViewHolder> {
     private Context context;
     private List<FoodEntity> mFood;
+    private FoodViewContract foodViewContract;
 
-    public FoodRecyclerAdapter(Context context) {
+    public FoodRecyclerAdapter(Context context,FoodViewContract foodViewContract) {
         this.mFood = new ArrayList<>();
         this.context = context;
+        this.foodViewContract = foodViewContract;
     }
 
     @NonNull
     @Override
     public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         DataItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.data_item,parent,false);
-        binding.setViewModel(new FoodItemViewModel());
+        binding.setViewModel(new FoodItemViewModel(foodViewContract));
         return new FoodViewHolder(binding.getRoot(),binding.getViewModel());
     }
 
