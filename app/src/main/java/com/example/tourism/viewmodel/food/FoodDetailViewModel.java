@@ -10,6 +10,9 @@ import androidx.lifecycle.AndroidViewModel;
 import com.example.tourism.data.FoodEntity;
 import com.example.tourism.data.dao.FoodDao;
 import com.example.tourism.data.database.AppDatabase;
+import com.example.tourism.view.FoodDetailActivity;
+
+import java.util.List;
 
 public class FoodDetailViewModel extends AndroidViewModel {
     public final ObservableField<String> foodName = new ObservableField<>();
@@ -21,7 +24,7 @@ public class FoodDetailViewModel extends AndroidViewModel {
     private final int id;
     private FoodDao foodDao;
 
-    public FoodDetailViewModel(@NonNull Application application, int id) {
+    public FoodDetailViewModel(@NonNull Application application ,int id) {
         super(application);
         foodDao = AppDatabase.getInstance(application).foodDao();
         this.id = id;
@@ -35,7 +38,6 @@ public class FoodDetailViewModel extends AndroidViewModel {
     public ObservableField<String> getFoodImg() { return foodImg; }
 
     public FoodEntity getDetailFood() {
-        Log.d("^^^^^^^^^^^", foodDao.findDetailFood(id).getFoodName());
         return foodDao.findDetailFood(id);}
 
     public void loadDetail() {
