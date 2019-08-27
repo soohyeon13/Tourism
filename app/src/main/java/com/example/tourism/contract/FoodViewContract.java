@@ -10,5 +10,4 @@ public interface FoodViewContract {
 
     void btnClick(View view);
 
-    void imgClick(View view);
 }

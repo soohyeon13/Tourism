@@ -1,6 +1,7 @@
 package com.example.tourism.view;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -17,6 +18,8 @@ public class FoodDetailActivity extends AppCompatActivity implements FoodDetailV
         ActivityDetailFoodBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_detail_food);
         binding.setViewModel(new FoodDetailViewModel());
 
+        int getId = getIntent().getIntExtra("id",1);
+        Log.d("!@$" , String.valueOf(getId));
         setipView();
     }
 

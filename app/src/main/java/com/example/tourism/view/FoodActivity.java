@@ -3,6 +3,7 @@ package com.example.tourism.view;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,17 +16,17 @@ import androidx.recyclerview.widget.SnapHelper;
 
 import com.example.tourism.R;
 import com.example.tourism.contract.FoodViewContract;
+import com.example.tourism.data.FoodEntity;
 import com.example.tourism.databinding.FoodCategoryActivityBinding;
 import com.example.tourism.view.adapter.FoodRecyclerAdapter;
 import com.example.tourism.viewmodel.food.FoodItemViewModel;
 import com.example.tourism.viewmodel.food.FoodViewModel;
 
-public class FoodActivity extends AppCompatActivity implements FoodViewContract{
+public class FoodActivity extends AppCompatActivity implements FoodViewContract, Clickable {
 
     private FoodRecyclerAdapter foodRecyclerAdapter;
     private SnapHelper snapHelper;
     private FoodViewModel foodViewModel;
-    private FoodItemViewModel foodItemViewModel;
     private RecyclerView recyclerView;
 
     @Override
@@ -35,9 +36,6 @@ public class FoodActivity extends AppCompatActivity implements FoodViewContract{
         binding.setViewModel(new FoodViewModel(getApplication(),(FoodViewContract) this));
 
         foodViewModel = binding.getViewModel();
-
-//        foodViewModel = ViewModelProviders.of(this).get(FoodViewModel.class);
-//        foodViewModel.getAllFoods().observe(this,foods -> foodRecyclerAdapter.setFood(foods));
 
         setupViews();
     }
@@ -50,19 +48,20 @@ public class FoodActivity extends AppCompatActivity implements FoodViewContract{
         recyclerView = findViewById(R.id.foodRecycler);
         snapHelper.attachToRecyclerView(recyclerView);
         recyclerView.setLayoutManager(gridLayoutManager);
-        foodRecyclerAdapter = new FoodRecyclerAdapter((Context)this,(FoodViewContract)this);
+        foodRecyclerAdapter = new FoodRecyclerAdapter((Context)this,(FoodViewContract)this, this::clickFood);
         recyclerView.setAdapter(foodRecyclerAdapter);
 
     }
 
     @Override
-    public void btnClick(View view) {
-        foodViewModel.getSelectedCateFood().observe(this,food ->foodRecyclerAdapter.setFood(food));
+    public void clickFood(int id) {
+        Intent intent = new Intent(this, FoodDetailActivity.class);
+        intent.putExtra("id", id);
+        startActivity(intent);
     }
 
     @Override
-    public void imgClick(View view) {
-        Intent intent = new Intent(FoodActivity.this,FoodDetailActivity.class);
-        startActivity(intent);
+    public void btnClick(View view) {
+        foodViewModel.getSelectedCateFood().observe(this,food ->foodRecyclerAdapter.setFood(food));
     }
 }

@@ -41,9 +41,7 @@ public class FoodViewModel extends AndroidViewModel{
         executorService.execute(() -> foodDao.delete(foodEntity));
     }
 
-    public void btnClick(View v) {
-        foodViewContract.btnClick(v);
-    }
+    public void btnClick(View v) { foodViewContract.btnClick(v); }
 
 
     public void onCheckedChanged(View v) {

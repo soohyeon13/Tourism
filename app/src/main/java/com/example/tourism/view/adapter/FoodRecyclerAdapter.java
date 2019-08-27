@@ -1,6 +1,7 @@
 package com.example.tourism.view.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,24 +27,27 @@ public class FoodRecyclerAdapter extends RecyclerView.Adapter<FoodRecyclerAdapte
     private Context context;
     private List<FoodEntity> mFood;
     private FoodViewContract foodViewContract;
-
-    public FoodRecyclerAdapter(Context context,FoodViewContract foodViewContract) {
+    private Callback callback;
+    public interface Callback {
+        public void callback(int id);
+    }
+    public FoodRecyclerAdapter(Context context,FoodViewContract foodViewContract, Callback callback) {
         this.mFood = new ArrayList<>();
         this.context = context;
         this.foodViewContract = foodViewContract;
+        this.callback = callback;
     }
 
     @NonNull
     @Override
     public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         DataItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.data_item,parent,false);
-        binding.setViewModel(new FoodItemViewModel(foodViewContract));
+        binding.setViewModel(new FoodItemViewModel());
         return new FoodViewHolder(binding.getRoot(),binding.getViewModel());
     }
 
     @Override
     public void onBindViewHolder(@NonNull FoodViewHolder holder, int position) {
-
        holder.loadFood(mFood.get(position));
     }
 
@@ -68,25 +72,26 @@ public class FoodRecyclerAdapter extends RecyclerView.Adapter<FoodRecyclerAdapte
 
     public class FoodViewHolder extends RecyclerView.ViewHolder {
 
-        private final FoodItemViewModel viewModel;
         private final TextView textItemView;
         private final ImageView imgView;
+        private final FoodItemViewModel foodItemViewModel;
 
-        public FoodViewHolder(@NonNull View itemView, FoodItemViewModel viewModel) {
+        public FoodViewHolder(@NonNull View itemView, FoodItemViewModel foodItemViewModel) {
             super(itemView);
-            this.viewModel = viewModel;
+            this.foodItemViewModel = foodItemViewModel;
             textItemView = itemView.findViewById(R.id.foodName);
             imgView = itemView.findViewById(R.id.foodImg);
         }
 
+
         public void loadFood(final FoodEntity food)
         {
-//            viewModel.loadFood(food);
             textItemView.setText(food.getFoodName());
             Glide.with(context)
                     .load(food.getFoodPicture())
                     .override(200,200)
                     .into(imgView);
+            imgView.setOnClickListener(v -> callback.callback(food.getId()));
         }
 
     }
