@@ -21,6 +21,9 @@ public interface FoodDao {
     @Query("SELECT * FROM food WHERE food_city LIKE :foodCity AND food_category LIKE :foodCategory ")
     LiveData<List<FoodEntity>> findSelectedCateFood(String foodCity,String foodCategory);
 
+    @Query("SELECT * FROM food WHERE id LIKE :foodId")
+    FoodEntity findDetailFood(int foodId);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void saveAll(List<FoodEntity> foods);
 

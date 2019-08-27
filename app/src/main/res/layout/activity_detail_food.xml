@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:text="TextView"
+            android:text="@{viewModel.foodName}"
             android:textSize="40dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
-            android:text="TextView"
+            android:text="@{viewModel.foodCall}"
             android:textSize="15dp"
             app:layout_constraintStart_toEndOf="@+id/imageFilterView2"
             app:layout_constraintTop_toBottomOf="@+id/textView7" />
@@ -79,7 +79,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:textSize="15dp"
-            android:text="TextView"
+            android:text="@{viewModel.foodLocation}"
             app:layout_constraintStart_toEndOf="@+id/imageFilterView3"
             app:layout_constraintTop_toBottomOf="@+id/imageFilterView2" />
 
@@ -100,7 +100,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:textSize="15dp"
-            android:text="TextView"
+            android:text="@{viewModel.foodTime}"
             app:layout_constraintStart_toEndOf="@+id/imageFilterView4"
             app:layout_constraintTop_toBottomOf="@+id/imageFilterView3" />
 
@@ -121,7 +121,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:textSize="15dp"
-            android:text="TextView"
+            android:text="@{viewModel.foodMenu}"
             app:layout_constraintStart_toEndOf="@+id/imageFilterView5"
             app:layout_constraintTop_toBottomOf="@+id/imageFilterView4" />
 
