@@ -20,6 +20,9 @@ public interface TourDao {
     @Query("SELECT * FROM tour WHERE tour_city LIKE :tourCity AND tour_category LIKE :tourCategory ")
     LiveData<List<TourEntity>> findSelectedCateTour(String tourCity, String tourCategory);
 
+    @Query("SELECT * FROM tour WHERE id =:tourId")
+    TourEntity findDetailTour(int tourId);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void save(TourEntity tour);
 

@@ -24,14 +24,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FoodRecyclerAdapter extends RecyclerView.Adapter<FoodRecyclerAdapter.FoodViewHolder> {
+    private FoodViewContract foodViewContract;
     private Context context;
     private List<FoodEntity> mFood;
-    private FoodViewContract foodViewContract;
     private Callback callback;
     public interface Callback {
-        public void callback(int id);
+        void callback(int id);
     }
-    public FoodRecyclerAdapter(Context context,FoodViewContract foodViewContract, Callback callback) {
+    public FoodRecyclerAdapter(Context context, FoodViewContract foodViewContract,Callback callback) {
         this.mFood = new ArrayList<>();
         this.context = context;
         this.foodViewContract = foodViewContract;

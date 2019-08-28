@@ -5,13 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
@@ -32,8 +28,9 @@ import com.example.tourism.service.GPSService;
 import com.example.tourism.service.ImageService;
 import com.example.tourism.service.WeatherService;
 import com.example.tourism.view.adapter.ImageRecyclerAdapter;
+import com.example.tourism.view.foodview.FoodActivity;
+import com.example.tourism.view.tourview.TourActivity;
 import com.example.tourism.viewmodel.FirstViewModel;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.HashMap;
@@ -153,7 +150,7 @@ public class FirstActivity extends AppCompatActivity implements FirstViewContrac
             Intent intent = new Intent(FirstActivity.this, FoodActivity.class);
             startActivity(intent);
         }else {
-            Intent intent1 = new Intent(FirstActivity.this,TourActivity.class);
+            Intent intent1 = new Intent(FirstActivity.this, TourActivity.class);
             startActivity(intent1);
         }
 

@@ -29,12 +29,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.FoodActivity">
+        <activity android:name=".view.foodview.FoodActivity">
         </activity>
-        <activity android:name=".view.TourActivity">
+        <activity android:name=".view.tourview.TourActivity">
         </activity>
         <activity android:name=".view.FirstActivity"/>
-        <activity android:name=".view.FoodDetailActivity"/>
+        <activity android:name=".view.foodview.FoodDetailActivity"/>
+        <activity android:name=".view.tourview.TourDetailActivity"/>
     </application>
 
 </manifest>

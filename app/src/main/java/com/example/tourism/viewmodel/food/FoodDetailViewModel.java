@@ -2,7 +2,6 @@ package com.example.tourism.viewmodel.food;
 
 import android.app.Application;
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -12,7 +11,6 @@ import androidx.lifecycle.AndroidViewModel;
 import com.example.tourism.data.FoodEntity;
 import com.example.tourism.data.dao.FoodDao;
 import com.example.tourism.data.database.AppDatabase;
-import com.example.tourism.view.FoodDetailActivity;
 import com.kakao.kakaonavi.KakaoNaviParams;
 import com.kakao.kakaonavi.KakaoNaviService;
 import com.kakao.kakaonavi.Location;
@@ -53,6 +51,7 @@ public class FoodDetailViewModel extends AndroidViewModel {
         foodCall.set(getDetailFood().getFoodCallNum());
         foodLocation.set(getDetailFood().getFoodLocation());
         foodTime.set(getDetailFood().getFoodDate());
+        foodMenu.set(getDetailFood().getFoodMenu());
     }
 
     public void onKaKaoNavi(View v) {

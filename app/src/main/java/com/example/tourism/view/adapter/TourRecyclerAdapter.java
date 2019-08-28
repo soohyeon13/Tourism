@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,7 +12,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.tourism.R;
+import com.example.tourism.contract.TourViewContract;
 import com.example.tourism.data.TourEntity;
 import com.example.tourism.databinding.TourItemBinding;
 import com.example.tourism.viewmodel.tour.TourItemViewModel;
@@ -20,12 +23,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapter.TourViewHolder> {
-    private final Context context;
+    private Context context;
+    private TourViewContract tourViewContract;
+    private Callback callback;
     private List<TourEntity> mTour;
+    public interface Callback {
+        void callback(int id);
+    }
 
-    public TourRecyclerAdapter(Context context) {
+    public TourRecyclerAdapter(Context context, TourViewContract tourViewContract,Callback callBack) {
         this.mTour = new ArrayList<>();
         this.context = context;
+        this.tourViewContract = tourViewContract;
+        this.callback = callBack;
     }
 
     @NonNull
@@ -63,15 +73,22 @@ public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapte
     public class TourViewHolder extends RecyclerView.ViewHolder {
         private final TourItemViewModel viewModel;
         private TextView textView;
+        private ImageView imageview;
 
         public TourViewHolder(@NonNull View itemView, TourItemViewModel viewModel) {
             super(itemView);
             this.viewModel = viewModel;
             textView = itemView.findViewById(R.id.tourName);
+            imageview = itemView.findViewById(R.id.tourImg);
         }
 
-        void bind(final TourEntity tour) {
+        public void bind(final TourEntity tour) {
             textView.setText(tour.getTourName());
+            Glide.with(context)
+                    .load(tour.getTourPicture())
+                    .override(200,200)
+                    .into(imageview);
+            imageview.setOnClickListener(v -> callback.callback(tour.getId()));
         }
     }
 

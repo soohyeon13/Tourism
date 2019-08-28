@@ -31,7 +31,7 @@ public class FoodViewModel extends AndroidViewModel{
         foodDao = AppDatabase.getInstance(application).foodDao();
         executorService = Executors.newSingleThreadExecutor();
     }
-//    public LiveData<List<FoodEntity>> getAllFoods() { return foodDao.findAll(); }
+    //    public LiveData<List<FoodEntity>> getAllFoods() { return foodDao.findAll(); }
     public LiveData<List<FoodEntity>> getSelectedCateFood() {return foodDao.findSelectedCateFood(city,location);}
     public void saveFood(FoodEntity foodEntity) {
         executorService.execute(() -> foodDao.save(foodEntity));

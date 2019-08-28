@@ -1,18 +1,15 @@
-package com.example.tourism.view;
+package com.example.tourism.view.foodview;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.example.tourism.R;
-import com.example.tourism.contract.FoodDetailViewContract;
 import com.example.tourism.databinding.ActivityDetailFoodBinding;
 import com.example.tourism.viewmodel.food.FoodDetailViewModel;
 
-public class FoodDetailActivity extends AppCompatActivity implements FoodDetailViewContract {
+public class FoodDetailActivity extends AppCompatActivity {
     private FoodDetailViewModel viewModel;
 
 
