@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.example.tourism.GPSTracker;
 import com.example.tourism.model.GPSVO;
+import com.example.tourism.model.PointVO;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Locale;
 
 public class GPSService {
     private final Context context;
+    private Geocoder geocoder;
 
     public GPSService(Context context) {
         this.context =context;
@@ -30,7 +32,7 @@ public class GPSService {
     }
 
     private String getCurrentAddress(GPSVO vo, Context context) {
-        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+        geocoder = new Geocoder(context, Locale.getDefault());
 
         List<Address> addresses = null;
 
@@ -61,6 +63,31 @@ public class GPSService {
         String city = address.getAddressLine(0).replace(adminArea,"").replace(countryName,"").replace(featureName,"");
 
         return city.trim();
+    }
+
+    public PointVO getPointFromGeoCoder(String address) {
+        PointVO pointVO = new PointVO();
+        pointVO.address = address;
+
+        geocoder = new Geocoder(context);
+        List<Address> listAddress;
+        address += "제주 ";
+        try {
+            listAddress = geocoder.getFromLocationName(address,1);
+        } catch (IOException e) {
+            e.printStackTrace();
+            pointVO.havePoint = false;
+            return pointVO;
+        }
+        if (listAddress.isEmpty()) {
+            pointVO.havePoint =false;
+            return pointVO;
+        }
+
+        pointVO.havePoint = true;
+        pointVO.x = listAddress.get(0).getLongitude();
+        pointVO.y = listAddress.get(0).getLatitude();
+        return pointVO;
     }
 
 }

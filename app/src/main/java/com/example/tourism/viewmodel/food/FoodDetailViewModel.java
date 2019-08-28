@@ -2,6 +2,7 @@ package com.example.tourism.viewmodel.food;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.lifecycle.AndroidViewModel;
 import com.example.tourism.data.FoodEntity;
 import com.example.tourism.data.dao.FoodDao;
 import com.example.tourism.data.database.AppDatabase;
+import com.example.tourism.service.GPSService;
 import com.kakao.kakaonavi.KakaoNaviParams;
 import com.kakao.kakaonavi.KakaoNaviService;
 import com.kakao.kakaonavi.Location;
@@ -55,7 +57,11 @@ public class FoodDetailViewModel extends AndroidViewModel {
     }
 
     public void onKaKaoNavi(View v) {
-        Location destination = Location.newBuilder("카카오 판교 오피스",127.10821222694533,37.40205604363057).build();
+        GPSService gpsService = new GPSService(context);
+        double la = gpsService.getPointFromGeoCoder(foodLocation.get()).y;
+        double lo = gpsService.getPointFromGeoCoder(foodLocation.get()).x;
+        Log.d("!@#$!@#",String.valueOf(la) + "/" + String.valueOf(lo));
+        Location destination = Location.newBuilder(foodLocation.get(),lo,la).build();
         NaviOptions options = NaviOptions.newBuilder().setCoordType(CoordType.WGS84).setVehicleType(VehicleType.FIRST).setRpOption(RpOption.SHORTEST).build();
         KakaoNaviParams.Builder builder = KakaoNaviParams.newBuilder(destination).setNaviOptions(options);
         KakaoNaviParams params = builder.build();
