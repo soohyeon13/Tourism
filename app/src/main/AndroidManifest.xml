@@ -17,7 +17,10 @@
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_REST_API_key">
-
+        </meta-data>
+        <meta-data
+            android:name="com.kakao.sdk.Appkey"
+            android:value="@string/kakao_app_key">
         </meta-data>
         <activity android:name=".view.SplashActivity">
             <intent-filter>

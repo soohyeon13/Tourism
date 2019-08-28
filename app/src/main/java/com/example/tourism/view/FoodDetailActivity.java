@@ -20,7 +20,7 @@ public class FoodDetailActivity extends AppCompatActivity implements FoodDetailV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityDetailFoodBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_detail_food);
-        binding.setViewModel(new FoodDetailViewModel(getApplication(),getIntent().getIntExtra("id",1)));
+        binding.setViewModel(new FoodDetailViewModel(getApplication(),getIntent().getIntExtra("id",1),getApplicationContext()));
 
 
         viewModel = binding.getViewModel();
