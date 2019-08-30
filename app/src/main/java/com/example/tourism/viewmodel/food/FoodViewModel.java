@@ -1,10 +1,15 @@
 package com.example.tourism.viewmodel.food;
 
+import android.app.AlertDialog;
 import android.app.Application;
+import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ObservableField;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
@@ -13,58 +18,33 @@ import com.example.tourism.contract.FoodViewContract;
 import com.example.tourism.data.FoodEntity;
 import com.example.tourism.data.dao.FoodDao;
 import com.example.tourism.data.database.AppDatabase;
+import com.volokh.danylo.hashtaghelper.HashTagHelper;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class FoodViewModel extends AndroidViewModel{
 
     private final FoodViewContract foodViewContract;
-    private String city,location;
+    private final Context context;
     private FoodDao foodDao;
     private ExecutorService executorService;
 
-    public FoodViewModel(@NonNull Application application, FoodViewContract foodViewContract) {
+    public FoodViewModel(@NonNull Application application, FoodViewContract foodViewContract, Context context) {
         super(application);
         this.foodViewContract = foodViewContract;
+        this.context = context;
         foodDao = AppDatabase.getInstance(application).foodDao();
         executorService = Executors.newSingleThreadExecutor();
     }
     //    public LiveData<List<FoodEntity>> getAllFoods() { return foodDao.findAll(); }
-    public LiveData<List<FoodEntity>> getSelectedCateFood() {return foodDao.findSelectedCateFood(city,location);}
-    public void saveFood(FoodEntity foodEntity) {
-        executorService.execute(() -> foodDao.save(foodEntity));
+    public LiveData<List<FoodEntity>> getSelectedCateFood(String city,String location) {return foodDao.findSelectedCateFood(city,location);}
+    public void saveFood(FoodEntity foodEntity) { executorService.execute(() -> foodDao.save(foodEntity)); }
+    public void deleteFood(FoodEntity foodEntity) { executorService.execute(() -> foodDao.delete(foodEntity)); }
+
+    public void btnClick(View v) {
+        foodViewContract.btnClick(v);
     }
-
-    public void deleteFood(FoodEntity foodEntity) {
-        executorService.execute(() -> foodDao.delete(foodEntity));
-    }
-
-    public void btnClick(View v) { foodViewContract.btnClick(v); }
-
-
-    public void onCheckedChanged(View v) {
-        switch (v.getId()) {
-            case R.id.check_jeju:
-                city = "제주시";
-                break;
-            case R.id.check_seogwipo:
-                city = "서귀포";
-                break;
-            case R.id.check_east:
-                location = "동부";
-                break;
-            case R.id.check_jeju_city:
-                location = "제주시";
-                break;
-            case R.id.check_west:
-                location = "서부";
-                break;
-            case R.id.check_seogwi_city:
-                location = "서귀포시";
-                break;
-        }
-    }
-
 }

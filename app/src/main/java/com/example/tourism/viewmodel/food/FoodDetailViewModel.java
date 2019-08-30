@@ -58,9 +58,10 @@ public class FoodDetailViewModel extends AndroidViewModel {
 
     public void onKaKaoNavi(View v) {
         GPSService gpsService = new GPSService(context);
+
         double la = gpsService.getPointFromGeoCoder(foodLocation.get()).y;
         double lo = gpsService.getPointFromGeoCoder(foodLocation.get()).x;
-        Log.d("!@#$!@#",String.valueOf(la) + "/" + String.valueOf(lo));
+
         Location destination = Location.newBuilder(foodLocation.get(),lo,la).build();
         NaviOptions options = NaviOptions.newBuilder().setCoordType(CoordType.WGS84).setVehicleType(VehicleType.FIRST).setRpOption(RpOption.SHORTEST).build();
         KakaoNaviParams.Builder builder = KakaoNaviParams.newBuilder(destination).setNaviOptions(options);

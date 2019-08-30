@@ -3,9 +3,11 @@ package com.example.tourism.view.tourview;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,8 +19,14 @@ import com.example.tourism.databinding.TourCategoryActivityBinding;
 import com.example.tourism.view.Clickable;
 import com.example.tourism.view.adapter.TourRecyclerAdapter;
 import com.example.tourism.viewmodel.tour.TourViewModel;
+import com.volokh.danylo.hashtaghelper.HashTagHelper;
 
-public class TourActivity extends AppCompatActivity implements TourViewContract, Clickable {
+public class TourActivity extends AppCompatActivity implements TourViewContract, Clickable, HashTagHelper.OnHashTagClickListener {
+
+    private HashTagHelper mTextHashTagHelper;
+    private HashTagHelper mEditTextHashTagHelper;
+    private TextView mEditTextView, mHashTagText;
+
     private RecyclerView tourRecycler;
     private SnapHelper snapHelper;
     private TourViewModel tourViewModel;
@@ -40,10 +48,22 @@ public class TourActivity extends AppCompatActivity implements TourViewContract,
 
     private void setupViews() {
 
+        mEditTextView = findViewById(R.id.edit_text_field);
+        mHashTagText = findViewById(R.id.text_h);
+
+        char[] additionalSymbols = new char[] { '_', '$' };
+
+        mTextHashTagHelper = HashTagHelper.Creator.create(getResources().getColor(R.color.colorPrimary),this,additionalSymbols);
+        mTextHashTagHelper.handle(mHashTagText);
+
+        mEditTextHashTagHelper = HashTagHelper.Creator.create(getResources().getColor(R.color.colorPrimaryDark),null);
+        mEditTextHashTagHelper.handle(mEditTextView);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
         snapHelper = new LinearSnapHelper();
         tourRecycler = findViewById(R.id.tourRecycler);
         snapHelper.attachToRecyclerView(tourRecycler);
-        tourRecycler.setLayoutManager(new LinearLayoutManager(this));
+        tourRecycler.setLayoutManager(gridLayoutManager);
         tourRecyclerAdapter = new TourRecyclerAdapter(this,this,this::clickItem);
         tourRecycler.setAdapter(tourRecyclerAdapter);
 
@@ -51,7 +71,8 @@ public class TourActivity extends AppCompatActivity implements TourViewContract,
 
     @Override
     public void btnClick(View view) {
-        tourViewModel.getSelectedCateTour().observe(this,tours -> tourRecyclerAdapter.setTour(tours));
+        mHashTagText.setText(mEditTextView.getText());
+        tourViewModel.getSelectedCateTour("제주시","동부").observe(this,tours -> tourRecyclerAdapter.setTour(tours));
     }
 
     @Override
@@ -59,5 +80,10 @@ public class TourActivity extends AppCompatActivity implements TourViewContract,
         Intent intent = new Intent(this,TourDetailActivity.class);
         intent.putExtra("tour_id",id);
         startActivity(intent);
+    }
+
+    @Override
+    public void onHashTagClicked(String hashTag) {
+        //Todo click event
     }
 }

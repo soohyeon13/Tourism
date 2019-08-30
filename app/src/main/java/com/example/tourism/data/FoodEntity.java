@@ -17,6 +17,9 @@ public class FoodEntity {
     @ColumnInfo(name = "food_category")
     private String foodCategory;
 
+    @ColumnInfo(name = "food_small_category")
+    private String foodSmallCategory;
+
     @ColumnInfo(name = "food_name")
     private String foodName;
 
@@ -29,9 +32,6 @@ public class FoodEntity {
     @ColumnInfo(name = "food_location")
     private String foodLocation;
 
-    @ColumnInfo(name = "food_price")
-    private String foodPrice;
-
     @ColumnInfo(name = "food_picture_url")
     private String foodPicture;
 
@@ -41,15 +41,15 @@ public class FoodEntity {
     public FoodEntity(){}
 
     @Ignore
-    public FoodEntity(int id,String foodCity,String foodCategory,String foodName, String foodCallNum,String foodDate, String foodLocation,String foodPrice,String foodPicture,String foodMenu) {
+    public FoodEntity(int id,String foodCity,String foodCategory,String foodSmallCategory,String foodName, String foodCallNum,String foodDate, String foodLocation,String foodPicture,String foodMenu) {
         this.id = id;
         this.foodCity = foodCity;
         this.foodCategory = foodCategory;
+        this.foodSmallCategory = foodSmallCategory;
         this.foodName = foodName;
         this.foodCallNum = foodCallNum;
         this.foodDate = foodDate;
         this.foodLocation = foodLocation;
-        this.foodPrice = foodPrice;
         this.foodPicture = foodPicture;
         this.foodMenu = foodMenu;
     }
@@ -63,6 +63,9 @@ public class FoodEntity {
     public String getFoodCategory() { return foodCategory; }
     public void setFoodCategory(String foodCategory) { this.foodCategory = foodCategory; }
 
+    public String getFoodSmallCategory() { return foodSmallCategory; }
+    public void setFoodSmallCategory(String foodSmallCategory) { this.foodSmallCategory = foodSmallCategory; }
+
     public String getFoodName() { return foodName; }
     public void setFoodName(String foodName) { this.foodName = foodName; }
 
@@ -74,9 +77,6 @@ public class FoodEntity {
 
     public String getFoodLocation() { return foodLocation; }
     public void setFoodLocation(String foodLocation) { this.foodLocation = foodLocation; }
-
-    public String getFoodPrice() { return foodPrice; }
-    public void setFoodPrice(String foodPrice) { this.foodPrice = foodPrice; }
 
     public String getFoodPicture() { return foodPicture; }
     public void setFoodPicture(String foodPicture) { this.foodPicture = foodPicture; }

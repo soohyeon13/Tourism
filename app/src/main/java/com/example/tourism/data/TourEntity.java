@@ -17,6 +17,9 @@ public class TourEntity {
     @ColumnInfo(name = "tour_category")
     private String tourCategory;
 
+    @ColumnInfo(name = "tour_small_category")
+    private String tourSmallCategory;
+
     @ColumnInfo(name = "tour_name")
     private String tourName;
 
@@ -36,10 +39,11 @@ public class TourEntity {
     }
 
     @Ignore
-    public TourEntity(int id, String tourCity, String tourCategory, String tourName, String tourLocation, String tourDescribe, String tourPicture, String tourTime) {
+    public TourEntity(int id, String tourCity, String tourCategory,String tourSmallCategory,String tourName, String tourLocation, String tourDescribe, String tourPicture, String tourTime) {
         this.id = id;
         this.tourCity = tourCity;
         this.tourCategory = tourCategory;
+        this.tourSmallCategory = tourSmallCategory;
         this.tourName = tourName;
         this.tourLocation = tourLocation;
         this.tourDescribe = tourDescribe;
@@ -50,7 +54,6 @@ public class TourEntity {
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -58,7 +61,6 @@ public class TourEntity {
     public String getTourCity() {
         return tourCity;
     }
-
     public void setTourCity(String tourCity) {
         this.tourCity = tourCity;
     }
@@ -66,15 +68,16 @@ public class TourEntity {
     public String getTourCategory() {
         return tourCategory;
     }
-
     public void setTourCategory(String tourCategory) {
         this.tourCategory = tourCategory;
     }
 
+    public String getTourSmallCategory() { return tourSmallCategory; }
+    public void setTourSmallCategory(String tourSmallCategory) { this.tourSmallCategory = tourSmallCategory; }
+
     public String getTourName() {
         return tourName;
     }
-
     public void setTourName(String tourName) {
         this.tourName = tourName;
     }
@@ -82,7 +85,6 @@ public class TourEntity {
     public String getTourLocation() {
         return tourLocation;
     }
-
     public void setTourLocation(String tourLocation) {
         this.tourLocation = tourLocation;
     }
@@ -90,7 +92,6 @@ public class TourEntity {
     public String getTourDescribe() {
         return tourDescribe;
     }
-
     public void setTourDescribe(String tourDescribe) {
         this.tourDescribe = tourDescribe;
     }
@@ -98,16 +99,11 @@ public class TourEntity {
     public String getTourPicture() {
         return tourPicture;
     }
-
     public void setTourPicture(String tourPicture) {
         this.tourPicture = tourPicture;
     }
 
-    public String getTourTime() {
-        return tourTime;
-    }
+    public String getTourTime() { return tourTime; }
 
-    public void setTourTime(String tourTime) {
-        this.tourTime = tourTime;
-    }
+    public void setTourTime(String tourTime) { this.tourTime = tourTime; }
 }

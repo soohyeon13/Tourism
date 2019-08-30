@@ -22,7 +22,6 @@ public class TourViewModel extends AndroidViewModel {
     private final TourViewContract tourviewContract;
     private TourDao tourDao;
     private ExecutorService executorService;
-    private String tourCity,tourCategory;
     public TourViewModel(@NonNull Application application, TourViewContract tourViewContract) {
         super(application);
         this.tourviewContract = tourViewContract;
@@ -31,7 +30,7 @@ public class TourViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<TourEntity>> getAllTours(){return tourDao.findAll();}
-    public LiveData<List<TourEntity>> getSelectedCateTour(){return tourDao.findSelectedCateTour(tourCity,tourCategory);}
+    public LiveData<List<TourEntity>> getSelectedCateTour(String tourCity,String tourCategory){return tourDao.findSelectedCateTour(tourCity,tourCategory);}
 
     public void saveTour(TourEntity tourEntity){
         executorService.execute(() -> tourDao.save(tourEntity));
@@ -43,27 +42,5 @@ public class TourViewModel extends AndroidViewModel {
 
     public void btnClick(View v) {
         tourviewContract.btnClick(v);
-    }
-    public void onCheckedChanged(View v) {
-        switch (v.getId()) {
-            case R.id.check_jeju:
-                tourCity = "제주시";
-                break;
-            case R.id.check_seogwipo:
-                tourCity = "서귀포";
-                break;
-            case R.id.check_east:
-                tourCategory = "동부";
-                break;
-            case R.id.check_jeju_city:
-                tourCategory = "제주시";
-                break;
-            case R.id.check_west:
-                tourCategory = "서부";
-                break;
-            case R.id.check_seogwi_city:
-                tourCategory = "서귀포시";
-                break;
-        }
     }
 }

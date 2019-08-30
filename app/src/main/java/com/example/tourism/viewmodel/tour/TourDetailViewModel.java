@@ -11,6 +11,7 @@ import androidx.lifecycle.AndroidViewModel;
 import com.example.tourism.data.TourEntity;
 import com.example.tourism.data.dao.TourDao;
 import com.example.tourism.data.database.AppDatabase;
+import com.example.tourism.service.GPSService;
 import com.kakao.kakaonavi.KakaoNaviParams;
 import com.kakao.kakaonavi.KakaoNaviService;
 import com.kakao.kakaonavi.Location;
@@ -54,7 +55,12 @@ public class TourDetailViewModel extends AndroidViewModel {
     }
 
     public void onKaKaoNavi(View v) {
-        Location destination = Location.newBuilder("카카오 판교 오피스",127.10821222694533,37.40205604363057).build();
+        GPSService gpsService = new GPSService(context);
+
+        double lo = gpsService.getPointFromGeoCoder(tourLocation.get()).x;
+        double la = gpsService.getPointFromGeoCoder(tourLocation.get()).y;
+
+        Location destination = Location.newBuilder(tourLocation.get(),lo,la).build();
         NaviOptions options = NaviOptions.newBuilder().setCoordType(CoordType.WGS84).setVehicleType(VehicleType.FIRST).setRpOption(RpOption.SHORTEST).build();
         KakaoNaviParams.Builder builder = KakaoNaviParams.newBuilder(destination).setNaviOptions(options);
         KakaoNaviParams params = builder.build();

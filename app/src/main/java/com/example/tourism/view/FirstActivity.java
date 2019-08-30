@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
@@ -31,6 +33,7 @@ import com.example.tourism.view.adapter.ImageRecyclerAdapter;
 import com.example.tourism.view.foodview.FoodActivity;
 import com.example.tourism.view.tourview.TourActivity;
 import com.example.tourism.viewmodel.FirstViewModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.HashMap;
@@ -87,7 +90,6 @@ public class FirstActivity extends AppCompatActivity implements FirstViewContrac
         weatherIcon = (TextView) findViewById(R.id.weather_icon_text);
         weatherFont = Typeface.createFromAsset(getAssets(), PATH_TO_WEATHER_FONT);
         weatherIcon.setTypeface(weatherFont);
-
     }
 
     @SuppressLint("SetTextI18n")
