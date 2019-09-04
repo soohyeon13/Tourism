@@ -8,7 +8,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
@@ -48,7 +47,7 @@ public class TourActivity extends AppCompatActivity implements TourViewContract,
 
     private void setupViews() {
 
-        mEditTextView = findViewById(R.id.edit_text_field);
+        mEditTextView = findViewById(R.id.auto_text_field);
         mHashTagText = findViewById(R.id.text_h);
 
         char[] additionalSymbols = new char[] { '_', '$' };

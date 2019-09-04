@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/edit_text_field"
+            android:id="@+id/auto_text_field"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -54,7 +54,7 @@
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_text_field"
+            app:layout_constraintTop_toBottomOf="@+id/auto_text_field"
             android:hint="@string/text_will_be_pasted_here"
             android:minHeight="@dimen/single_item_height"
             android:textSize="@dimen/text_size"

@@ -1,27 +1,19 @@
 package com.example.tourism.viewmodel.food;
 
-import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.ObservableField;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.tourism.R;
 import com.example.tourism.contract.FoodViewContract;
 import com.example.tourism.data.FoodEntity;
 import com.example.tourism.data.dao.FoodDao;
 import com.example.tourism.data.database.AppDatabase;
-import com.volokh.danylo.hashtaghelper.HashTagHelper;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
