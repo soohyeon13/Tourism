@@ -68,27 +68,27 @@ public class HashTagSuggestAdapter extends ArrayAdapter<String> {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults filterResults = new FilterResults();
+            if (constraint != null) {
+                suggests.clear();
 
-            suggests.clear();
+                int cursorPosition = listener.currentCursorPosition();
 
-            int cursorPosition = listener.currentCursorPosition();
+                Matcher m = pattern.matcher(constraint.toString());
+                while (m.find()) {
 
-            Matcher m = pattern.matcher(constraint.toString());
-            while (m.find()) {
+                    if (m.start() < cursorPosition && cursorPosition <= m.end()) {
+                        start = m.start();
+                        end = m.end();
 
-                if (m.start() < cursorPosition && cursorPosition <= m.end()) {
-                    start = m.start();
-                    end = m.end();
-
-                    String tag = constraint.subSequence(m.start(), m.end()).toString();
-                    for (int i = 0; i < objects.size(); i++) {
-                        String word = objects.get(i);
-                        if (word.startsWith(tag)) {
-                            suggests.add(word);
+                        String tag = constraint.subSequence(m.start(), m.end()).toString();
+                        for (int i = 0; i < objects.size(); i++) {
+                            String word = objects.get(i);
+                            if (word.startsWith(tag)) {
+                                suggests.add(word);
+                            }
                         }
                     }
                 }
-
             }
 
             filterResults.values = suggests;

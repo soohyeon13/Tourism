@@ -25,7 +25,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/auto_text_field"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
             android:textSize="@dimen/text_size"
             >
             <requestFocus />
-        </EditText>
+        </AutoCompleteTextView>
 
         <TextView
             android:id="@+id/text_h"
