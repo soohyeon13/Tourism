@@ -51,6 +51,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
+
                     <TextView
                         android:id="@+id/weather_icon_text"
                         android:layout_width="70dp"
@@ -82,38 +83,30 @@
                 </LinearLayout>
 
                 <include
-                    android:id="@+id/include2"
-                    layout="@layout/image_recycler_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="204dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-                <include
                     android:id="@+id/category"
                     layout="@layout/big_category"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/include2"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout"
                     bind:viewModel="@{viewModel}" />
 
-                <com.google.android.material.bottomnavigation.BottomNavigationView
-                    android:id="@+id/bottomNavigationView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:background="?android:attr/windowBackground"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/category"
-                    app:menu="@menu/menu_bottom" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottomNavigationView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="?android:attr/windowBackground"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/category"
+                app:menu="@menu/menu_bottom" />
         </LinearLayout>
 
         <com.google.android.material.navigation.NavigationView

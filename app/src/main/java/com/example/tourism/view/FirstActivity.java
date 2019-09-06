@@ -9,40 +9,29 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSnapHelper;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SnapHelper;
 
 import com.example.tourism.R;
 import com.example.tourism.contract.FirstViewContract;
 import com.example.tourism.databinding.ActivityFirstBinding;
-import com.example.tourism.model.ImageVO;
-import com.example.tourism.model.KakaoSearch;
 import com.example.tourism.model.WeatherSearch;
 import com.example.tourism.model.WeatherVO;
 import com.example.tourism.service.GPSService;
-import com.example.tourism.service.ImageService;
 import com.example.tourism.service.WeatherService;
-import com.example.tourism.view.adapter.ImageRecyclerAdapter;
 import com.example.tourism.view.foodview.FoodActivity;
 import com.example.tourism.view.tourview.TourActivity;
 import com.example.tourism.viewmodel.FirstViewModel;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.HashMap;
-import java.util.List;
+
 import java.util.Objects;
 
 public class FirstActivity extends AppCompatActivity implements FirstViewContract {
 
-    private ImageRecyclerAdapter imageRecyclerAdapter;
     TextView weatherIcon;
     private Typeface weatherFont;
     private final static String PATH_TO_WEATHER_FONT = "fonts/weather.ttf";
@@ -53,17 +42,11 @@ public class FirstActivity extends AppCompatActivity implements FirstViewContrac
         super.onCreate(savedInstanceState);
         ActivityFirstBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_first);
 
-        final KakaoSearch kakaoSearch = ((TourApplication) getApplication())
-                .getData(KakaoSearch.class, new HashMap<String, String>() {{
-                    put("Authorization", "KakaoAK" + " " + getResources().getString(R.string.kakao_REST_API_key));
-                }});
-
         final WeatherSearch weatherSearch = ((TourApplication) getApplication()).getData(WeatherSearch.class);
 
-        binding.setViewModel(new FirstViewModel(this, new ImageService(kakaoSearch), new WeatherService(weatherSearch), new GPSService(this)));
+        binding.setViewModel(new FirstViewModel(this, new WeatherService(weatherSearch), new GPSService(this)));
 
         viewModel = binding.getViewModel();
-        viewModel.loadImages();
         viewModel.loadWeathers();
 
         setupViews();
@@ -75,14 +58,6 @@ public class FirstActivity extends AppCompatActivity implements FirstViewContrac
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle(" ");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        SnapHelper snapHelper;
-        snapHelper = new LinearSnapHelper();
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.imageRecycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
-        snapHelper.attachToRecyclerView(recyclerView);
-        imageRecyclerAdapter = new ImageRecyclerAdapter((Context) this, (FirstViewContract) this);
-        recyclerView.setAdapter(imageRecyclerAdapter);
 
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation);
@@ -139,11 +114,6 @@ public class FirstActivity extends AppCompatActivity implements FirstViewContrac
                 weatherIcon.setText(R.string.wi_night_snow);
                 break;
         }
-    }
-
-    @Override
-    public void showImages(List<ImageVO.Document> itmes) {
-        imageRecyclerAdapter.setItemsAndRefresh(itmes);
     }
 
     @Override

@@ -7,10 +7,8 @@ import androidx.databinding.ObservableField;
 
 import com.example.tourism.contract.FirstViewContract;
 import com.example.tourism.model.GPSVO;
-import com.example.tourism.model.ImageVO;
 import com.example.tourism.model.WeatherVO;
 import com.example.tourism.service.GPSService;
-import com.example.tourism.service.ImageService;
 import com.example.tourism.service.WeatherService;
 
 import io.reactivex.Observable;
@@ -23,16 +21,13 @@ public class FirstViewModel {
     public final Observable<WeatherVO> weatherObservable;
     public final ObservableField<String> address = new ObservableField<>();
     public final ObservableField<String> temperature = new ObservableField<>();
-    public final Observable<ImageVO> imageVOObservable;
-    private ImageService imageService;
     private WeatherService weatherService;
     private FirstViewContract firstViewContract;
     private double K, C;
     private final GPSVO gpsvo;
 
-    public FirstViewModel(FirstViewContract firstViewContract, ImageService imageService, WeatherService weatherService, GPSService gpsService) {
+    public FirstViewModel(FirstViewContract firstViewContract,WeatherService weatherService, GPSService gpsService) {
         this.firstViewContract = firstViewContract;
-        this.imageService = imageService;
         this.weatherService = weatherService;
         this.gpsService = gpsService;
 
@@ -40,7 +35,6 @@ public class FirstViewModel {
         weatherService.setLatitude(gpsvo.getLatitude());
         weatherService.setLongitude(gpsvo.getLongitude());
         weatherObservable = weatherService.getData();
-        imageVOObservable = imageService.getData();
     }
 
     public ObservableField<String> getTemperature() {
@@ -49,15 +43,6 @@ public class FirstViewModel {
 
     public ObservableField<String> getAddress() { return address; }
 
-    @SuppressLint("CheckResult")
-    public void loadImages() {
-        imageVOObservable
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(vo -> {
-                    firstViewContract.showImages(vo.documents);
-                });
-    }
 
     @SuppressLint("CheckResult")
     public void loadWeathers() {

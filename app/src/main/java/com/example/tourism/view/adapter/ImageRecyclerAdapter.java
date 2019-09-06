@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tourism.R;
 import com.example.tourism.contract.FirstViewContract;
+import com.example.tourism.contract.ImageContract;
 import com.example.tourism.databinding.ImageItemBinding;
 import com.example.tourism.model.ImageVO;
 import com.example.tourism.viewmodel.ImageItemViewModel;
@@ -20,10 +21,10 @@ import java.util.List;
 public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageRecyclerAdapter.ImageViewHolder> {
 
     private final Context context;
-    private final FirstViewContract view;
+    private final ImageContract view;
     private List<ImageVO.Document> items;
 
-    public ImageRecyclerAdapter(Context context, FirstViewContract view) {
+    public ImageRecyclerAdapter(Context context, ImageContract view) {
         this.context =context;
         this.view = view;
     }

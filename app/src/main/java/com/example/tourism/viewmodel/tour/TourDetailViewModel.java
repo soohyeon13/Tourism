@@ -1,5 +1,6 @@
 package com.example.tourism.viewmodel.tour;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.view.View;
@@ -8,10 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.AndroidViewModel;
 
+import com.example.tourism.contract.ImageContract;
 import com.example.tourism.data.TourEntity;
 import com.example.tourism.data.dao.TourDao;
 import com.example.tourism.data.database.AppDatabase;
+import com.example.tourism.model.ImageVO;
 import com.example.tourism.service.GPSService;
+import com.example.tourism.service.ImageService;
 import com.kakao.kakaonavi.KakaoNaviParams;
 import com.kakao.kakaonavi.KakaoNaviService;
 import com.kakao.kakaonavi.Location;
@@ -20,11 +24,18 @@ import com.kakao.kakaonavi.options.CoordType;
 import com.kakao.kakaonavi.options.RpOption;
 import com.kakao.kakaonavi.options.VehicleType;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 public class TourDetailViewModel extends AndroidViewModel {
     public final ObservableField<String> tourName = new ObservableField<>();
     public final ObservableField<String> tourLocation = new ObservableField<>();
     public final ObservableField<String> tourTime = new ObservableField<>();
     public final ObservableField<String> tourDescribe = new ObservableField<>();
+    public final Observable<ImageVO> imageVOObservable;
+    private final ImageService imageService;
+    private final ImageContract imageContract;
 
     private Context context;
 
@@ -36,11 +47,15 @@ public class TourDetailViewModel extends AndroidViewModel {
     public ObservableField<String> getTourTime() { return tourTime; }
     public ObservableField<String> getTourDescribe() { return tourDescribe; }
 
-    public TourDetailViewModel(@NonNull Application application, int id, Context context) {
+    public TourDetailViewModel(@NonNull Application application, int id, Context context, ImageService imageService, ImageContract imageContract) {
         super(application);
         this.getId = id;
         this.context = context;
+        this.imageService = imageService;
+        this.imageContract = imageContract;
         tourDao = AppDatabase.getInstance(application).tourDao();
+
+        imageVOObservable = imageService.getData();
     }
 
     public TourEntity getDetailTour() {
@@ -65,5 +80,15 @@ public class TourDetailViewModel extends AndroidViewModel {
         KakaoNaviParams.Builder builder = KakaoNaviParams.newBuilder(destination).setNaviOptions(options);
         KakaoNaviParams params = builder.build();
         KakaoNaviService.navigate(context,builder.build());
+    }
+
+    @SuppressLint("CheckResult")
+    public void loadImages() {
+        imageVOObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(vo -> {
+                    imageContract.showImages(vo.documents);
+                });
     }
 }

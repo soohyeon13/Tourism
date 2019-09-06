@@ -7,15 +7,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/imageRecycler"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.FirstActivity"
-        tools:listitem="@layout/image_item"
-        tools:showIn = "@layout/activity_first"
-        >
+        tools:listitem="@layout/image_item">
 
 
     </androidx.recyclerview.widget.RecyclerView>

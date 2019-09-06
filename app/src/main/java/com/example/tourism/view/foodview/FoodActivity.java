@@ -52,12 +52,7 @@ public class FoodActivity extends AppCompatActivity implements FoodViewContract,
 
         autoText = findViewById(R.id.auto_text_field);
         HashTagSuggestAdapter adapter = new HashTagSuggestAdapter(this,android.R.layout.simple_dropdown_item_1line,WORDS);
-        adapter.setCursorPositionListener(new HashTagSuggestAdapter.CursorPositionListener() {
-            @Override
-            public int currentCursorPosition() {
-                return autoText.getSelectionStart();
-            }
-        });
+        adapter.setCursorPositionListener(() -> autoText.getSelectionStart());
         autoText.setAdapter(adapter);
 
         mHashTagText = findViewById(R.id.text_h);
@@ -77,8 +72,6 @@ public class FoodActivity extends AppCompatActivity implements FoodViewContract,
         recyclerView.setLayoutManager(gridLayoutManager);
         foodRecyclerAdapter = new FoodRecyclerAdapter((Context)this,this, this::clickItem);
         recyclerView.setAdapter(foodRecyclerAdapter);
-
-
     }
 
     @Override

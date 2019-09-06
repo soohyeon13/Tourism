@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -10,66 +11,37 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:id="@+id/foodLayout"
-            android:layout_width="0dp"
-            android:layout_height="219dp"
-            android:onClick="@{viewModel::onFoodClick}"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toStartOf="@+id/tourLayout"
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/imageFilterView7"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:onClick="@{viewModel::onTourClick}"
+            android:src="@drawable/tour"
+            app:layout_constraintBottom_toTopOf="@+id/foodLayout"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="맛집"
-                android:textSize="20dp" />
-
-            <androidx.constraintlayout.utils.widget.ImageFilterView
-                android:layout_width="match_parent"
-                android:layout_height="213dp"
-                android:src="@drawable/food" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="219dp"
-            android:background="#a0a0a0"
-            app:layout_constraintEnd_toStartOf="@+id/tourLayout"
-            app:layout_constraintStart_toEndOf="@+id/foodLayout"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:id="@+id/tourLayout"
-            android:layout_width="0dp"
-            android:layout_height="219dp"
-            android:onClick="@{viewModel::onTourClick}"
-            android:orientation="vertical"
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/foodLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:onClick="@{viewModel::onFoodClick}"
+            android:src="@drawable/food"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/foodLayout"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageFilterView7"
+            app:layout_constraintVertical_bias="1.0" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="여행"
-                android:textSize="20dp" />
-
-            <androidx.constraintlayout.utils.widget.ImageFilterView
-                android:layout_width="wrap_content"
-                android:layout_height="213dp"
-                android:src="@drawable/tour" />
-
-        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

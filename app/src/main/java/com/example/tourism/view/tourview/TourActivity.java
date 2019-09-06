@@ -43,8 +43,6 @@ public class TourActivity extends AppCompatActivity implements TourViewContract,
         binding.setViewModel(new TourViewModel(getApplication(),(TourViewContract)this));
 
         tourViewModel = binding.getViewModel();
-//        tourViewModel = ViewModelProviders.of(this).get(TourViewModel.class);
-//        tourViewModel.getAllTours().observe(this,tours -> tourRecyclerAdapter.setTour(tours));
 
         setupViews();
     }
@@ -52,12 +50,7 @@ public class TourActivity extends AppCompatActivity implements TourViewContract,
     private void setupViews() {
         autoText = findViewById(R.id.auto_text_field);
         HashTagSuggestAdapter adapter = new HashTagSuggestAdapter(this,android.R.layout.simple_dropdown_item_1line,WORDS);
-        adapter.setCursorPositionListener(new HashTagSuggestAdapter.CursorPositionListener() {
-            @Override
-            public int currentCursorPosition() {
-                return autoText.getSelectionStart();
-            }
-        });
+        adapter.setCursorPositionListener(() -> autoText.getSelectionStart());
         autoText.setAdapter(adapter);
 
 
