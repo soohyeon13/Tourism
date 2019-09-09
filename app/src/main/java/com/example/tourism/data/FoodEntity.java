@@ -32,7 +32,6 @@ public class FoodEntity {
     @ColumnInfo(name = "food_location")
     private String foodLocation;
 
-    @Ignore
     @ColumnInfo(name = "food_picture_url")
     private String foodPicture;
 
