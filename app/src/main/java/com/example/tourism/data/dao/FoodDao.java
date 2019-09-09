@@ -33,6 +33,9 @@ public interface FoodDao {
     @Update
     void update(FoodEntity food);
 
+    @Query("UPDATE food SET food_like =:like WHERE id =:id")
+    void likeUpdate(int like, int id);
+
     @Delete
     void delete(FoodEntity food);
 

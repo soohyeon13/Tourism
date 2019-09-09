@@ -25,7 +25,6 @@
         <activity android:name=".view.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -36,6 +35,7 @@
         <activity android:name=".view.FirstActivity"/>
         <activity android:name=".view.foodview.FoodDetailActivity"/>
         <activity android:name=".view.tourview.TourDetailActivity"/>
+        <activity android:name=".view.bottomnavi.ActivityLikeList"/>
     </application>
 
 </manifest>

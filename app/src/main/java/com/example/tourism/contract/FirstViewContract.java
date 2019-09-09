@@ -1,5 +1,6 @@
 package com.example.tourism.contract;
 
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.tourism.model.ImageVO;
@@ -13,5 +14,7 @@ public interface FirstViewContract {
 //    void showImages(List<ImageVO.Document> items);
 
     void onClick(View view);
+
+    boolean onNaviClick(MenuItem item);
 
 }

@@ -76,7 +76,7 @@ public class TourActivity extends AppCompatActivity implements TourViewContract,
 
     @Override
     public void btnClick(View view) {
-        mHashTagText.setText(mEditTextView.getText());
+        mHashTagText.setText(autoText.getText());
         tourViewModel.getSelectedCateTour("제주시","동부").observe(this,tours -> tourRecyclerAdapter.setTour(tours));
     }
 

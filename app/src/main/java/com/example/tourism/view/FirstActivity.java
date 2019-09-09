@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import com.example.tourism.model.WeatherSearch;
 import com.example.tourism.model.WeatherVO;
 import com.example.tourism.service.GPSService;
 import com.example.tourism.service.WeatherService;
+import com.example.tourism.view.bottomnavi.ActivityLikeList;
 import com.example.tourism.view.foodview.FoodActivity;
 import com.example.tourism.view.tourview.TourActivity;
 import com.example.tourism.viewmodel.FirstViewModel;
@@ -121,10 +123,32 @@ public class FirstActivity extends AppCompatActivity implements FirstViewContrac
         if (view.getId() == R.id.foodLayout) {
             Intent intent = new Intent(FirstActivity.this, FoodActivity.class);
             startActivity(intent);
-        }else {
+        } else {
             Intent intent1 = new Intent(FirstActivity.this, TourActivity.class);
             startActivity(intent1);
         }
-
     }
+
+    @Override
+    public boolean onNaviClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.navigation_menu1:
+                Log.d("####1",String.valueOf(item.getItemId()));
+                return true;
+            case R.id.navigation_menu2:
+                Log.d("####2",String.valueOf(item.getItemId()));
+                return true;
+            case R.id.navigation_menu3:
+                Log.d("####3",String.valueOf(item.getItemId()));
+                Intent intent = new Intent(FirstActivity.this, ActivityLikeList.class);
+                startActivity(intent);
+                return true;
+            case R.id.navigation_menu4:
+                Log.d("####4",String.valueOf(item.getItemId()));
+                return true;
+        }
+        return false;
+    }
+
+
 }

@@ -1,22 +1,28 @@
 package com.example.tourism.viewmodel;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.databinding.ObservableField;
 
+import com.android.annotations.NonNull;
+import com.example.tourism.R;
 import com.example.tourism.contract.FirstViewContract;
 import com.example.tourism.model.GPSVO;
 import com.example.tourism.model.WeatherVO;
 import com.example.tourism.service.GPSService;
 import com.example.tourism.service.WeatherService;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class FirstViewModel {
+public class FirstViewModel implements BottomNavigationView.OnNavigationItemSelectedListener {
     private final GPSService gpsService;
     public final Observable<WeatherVO> weatherObservable;
     public final ObservableField<String> address = new ObservableField<>();
@@ -66,4 +72,8 @@ public class FirstViewModel {
         firstViewContract.onClick(view);
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@androidx.annotation.NonNull MenuItem item) {
+        return firstViewContract.onNaviClick(item);
+    }
 }

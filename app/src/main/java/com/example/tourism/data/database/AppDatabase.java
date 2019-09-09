@@ -14,7 +14,7 @@ import com.example.tourism.data.TourEntity;
 import com.example.tourism.data.dao.FoodDao;
 import com.example.tourism.data.dao.TourDao;
 
-@Database(version = 5, entities = {FoodEntity.class, TourEntity.class})
+@Database(version = 6, entities = {FoodEntity.class, TourEntity.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;

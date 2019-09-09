@@ -35,11 +35,14 @@ public class TourEntity {
     @ColumnInfo(name = "tour_time")
     private String tourTime;
 
+    @ColumnInfo(name = "tour_like")
+    private int tourLike;
+
     public TourEntity() {
     }
 
     @Ignore
-    public TourEntity(int id, String tourCity, String tourCategory,String tourSmallCategory,String tourName, String tourLocation, String tourDescribe, String tourPicture, String tourTime) {
+    public TourEntity(int id, String tourCity, String tourCategory,String tourSmallCategory,String tourName, String tourLocation, String tourDescribe, String tourPicture, String tourTime,int tourLike) {
         this.id = id;
         this.tourCity = tourCity;
         this.tourCategory = tourCategory;
@@ -49,6 +52,7 @@ public class TourEntity {
         this.tourDescribe = tourDescribe;
         this.tourPicture = tourPicture;
         this.tourTime = tourTime;
+        this.tourLike = tourLike;
     }
 
     public int getId() {
@@ -104,6 +108,9 @@ public class TourEntity {
     }
 
     public String getTourTime() { return tourTime; }
-
     public void setTourTime(String tourTime) { this.tourTime = tourTime; }
+
+    public int getTourLike() { return tourLike; }
+    public void setTourLike(int tourLike) { this.tourLike = tourLike; }
+
 }
