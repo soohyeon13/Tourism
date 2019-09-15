@@ -59,7 +59,6 @@ public class FoodDetailViewModel extends AndroidViewModel {
     public ObservableField<String> getFoodLocation() { return foodLocation; }
     public ObservableField<String> getFoodTime() { return foodTime; }
     public ObservableField<String> getFoodMenu() { return foodMenu; }
-    public ObservableField<String> getFoodImg() { return foodImg; }
 
     public FoodEntity getDetailFood() { return foodDao.findDetailFood(id);}
 

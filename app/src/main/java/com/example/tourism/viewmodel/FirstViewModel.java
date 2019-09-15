@@ -6,9 +6,9 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 
-import com.android.annotations.NonNull;
 import com.example.tourism.R;
 import com.example.tourism.contract.FirstViewContract;
 import com.example.tourism.model.GPSVO;
@@ -22,7 +22,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class FirstViewModel implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class FirstViewModel implements BottomNavigationView.OnNavigationItemSelectedListener{
     private final GPSService gpsService;
     public final Observable<WeatherVO> weatherObservable;
     public final ObservableField<String> address = new ObservableField<>();
@@ -73,7 +73,14 @@ public class FirstViewModel implements BottomNavigationView.OnNavigationItemSele
     }
 
     @Override
-    public boolean onNavigationItemSelected(@androidx.annotation.NonNull MenuItem item) {
-        return firstViewContract.onNaviClick(item);
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        return false;
     }
+
+//    @Override
+//    public boolean onNavigationItemSelected(@androidx.annotation.NonNull MenuItem item) {
+//        return firstViewContract.onNaviClick(item);
+//    }
+
+
 }

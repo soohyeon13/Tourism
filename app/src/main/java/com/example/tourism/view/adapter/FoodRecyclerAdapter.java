@@ -38,6 +38,12 @@ public class FoodRecyclerAdapter extends RecyclerView.Adapter<FoodRecyclerAdapte
         this.callback = callback;
     }
 
+    public FoodRecyclerAdapter(Context context,Callback callback) {
+        this.mFood = new ArrayList<>();
+        this.context = context;
+        this.callback = callback;
+    }
+
     @NonNull
     @Override
     public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -91,6 +97,7 @@ public class FoodRecyclerAdapter extends RecyclerView.Adapter<FoodRecyclerAdapte
                     .load(food.getFoodPicture())
                     .override(200,200)
                     .into(imgView);
+            Log.d("%^%^%^",String.valueOf(food.getId()));
             imgView.setOnClickListener(v -> callback.callback(food.getId()));
         }
 

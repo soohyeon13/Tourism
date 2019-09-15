@@ -1,8 +1,7 @@
-package com.example.tourism.view.fragment;
+package com.example.tourism.view.likelistfragment;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,20 +17,20 @@ import androidx.recyclerview.widget.SnapHelper;
 
 import com.example.tourism.R;
 import com.example.tourism.databinding.FragmentFoodBinding;
+import com.example.tourism.view.Clickable;
 import com.example.tourism.view.adapter.FoodRecyclerAdapter;
-import com.example.tourism.view.adapter.FragmentRecyclerAdapter;
-import com.example.tourism.viewmodel.bottomnaviviewmodel.LikeListViewModel;
-import com.example.tourism.viewmodel.food.FoodViewModel;
+import com.example.tourism.view.foodview.FoodDetailActivity;
 import com.example.tourism.viewmodel.fragment.FragmentFoodListViewModel;
 
 import java.util.Objects;
 
-public class FoodListFragment extends Fragment {
+public class FoodListFragment extends Fragment implements Clickable {
 
     private GridLayoutManager gridLayoutManager;
     private SnapHelper snapHelper;
     private RecyclerView recyclerView;
-    private FragmentRecyclerAdapter adapter;
+    private FoodRecyclerAdapter adapter;
+//    private FragmentRecyclerAdapter adapter;
     private FragmentFoodBinding binding;
     private FragmentFoodListViewModel viewModel;
 
@@ -53,8 +52,18 @@ public class FoodListFragment extends Fragment {
         recyclerView = binding.foodListRecycler;
         snapHelper.attachToRecyclerView(recyclerView);
         recyclerView.setLayoutManager(gridLayoutManager);
-        adapter = new FragmentRecyclerAdapter(getActivity());
+//        adapter = new FragmentRecyclerAdapter(getActivity());
+        adapter = new FoodRecyclerAdapter(getActivity(),this::clickItem);
         recyclerView.setAdapter(adapter);
+
+
         return binding.getRoot();
+    }
+
+    @Override
+    public void clickItem(int id) {
+        Intent intent = new Intent(getActivity(), FoodDetailActivity.class);
+        intent.putExtra("id",id);
+        startActivity(intent);
     }
 }

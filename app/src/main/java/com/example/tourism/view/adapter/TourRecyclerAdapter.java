@@ -1,6 +1,7 @@
 package com.example.tourism.view.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,12 @@ public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapte
         this.callback = callBack;
     }
 
+    public TourRecyclerAdapter(Context context,Callback callback) {
+        this.mTour = new ArrayList<>();
+        this.context = context;
+        this.callback = callback;
+    }
+
     @NonNull
     @Override
     public TourViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -72,8 +79,8 @@ public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapte
 
     public class TourViewHolder extends RecyclerView.ViewHolder {
         private final TourItemViewModel viewModel;
-        private TextView textView;
-        private ImageView imageview;
+        private final TextView textView;
+        private final ImageView imageview;
 
         public TourViewHolder(@NonNull View itemView, TourItemViewModel viewModel) {
             super(itemView);

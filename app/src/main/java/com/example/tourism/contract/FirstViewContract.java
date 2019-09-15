@@ -15,6 +15,6 @@ public interface FirstViewContract {
 
     void onClick(View view);
 
-    boolean onNaviClick(MenuItem item);
+//    boolean onNaviClick(MenuItem item);
 
 }

@@ -1,4 +1,4 @@
-package com.example.tourism;
+package com.example.tourism.util;
 
 import android.Manifest;
 import android.app.Service;

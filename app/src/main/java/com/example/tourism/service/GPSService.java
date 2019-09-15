@@ -5,7 +5,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.widget.Toast;
 
-import com.example.tourism.GPSTracker;
+import com.example.tourism.util.GPSTracker;
 import com.example.tourism.model.GPSVO;
 import com.example.tourism.model.PointVO;
 

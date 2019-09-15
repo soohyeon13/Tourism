@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.tourism.view.mainfragment.HomeFragment"
+        android:label="home_fragment"
+        tools:layout="@layout/home_fragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_likeMainFragment2"
+            app:destination="@id/likeMainFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_tourActivity"
+            app:destination="@id/tourActivity" />
+        <action
+            android:id="@+id/action_homeFragment_to_foodActivity"
+            app:destination="@id/foodActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/busSearchFragment"
+        android:name="com.example.tourism.view.mainfragment.BusSearchFragment"
+        android:label="fragment_bus_search"
+        tools:layout="@layout/fragment_bus_search" >
+        <action
+            android:id="@+id/action_busSearchFragment_to_homeFragment2"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/likeMainFragment"
+        android:name="com.example.tourism.view.mainfragment.LikeMainFragment"
+        android:label="activity_like_list"
+        tools:layout="@layout/activity_like_list">
+        <action
+            android:id="@+id/action_likeMainFragment_to_busSearchFragment2"
+            app:destination="@id/busSearchFragment" />
+    </fragment>
+    <activity
+        android:id="@+id/tourActivity"
+        android:name="com.example.tourism.view.tourview.TourActivity"
+        android:label="tour_category_activity"
+        tools:layout="@layout/tour_category_activity" />
+    <activity
+        android:id="@+id/foodActivity"
+        android:name="com.example.tourism.view.foodview.FoodActivity"
+        android:label="food_category_activity"
+        tools:layout="@layout/food_category_activity" />
+    <activity
+        android:id="@+id/foodDetailActivity"
+        android:name="com.example.tourism.view.foodview.FoodDetailActivity"
+        android:label="activity_detail_food"
+        tools:layout="@layout/activity_detail_food" />
+    <activity
+        android:id="@+id/tourDetailActivity"
+        android:name="com.example.tourism.view.tourview.TourDetailActivity"
+        android:label="activity_detail_tour"
+        tools:layout="@layout/activity_detail_tour" />
+</navigation>

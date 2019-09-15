@@ -1,4 +1,4 @@
-package com.example.tourism;
+package com.example.tourism.util;
 
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;
