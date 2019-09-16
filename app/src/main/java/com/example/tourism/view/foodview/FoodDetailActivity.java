@@ -2,9 +2,15 @@ package com.example.tourism.view.foodview;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,21 +29,23 @@ import com.example.tourism.viewmodel.food.FoodDetailViewModel;
 import java.util.HashMap;
 import java.util.List;
 
-public class FoodDetailActivity extends AppCompatActivity implements ImageContract {
+public class FoodDetailActivity extends Fragment implements ImageContract {
     private FoodDetailViewModel viewModel;
     private ImageRecyclerAdapter imageRecyclerAdapter;
+    private View view;
 
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ActivityDetailFoodBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_detail_food);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        ActivityDetailFoodBinding binding = DataBindingUtil.inflate(inflater,R.layout.activity_detail_food,container,false);
+        view = binding.getRoot();
 
-        final KakaoSearch kakaoSearch = ((TourApplication) getApplication())
+        final KakaoSearch kakaoSearch = ((TourApplication) getActivity().getApplication())
                 .getData(KakaoSearch.class, new HashMap<String, String>() {{
                     put("Authorization", "KakaoAK" + " " + getResources().getString(R.string.kakao_REST_API_key));
                 }});
-        binding.setViewModel(new FoodDetailViewModel(getApplication(),getIntent().getIntExtra("id",1),getApplicationContext(),new ImageService(kakaoSearch),this));
+        binding.setViewModel(new FoodDetailViewModel(getActivity().getApplication(),getActivity().getIntent().getIntExtra("id",1),getActivity().getApplicationContext(),new ImageService(kakaoSearch),this));
 
 
         viewModel = binding.getViewModel();
@@ -45,15 +53,35 @@ public class FoodDetailActivity extends AppCompatActivity implements ImageContra
         viewModel.loadImages();
 
         setipView();
+        return view;
     }
+
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        ActivityDetailFoodBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_detail_food);
+//
+//        final KakaoSearch kakaoSearch = ((TourApplication) getApplication())
+//                .getData(KakaoSearch.class, new HashMap<String, String>() {{
+//                    put("Authorization", "KakaoAK" + " " + getResources().getString(R.string.kakao_REST_API_key));
+//                }});
+//        binding.setViewModel(new FoodDetailViewModel(getApplication(),getIntent().getIntExtra("id",1),getApplicationContext(),new ImageService(kakaoSearch),this));
+//
+//
+//        viewModel = binding.getViewModel();
+//        viewModel.loadDetail();
+//        viewModel.loadImages();
+//
+//        setipView();
+//    }
 
     private void setipView() {
         SnapHelper snapHelper;
         snapHelper = new LinearSnapHelper();
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.imageRecycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.imageRecycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, true));
         snapHelper.attachToRecyclerView(recyclerView);
-        imageRecyclerAdapter = new ImageRecyclerAdapter((Context) this, (ImageContract) this);
+        imageRecyclerAdapter = new ImageRecyclerAdapter(getContext(), (ImageContract) this);
         recyclerView.setAdapter(imageRecyclerAdapter);
     }
 

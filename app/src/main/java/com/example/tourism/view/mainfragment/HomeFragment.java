@@ -9,10 +9,15 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.NavHostFragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.tourism.R;
@@ -25,6 +30,9 @@ import com.example.tourism.service.WeatherService;
 import com.example.tourism.view.TourApplication;
 import com.example.tourism.viewmodel.FirstViewModel;
 
+import java.util.Objects;
+import java.util.Optional;
+
 public class HomeFragment extends Fragment implements FirstViewContract {
 
     TextView weatherIcon;
@@ -32,6 +40,9 @@ public class HomeFragment extends Fragment implements FirstViewContract {
     private final static String PATH_TO_WEATHER_FONT = "fonts/weather.ttf";
     private FirstViewModel mViewModel;
     HomeFragmentBinding binding;
+    private NavController navController;
+    private NavDirections action;
+    private View view;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -41,6 +52,7 @@ public class HomeFragment extends Fragment implements FirstViewContract {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.home_fragment, container, false);
+        view = binding.getRoot();
 
         final WeatherSearch weatherSearch = ((TourApplication) getActivity().getApplication()).getData(WeatherSearch.class);
         binding.setViewModel(new FirstViewModel(this, new WeatherService(weatherSearch), new GPSService(getContext())));
@@ -49,25 +61,32 @@ public class HomeFragment extends Fragment implements FirstViewContract {
         mViewModel.loadWeathers();
 
         setupViews();
-
-        return binding.getRoot();
+        return view;
     }
 
     private void setupViews() {
         weatherIcon = binding.weatherIconText;
         weatherFont = Typeface.createFromAsset(getActivity().getAssets(), PATH_TO_WEATHER_FONT);
         weatherIcon.setTypeface(weatherFont);
+
+        try {
+            NavHostFragment host = Optional.ofNullable((NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.view_controller)).orElseThrow(Exception::new);
+            navController = host.getNavController();
+        } catch (Throwable ignored) {
+            Log.d("FirstActivity", String.valueOf(ignored));
+        }
+
     }
 
     @Override
     public void onClick(View view) {
-//        if (view.getId() == R.id.foodLayout) {
-//            Intent intent = new Intent(FirstActivity.this, FoodActivity.class);
-//            startActivity(intent);
-//        } else {
-//            Intent intent1 = new Intent(FirstActivity.this, TourActivity.class);
-//            startActivity(intent1);
-//        }
+        if (view.getId() == R.id.foodLayout) {
+            action= HomeFragmentDirections.actionHomeFragmentToFoodActivity();
+            navController.navigate(action);
+        } else {
+            action = HomeFragmentDirections.actionHomeFragmentToTourActivity();
+            navController.navigate(action);
+        }
     }
 
     @SuppressLint("SetTextI18n")

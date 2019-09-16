@@ -3,12 +3,22 @@ package com.example.tourism.view.foodview;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavAction;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,7 +33,10 @@ import com.example.tourism.view.adapter.HashTagSuggestAdapter;
 import com.example.tourism.viewmodel.food.FoodViewModel;
 import com.volokh.danylo.hashtaghelper.HashTagHelper;
 
-public class FoodActivity extends AppCompatActivity implements FoodViewContract, Clickable,HashTagHelper.OnHashTagClickListener{
+import java.util.Objects;
+import java.util.Optional;
+
+public class FoodActivity extends Fragment implements FoodViewContract, Clickable,HashTagHelper.OnHashTagClickListener{
 
     private HashTagHelper mTextHashTagHelper;
     private HashTagHelper mEditTextHashTagHelper;
@@ -36,26 +49,33 @@ public class FoodActivity extends AppCompatActivity implements FoodViewContract,
 
     private static final String[] WORDS = new String[] {"애월","제주"};
     private AutoCompleteTextView autoText;
+    private View view;
+    private NavController navController;
 
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        FoodCategoryActivityBinding binding = DataBindingUtil.setContentView(this,R.layout.food_category_activity);
-        binding.setViewModel(new FoodViewModel(getApplication(),this,this));
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        FoodCategoryActivityBinding binding = DataBindingUtil.inflate(inflater,R.layout.food_category_activity,container,false);
+
+        binding.setViewModel(new FoodViewModel(getActivity().getApplication(),this,getContext()));
+        view = binding.getRoot();
 
         foodViewModel = binding.getViewModel();
 
         setupViews();
+
+        return view;
     }
 
     private void setupViews() {
 
-        autoText = findViewById(R.id.auto_text_field);
-        HashTagSuggestAdapter adapter = new HashTagSuggestAdapter(this,android.R.layout.simple_dropdown_item_1line,WORDS);
+        autoText = view.findViewById(R.id.auto_text_field);
+        HashTagSuggestAdapter adapter = new HashTagSuggestAdapter(Objects.requireNonNull(getContext()),android.R.layout.simple_dropdown_item_1line,WORDS);
         adapter.setCursorPositionListener(() -> autoText.getSelectionStart());
         autoText.setAdapter(adapter);
 
-        mHashTagText = findViewById(R.id.text_h);
+        mHashTagText = view.findViewById(R.id.text_h);
 
         char[] additionalSymbols = new char[] { '_', '$' };
 
@@ -65,22 +85,31 @@ public class FoodActivity extends AppCompatActivity implements FoodViewContract,
         mEditTextHashTagHelper = HashTagHelper.Creator.create(getResources().getColor(R.color.colorPrimaryDark),null);
         mEditTextHashTagHelper.handle(autoText);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2);
         snapHelper = new LinearSnapHelper();
-        recyclerView = findViewById(R.id.foodRecycler);
+        recyclerView = view.findViewById(R.id.foodRecycler);
         snapHelper.attachToRecyclerView(recyclerView);
         recyclerView.setLayoutManager(gridLayoutManager);
-        foodRecyclerAdapter = new FoodRecyclerAdapter((Context)this,this, this::clickItem);
+        foodRecyclerAdapter = new FoodRecyclerAdapter(getContext(),this, this::clickItem);
         recyclerView.setAdapter(foodRecyclerAdapter);
+
+        try {
+            NavHostFragment host = Optional.ofNullable((NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.view_controller)).orElseThrow(Exception::new);
+            navController = host.getNavController();
+        } catch (Throwable ignored) {
+            Log.d("FirstActivity", String.valueOf(ignored));
+        }
     }
 
     @Override
     public void clickItem(int id) {
-        Intent intent = new Intent(this, FoodDetailActivity.class);
-        intent.putExtra("id", id);
-        startActivity(intent);
+        //Todo bundle 로 id 값 넘기기
+//        NavDirections action = FoodActivityDirections.actionFoodActivityToFoodDetailActivity();
+        Bundle bundle = new Bundle();
+        bundle.putInt("id",id);
+        Log.d("id",String.valueOf(id));
+        navController.navigate(R.id.action_foodActivity_to_foodDetailActivity,bundle);
     }
-
 
     @Override
     public void btnClick(View view) {

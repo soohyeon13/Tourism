@@ -14,11 +14,19 @@
             android:id="@+id/action_homeFragment_to_likeMainFragment2"
             app:destination="@id/likeMainFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_tourActivity"
-            app:destination="@id/tourActivity" />
-        <action
             android:id="@+id/action_homeFragment_to_foodActivity"
-            app:destination="@id/foodActivity" />
+            app:destination="@id/foodActivity"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_homeFragment_to_tourActivity"
+            app:destination="@id/tourActivity"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/busSearchFragment"
@@ -39,23 +47,31 @@
             app:destination="@id/busSearchFragment" />
     </fragment>
     <activity
-        android:id="@+id/tourActivity"
-        android:name="com.example.tourism.view.tourview.TourActivity"
-        android:label="tour_category_activity"
-        tools:layout="@layout/tour_category_activity" />
-    <activity
-        android:id="@+id/foodActivity"
-        android:name="com.example.tourism.view.foodview.FoodActivity"
-        android:label="food_category_activity"
-        tools:layout="@layout/food_category_activity" />
-    <activity
-        android:id="@+id/foodDetailActivity"
-        android:name="com.example.tourism.view.foodview.FoodDetailActivity"
-        android:label="activity_detail_food"
-        tools:layout="@layout/activity_detail_food" />
-    <activity
         android:id="@+id/tourDetailActivity"
         android:name="com.example.tourism.view.tourview.TourDetailActivity"
         android:label="activity_detail_tour"
         tools:layout="@layout/activity_detail_tour" />
+    <fragment
+        android:id="@+id/foodActivity"
+        android:name="com.example.tourism.view.foodview.FoodActivity"
+        android:label="food_category_activity"
+        tools:layout="@layout/food_category_activity" >
+        <action
+            android:id="@+id/action_foodActivity_to_foodDetailActivity"
+            app:destination="@id/foodDetailActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/tourActivity"
+        android:name="com.example.tourism.view.tourview.TourActivity"
+        android:label="tour_category_activity"
+        tools:layout="@layout/tour_category_activity" >
+        <action
+            android:id="@+id/action_tourActivity_to_tourDetailActivity"
+            app:destination="@id/tourDetailActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/foodDetailActivity"
+        android:name="com.example.tourism.view.foodview.FoodDetailActivity"
+        android:label="activity_detail_food"
+        tools:layout="@layout/activity_detail_food" />
 </navigation>

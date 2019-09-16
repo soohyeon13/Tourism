@@ -1,6 +1,7 @@
 package com.example.tourism.view;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,8 +23,6 @@ public class FirstActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
-//        ActivityFirstBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_first);
-
         setupViews();
 
     }
@@ -38,14 +37,10 @@ public class FirstActivity extends AppCompatActivity {
         try {
             NavHostFragment host = Optional.ofNullable((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.view_controller)).orElseThrow(Exception::new);
             navController = host.getNavController();
-//            NavigationUI.setupWithNavController(bottomNavigationView, navController);
             bottomNavigationView.setOnNavigationItemSelectedListener(this::onNaviClick);
         } catch (Throwable ignored) {
+            Log.d("FirstActivity", String.valueOf(ignored));
         }
-//        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
-//        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation);
-
-
     }
 
     public boolean onNaviClick(MenuItem item) {
@@ -61,31 +56,6 @@ public class FirstActivity extends AppCompatActivity {
                 return true;
 
         }
-//        return false;
-//        switch (item.getItemId()) {
-//            case R.id.return_home_menu:
-//                Log.d("####1",String.valueOf(item.getItemId()));
-//                return true;
-//            case R.id.like_list_menu:
-//                Log.d("####3",String.valueOf(item.getItemId()));
-//                Intent intent1 = new Intent(FirstActivity.this, ActivityLikeList.class);
-//                startActivity(intent1);
-//                return true;
-//            case R.id.search_bus_menu:
-//                String url = "daummaps://roadView?p=37.537229,127.005515";
-//                String download = "download path";
-//                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-//                startActivity(intent);
-////                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-////                List<ResolveInfo> list = getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-////                if (list == null || list.isEmpty()) {
-////                    this.startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse(download)));
-////                }else {
-////                    this.startActivity(intent);
-////                }
-//                Log.d("####4",String.valueOf(item.getItemId()));
-//                return true;
-//        }
         return false;
     }
 }

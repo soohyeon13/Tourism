@@ -2,12 +2,17 @@ package com.example.tourism.view.tourview;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,7 +27,7 @@ import com.example.tourism.view.adapter.TourRecyclerAdapter;
 import com.example.tourism.viewmodel.tour.TourViewModel;
 import com.volokh.danylo.hashtaghelper.HashTagHelper;
 
-public class TourActivity extends AppCompatActivity implements TourViewContract, Clickable, HashTagHelper.OnHashTagClickListener {
+public class TourActivity extends Fragment implements TourViewContract, Clickable, HashTagHelper.OnHashTagClickListener {
 
     private HashTagHelper mTextHashTagHelper;
     private HashTagHelper mEditTextHashTagHelper;
@@ -35,26 +40,29 @@ public class TourActivity extends AppCompatActivity implements TourViewContract,
 
     private static final String[] WORDS = new String[] {"애월","제주"};
     private AutoCompleteTextView autoText;
+    private View view;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        TourCategoryActivityBinding binding = DataBindingUtil.setContentView(this,R.layout.tour_category_activity);
-        binding.setViewModel(new TourViewModel(getApplication(),(TourViewContract)this));
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        TourCategoryActivityBinding binding = DataBindingUtil.inflate(inflater,R.layout.tour_category_activity,container,false);
+        view = binding.getRoot();
+        binding.setViewModel(new TourViewModel(getActivity().getApplication(),(TourViewContract)this));
 
         tourViewModel = binding.getViewModel();
-
         setupViews();
+
+        return view;
     }
 
     private void setupViews() {
-        autoText = findViewById(R.id.auto_text_field);
-        HashTagSuggestAdapter adapter = new HashTagSuggestAdapter(this,android.R.layout.simple_dropdown_item_1line,WORDS);
+        autoText = view.findViewById(R.id.auto_text_field);
+        HashTagSuggestAdapter adapter = new HashTagSuggestAdapter(getContext(),android.R.layout.simple_dropdown_item_1line,WORDS);
         adapter.setCursorPositionListener(() -> autoText.getSelectionStart());
         autoText.setAdapter(adapter);
 
 
-        mHashTagText = findViewById(R.id.text_h);
+        mHashTagText = view.findViewById(R.id.text_h);
 
         char[] additionalSymbols = new char[] { '_', '$' };
 
@@ -64,12 +72,12 @@ public class TourActivity extends AppCompatActivity implements TourViewContract,
         mEditTextHashTagHelper = HashTagHelper.Creator.create(getResources().getColor(R.color.colorPrimaryDark),null);
         mEditTextHashTagHelper.handle(autoText);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2);
         snapHelper = new LinearSnapHelper();
-        tourRecycler = findViewById(R.id.tourRecycler);
+        tourRecycler = view.findViewById(R.id.tourRecycler);
         snapHelper.attachToRecyclerView(tourRecycler);
         tourRecycler.setLayoutManager(gridLayoutManager);
-        tourRecyclerAdapter = new TourRecyclerAdapter(this,this,this::clickItem);
+        tourRecyclerAdapter = new TourRecyclerAdapter(getContext(),this,this::clickItem);
         tourRecycler.setAdapter(tourRecyclerAdapter);
 
     }
@@ -82,9 +90,9 @@ public class TourActivity extends AppCompatActivity implements TourViewContract,
 
     @Override
     public void clickItem(int id) {
-        Intent intent = new Intent(this,TourDetailActivity.class);
-        intent.putExtra("tour_id",id);
-        startActivity(intent);
+//        Intent intent = new Intent(this,TourDetailActivity.class);
+//        intent.putExtra("tour_id",id);
+//        startActivity(intent);
     }
 
     @Override
