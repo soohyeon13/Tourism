@@ -2,6 +2,7 @@ package com.example.tourism.view.foodview;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import com.example.tourism.viewmodel.food.FoodDetailViewModel;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 public class FoodDetailActivity extends Fragment implements ImageContract {
     private FoodDetailViewModel viewModel;
@@ -45,8 +47,7 @@ public class FoodDetailActivity extends Fragment implements ImageContract {
                 .getData(KakaoSearch.class, new HashMap<String, String>() {{
                     put("Authorization", "KakaoAK" + " " + getResources().getString(R.string.kakao_REST_API_key));
                 }});
-        binding.setViewModel(new FoodDetailViewModel(getActivity().getApplication(),getActivity().getIntent().getIntExtra("id",1),getActivity().getApplicationContext(),new ImageService(kakaoSearch),this));
-
+        binding.setViewModel(new FoodDetailViewModel(getActivity().getApplication(), Optional.ofNullable(getArguments().getInt("id")).orElse(1),getActivity().getApplicationContext(),new ImageService(kakaoSearch),this));
 
         viewModel = binding.getViewModel();
         viewModel.loadDetail();

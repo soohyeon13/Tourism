@@ -46,11 +46,6 @@
             android:id="@+id/action_likeMainFragment_to_busSearchFragment2"
             app:destination="@id/busSearchFragment" />
     </fragment>
-    <activity
-        android:id="@+id/tourDetailActivity"
-        android:name="com.example.tourism.view.tourview.TourDetailActivity"
-        android:label="activity_detail_tour"
-        tools:layout="@layout/activity_detail_tour" />
     <fragment
         android:id="@+id/foodActivity"
         android:name="com.example.tourism.view.foodview.FoodActivity"
@@ -74,4 +69,9 @@
         android:name="com.example.tourism.view.foodview.FoodDetailActivity"
         android:label="activity_detail_food"
         tools:layout="@layout/activity_detail_food" />
+    <fragment
+        android:id="@+id/tourDetailActivity"
+        android:name="com.example.tourism.view.tourview.TourDetailActivity"
+        android:label="activity_detail_tour"
+        tools:layout="@layout/activity_detail_tour" />
 </navigation>

@@ -2,6 +2,7 @@ package com.example.tourism.view.tourview;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,6 +29,8 @@ import com.example.tourism.view.adapter.HashTagSuggestAdapter;
 import com.example.tourism.view.adapter.TourRecyclerAdapter;
 import com.example.tourism.viewmodel.tour.TourViewModel;
 import com.volokh.danylo.hashtaghelper.HashTagHelper;
+
+import java.util.Optional;
 
 public class TourActivity extends Fragment implements TourViewContract, Clickable, HashTagHelper.OnHashTagClickListener {
 
@@ -41,6 +46,7 @@ public class TourActivity extends Fragment implements TourViewContract, Clickabl
     private static final String[] WORDS = new String[] {"애월","제주"};
     private AutoCompleteTextView autoText;
     private View view;
+    private NavController navController;
 
     @Nullable
     @Override
@@ -80,6 +86,13 @@ public class TourActivity extends Fragment implements TourViewContract, Clickabl
         tourRecyclerAdapter = new TourRecyclerAdapter(getContext(),this,this::clickItem);
         tourRecycler.setAdapter(tourRecyclerAdapter);
 
+        try {
+            NavHostFragment host = Optional.ofNullable((NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.view_controller)).orElseThrow(Exception::new);
+            navController = host.getNavController();
+        } catch (Throwable ignored) {
+            Log.d("FirstActivity", String.valueOf(ignored));
+        }
+
     }
 
     @Override
@@ -90,9 +103,9 @@ public class TourActivity extends Fragment implements TourViewContract, Clickabl
 
     @Override
     public void clickItem(int id) {
-//        Intent intent = new Intent(this,TourDetailActivity.class);
-//        intent.putExtra("tour_id",id);
-//        startActivity(intent);
+        Bundle bundle = new Bundle();
+        bundle.putInt("id",id);
+        navController.navigate(R.id.action_tourActivity_to_tourDetailActivity);
     }
 
     @Override

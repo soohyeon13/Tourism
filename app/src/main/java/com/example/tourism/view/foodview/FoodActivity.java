@@ -107,7 +107,6 @@ public class FoodActivity extends Fragment implements FoodViewContract, Clickabl
 //        NavDirections action = FoodActivityDirections.actionFoodActivityToFoodDetailActivity();
         Bundle bundle = new Bundle();
         bundle.putInt("id",id);
-        Log.d("id",String.valueOf(id));
         navController.navigate(R.id.action_foodActivity_to_foodDetailActivity,bundle);
     }
 
