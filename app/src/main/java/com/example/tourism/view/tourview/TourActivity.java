@@ -105,7 +105,7 @@ public class TourActivity extends Fragment implements TourViewContract, Clickabl
     public void clickItem(int id) {
         Bundle bundle = new Bundle();
         bundle.putInt("id",id);
-        navController.navigate(R.id.action_tourActivity_to_tourDetailActivity);
+        navController.navigate(R.id.action_tourActivity_to_tourDetailActivity,bundle);
     }
 
     @Override

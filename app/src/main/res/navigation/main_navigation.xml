@@ -45,6 +45,12 @@
         <action
             android:id="@+id/action_likeMainFragment_to_busSearchFragment2"
             app:destination="@id/busSearchFragment" />
+        <action
+            android:id="@+id/action_likeMainFragment_to_foodDetailActivity"
+            app:destination="@id/foodDetailActivity" />
+        <action
+            android:id="@+id/action_likeMainFragment_to_tourDetailActivity"
+            app:destination="@id/tourDetailActivity" />
     </fragment>
     <fragment
         android:id="@+id/foodActivity"

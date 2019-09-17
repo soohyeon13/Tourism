@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,6 +35,7 @@ public class FoodListFragment extends Fragment implements Clickable {
 //    private FragmentRecyclerAdapter adapter;
     private FragmentFoodBinding binding;
     private FragmentFoodListViewModel viewModel;
+    private NavController navController;
 
     public static FoodListFragment newInstance() {
         return new FoodListFragment();
@@ -45,6 +48,7 @@ public class FoodListFragment extends Fragment implements Clickable {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_food,container,false);
         binding.setViewModel(new FragmentFoodListViewModel(Objects.requireNonNull(getActivity()).getApplication()));
         viewModel = binding.getViewModel();
+
         viewModel.getFoodLikeList("제주시","동부").observe(this,like ->adapter.setFood(like));
 
         gridLayoutManager = new GridLayoutManager(getActivity(),2);
@@ -52,18 +56,19 @@ public class FoodListFragment extends Fragment implements Clickable {
         recyclerView = binding.foodListRecycler;
         snapHelper.attachToRecyclerView(recyclerView);
         recyclerView.setLayoutManager(gridLayoutManager);
-//        adapter = new FragmentRecyclerAdapter(getActivity());
         adapter = new FoodRecyclerAdapter(getActivity(),this::clickItem);
         recyclerView.setAdapter(adapter);
 
+        NavHostFragment host = (NavHostFragment)getActivity().getSupportFragmentManager().findFragmentById(R.id.view_controller);
+        navController = host.getNavController();
 
         return binding.getRoot();
     }
 
     @Override
     public void clickItem(int id) {
-        Intent intent = new Intent(getActivity(), FoodDetailActivity.class);
-        intent.putExtra("id",id);
-        startActivity(intent);
+        Bundle bundle = new Bundle();
+        bundle.putInt("id",id);
+        navController.navigate(R.id.action_likeMainFragment_to_foodDetailActivity,bundle);
     }
 }

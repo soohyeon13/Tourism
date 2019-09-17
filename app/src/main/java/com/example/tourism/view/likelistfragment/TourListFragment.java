@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,6 +33,7 @@ public class TourListFragment extends Fragment implements Clickable {
     private SnapHelper snapHelper;
     private RecyclerView recyclerView;
     private GridLayoutManager gridLayoutManager;
+    private NavController navController;
 
     public static TourListFragment newInstance() {
         return new TourListFragment();
@@ -41,6 +44,7 @@ public class TourListFragment extends Fragment implements Clickable {
         FragmentTourBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tour,container,false);
         binding.setViewModel(new FragmentFoodListViewModel(Objects.requireNonNull(getActivity()).getApplication()));
         viewModel = binding.getViewModel();
+
         viewModel.getTourLikeList("제주시","동부").observe(this,like -> adapter.setTour(like));
 
         snapHelper = new LinearSnapHelper();
@@ -51,13 +55,16 @@ public class TourListFragment extends Fragment implements Clickable {
         adapter = new TourRecyclerAdapter(getActivity(),this::clickItem);
         recyclerView.setAdapter(adapter);
 
+        NavHostFragment host = (NavHostFragment) Objects.requireNonNull(getActivity().getSupportFragmentManager().findFragmentById(R.id.view_controller));
+        navController = host.getNavController();
+
         return binding.getRoot();
     }
 
     @Override
     public void clickItem(int id) {
-        Intent intent = new Intent(getActivity(), TourDetailActivity.class);
-        intent.putExtra("id",id);
-        startActivity(intent);
+        Bundle bundle = new Bundle();
+        bundle.putInt("id",id);
+        navController.navigate(R.id.action_likeMainFragment_to_tourDetailActivity,bundle);
     }
 }

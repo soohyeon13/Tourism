@@ -57,25 +57,6 @@ public class FoodDetailActivity extends Fragment implements ImageContract {
         return view;
     }
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        ActivityDetailFoodBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_detail_food);
-//
-//        final KakaoSearch kakaoSearch = ((TourApplication) getApplication())
-//                .getData(KakaoSearch.class, new HashMap<String, String>() {{
-//                    put("Authorization", "KakaoAK" + " " + getResources().getString(R.string.kakao_REST_API_key));
-//                }});
-//        binding.setViewModel(new FoodDetailViewModel(getApplication(),getIntent().getIntExtra("id",1),getApplicationContext(),new ImageService(kakaoSearch),this));
-//
-//
-//        viewModel = binding.getViewModel();
-//        viewModel.loadDetail();
-//        viewModel.loadImages();
-//
-//        setipView();
-//    }
-
     private void setipView() {
         SnapHelper snapHelper;
         snapHelper = new LinearSnapHelper();
@@ -84,6 +65,8 @@ public class FoodDetailActivity extends Fragment implements ImageContract {
         snapHelper.attachToRecyclerView(recyclerView);
         imageRecyclerAdapter = new ImageRecyclerAdapter(getContext(), (ImageContract) this);
         recyclerView.setAdapter(imageRecyclerAdapter);
+
+
     }
 
     @Override
