@@ -74,10 +74,19 @@
         android:id="@+id/foodDetailActivity"
         android:name="com.example.tourism.view.foodview.FoodDetailActivity"
         android:label="activity_detail_food"
-        tools:layout="@layout/activity_detail_food" />
+        tools:layout="@layout/activity_detail_food" >
+        <action
+            android:id="@+id/action_foodDetailActivity_to_kakaoMapActivity2"
+            app:destination="@id/kakaoMapActivity2" />
+    </fragment>
     <fragment
         android:id="@+id/tourDetailActivity"
         android:name="com.example.tourism.view.tourview.TourDetailActivity"
         android:label="activity_detail_tour"
         tools:layout="@layout/activity_detail_tour" />
+    <fragment
+        android:id="@+id/kakaoMapActivity2"
+        android:name="com.example.tourism.view.kakaomapview.KakaoMapActivity"
+        android:label="activity_kakao_map"
+        tools:layout="@layout/activity_kakao_map" />
 </navigation>

@@ -1,6 +1,7 @@
 package com.example.tourism.view.foodview;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,8 +28,10 @@ import com.example.tourism.model.KakaoSearch;
 import com.example.tourism.service.ImageService;
 import com.example.tourism.view.TourApplication;
 import com.example.tourism.view.adapter.ImageRecyclerAdapter;
+import com.example.tourism.view.kakaomapview.KakaoMapActivity;
 import com.example.tourism.viewmodel.food.FoodDetailViewModel;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +40,7 @@ public class FoodDetailActivity extends Fragment implements ImageContract {
     private FoodDetailViewModel viewModel;
     private ImageRecyclerAdapter imageRecyclerAdapter;
     private View view;
+    private NavController navController;
 
 
     @Nullable
@@ -52,6 +58,13 @@ public class FoodDetailActivity extends Fragment implements ImageContract {
         viewModel = binding.getViewModel();
         viewModel.loadDetail();
         viewModel.loadImages();
+
+        try {
+            NavHostFragment host = Optional.ofNullable((NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.view_controller)).orElseThrow(Exception::new);
+            navController = host.getNavController();
+        } catch (Throwable ignored) {
+            Log.d("FirstActivity", String.valueOf(ignored));
+        }
 
         setipView();
         return view;
@@ -72,5 +85,16 @@ public class FoodDetailActivity extends Fragment implements ImageContract {
     @Override
     public void showImages(List<ImageVO.Document> items) {
         imageRecyclerAdapter.setItemsAndRefresh(items);
+    }
+
+    @Override
+    public void onClick(double la, double lo,String name) {
+        Bundle bundle = new Bundle();
+        double[] list = new double[2];
+        list[0] = la;
+        list[1] = lo;
+        bundle.putString("name",name);
+        bundle.putDoubleArray("location",list);
+        navController.navigate(R.id.action_foodDetailActivity_to_kakaoMapActivity2,bundle);
     }
 }

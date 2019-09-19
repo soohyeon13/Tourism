@@ -36,6 +36,7 @@
         <activity android:name=".view.foodview.FoodDetailActivity"/>
         <activity android:name=".view.tourview.TourDetailActivity"/>
         <activity android:name=".view.bottomnavi.ActivityLikeList"/>
+        <activity android:name=".view.kakaomapview.KakaoMapActivity"/>
     </application>
 
 </manifest>

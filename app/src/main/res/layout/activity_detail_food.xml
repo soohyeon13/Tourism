@@ -133,7 +133,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:clickable="true"
-            android:onClick="@{viewModel::onKaKaoNavi}"
+            android:onClick="@{viewModel::onKaKaoMap}"
             app:backgroundTint="#1A3A59"
             app:elevation="6dp"
             app:layout_constraintBottom_toBottomOf="parent"

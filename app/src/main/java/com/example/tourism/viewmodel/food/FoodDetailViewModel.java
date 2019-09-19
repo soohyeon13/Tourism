@@ -70,17 +70,21 @@ public class FoodDetailViewModel extends AndroidViewModel {
         foodMenu.set(getDetailFood().getFoodMenu());
     }
 
-    public void onKaKaoNavi(View v) {
+    public void onKaKaoMap(View v) {
+
+
         GPSService gpsService = new GPSService(context);
 
         double la = gpsService.getPointFromGeoCoder(foodLocation.get()).y;
         double lo = gpsService.getPointFromGeoCoder(foodLocation.get()).x;
 
-        Location destination = Location.newBuilder(foodLocation.get(),lo,la).build();
-        NaviOptions options = NaviOptions.newBuilder().setCoordType(CoordType.WGS84).setVehicleType(VehicleType.FIRST).setRpOption(RpOption.SHORTEST).build();
-        KakaoNaviParams.Builder builder = KakaoNaviParams.newBuilder(destination).setNaviOptions(options);
-        KakaoNaviParams params = builder.build();
-        KakaoNaviService.navigate(context,builder.build());
+        imageContract.onClick(la,lo,foodLocation.get());
+
+//        Location destination = Location.newBuilder(foodLocation.get(),lo,la).build();
+//        NaviOptions options = NaviOptions.newBuilder().setCoordType(CoordType.WGS84).setVehicleType(VehicleType.FIRST).setRpOption(RpOption.SHORTEST).build();
+//        KakaoNaviParams.Builder builder = KakaoNaviParams.newBuilder(destination).setNaviOptions(options);
+//        KakaoNaviParams params = builder.build();
+//        KakaoNaviService.navigate(context,builder.build());
     }
 
     @SuppressLint("CheckResult")

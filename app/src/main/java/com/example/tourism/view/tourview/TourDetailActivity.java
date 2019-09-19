@@ -70,4 +70,9 @@ public class TourDetailActivity extends Fragment implements ImageContract{
     public void showImages(List<ImageVO.Document> items) {
         imageRecyclerAdapter.setItemsAndRefresh(items);
     }
+
+    @Override
+    public void onClick(double la, double lo, String name) {
+
+    }
 }
