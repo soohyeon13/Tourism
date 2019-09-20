@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,6 +37,7 @@ public class TourDetailActivity extends Fragment implements ImageContract{
     private TourDetailViewModel viewModel;
     private ImageRecyclerAdapter imageRecyclerAdapter;
     private View view;
+    private NavController navController;
 
     @Nullable
     @Override
@@ -51,6 +54,14 @@ public class TourDetailActivity extends Fragment implements ImageContract{
         viewModel = binding.getViewModel();
         viewModel.loadDetail();
         viewModel.loadImages();
+
+        try {
+            NavHostFragment host = Optional.ofNullable((NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.view_controller)).orElseThrow(Exception::new);
+            navController = host.getNavController();
+        } catch (Throwable ignored) {
+            Log.d("FirstActivity", String.valueOf(ignored));
+        }
+
 
         setupViews();
         return view;
@@ -73,6 +84,12 @@ public class TourDetailActivity extends Fragment implements ImageContract{
 
     @Override
     public void onClick(double la, double lo, String name) {
-
+        Bundle bundle = new Bundle();
+        double[] list = new double[2];
+        list[0]=la;
+        list[1]=lo;
+        bundle.putDoubleArray("location",list);
+        bundle.putString("name",name);
+        navController.navigate(R.id.action_tourDetailActivity_to_kakaoMapActivity2,bundle);
     }
 }

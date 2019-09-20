@@ -12,7 +12,11 @@
         tools:layout="@layout/home_fragment" >
         <action
             android:id="@+id/action_homeFragment_to_likeMainFragment2"
-            app:destination="@id/likeMainFragment" />
+            app:destination="@id/likeMainFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_homeFragment_to_foodActivity"
             app:destination="@id/foodActivity"
@@ -35,7 +39,11 @@
         tools:layout="@layout/fragment_bus_search" >
         <action
             android:id="@+id/action_busSearchFragment_to_homeFragment2"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/likeMainFragment"
@@ -44,13 +52,25 @@
         tools:layout="@layout/activity_like_list">
         <action
             android:id="@+id/action_likeMainFragment_to_busSearchFragment2"
-            app:destination="@id/busSearchFragment" />
+            app:destination="@id/busSearchFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_likeMainFragment_to_foodDetailActivity"
-            app:destination="@id/foodDetailActivity" />
+            app:destination="@id/foodDetailActivity"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_likeMainFragment_to_tourDetailActivity"
-            app:destination="@id/tourDetailActivity" />
+            app:destination="@id/tourDetailActivity"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/foodActivity"
@@ -59,7 +79,11 @@
         tools:layout="@layout/food_category_activity" >
         <action
             android:id="@+id/action_foodActivity_to_foodDetailActivity"
-            app:destination="@id/foodDetailActivity" />
+            app:destination="@id/foodDetailActivity"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/tourActivity"
@@ -68,7 +92,11 @@
         tools:layout="@layout/tour_category_activity" >
         <action
             android:id="@+id/action_tourActivity_to_tourDetailActivity"
-            app:destination="@id/tourDetailActivity" />
+            app:destination="@id/tourDetailActivity"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/foodDetailActivity"
@@ -77,13 +105,25 @@
         tools:layout="@layout/activity_detail_food" >
         <action
             android:id="@+id/action_foodDetailActivity_to_kakaoMapActivity2"
-            app:destination="@id/kakaoMapActivity2" />
+            app:destination="@id/kakaoMapActivity2"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/tourDetailActivity"
         android:name="com.example.tourism.view.tourview.TourDetailActivity"
         android:label="activity_detail_tour"
-        tools:layout="@layout/activity_detail_tour" />
+        tools:layout="@layout/activity_detail_tour" >
+        <action
+            android:id="@+id/action_tourDetailActivity_to_kakaoMapActivity2"
+            app:destination="@id/kakaoMapActivity2"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
     <fragment
         android:id="@+id/kakaoMapActivity2"
         android:name="com.example.tourism.view.kakaomapview.KakaoMapActivity"

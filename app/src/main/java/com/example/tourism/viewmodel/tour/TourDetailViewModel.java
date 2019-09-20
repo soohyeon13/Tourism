@@ -69,17 +69,12 @@ public class TourDetailViewModel extends AndroidViewModel {
         tourDescribe.set(getDetailTour().getTourDescribe());
     }
 
-    public void onKaKaoNavi(View v) {
+    public void startKakaoMapView(View v) {
         GPSService gpsService = new GPSService(context);
 
         double lo = gpsService.getPointFromGeoCoder(tourLocation.get()).x;
         double la = gpsService.getPointFromGeoCoder(tourLocation.get()).y;
-
-        Location destination = Location.newBuilder(tourLocation.get(),lo,la).build();
-        NaviOptions options = NaviOptions.newBuilder().setCoordType(CoordType.WGS84).setVehicleType(VehicleType.FIRST).setRpOption(RpOption.SHORTEST).build();
-        KakaoNaviParams.Builder builder = KakaoNaviParams.newBuilder(destination).setNaviOptions(options);
-        KakaoNaviParams params = builder.build();
-        KakaoNaviService.navigate(context,builder.build());
+        imageContract.onClick(la,lo,tourName.get());
     }
 
     @SuppressLint("CheckResult")
