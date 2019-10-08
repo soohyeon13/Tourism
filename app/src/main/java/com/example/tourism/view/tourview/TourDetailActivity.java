@@ -71,7 +71,7 @@ public class TourDetailActivity extends Fragment implements ImageContract{
         SnapHelper snapHelper;
         snapHelper = new LinearSnapHelper();
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.imageRecycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, true));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         snapHelper.attachToRecyclerView(recyclerView);
         imageRecyclerAdapter = new ImageRecyclerAdapter(getContext(), (ImageContract) this);
         recyclerView.setAdapter(imageRecyclerAdapter);

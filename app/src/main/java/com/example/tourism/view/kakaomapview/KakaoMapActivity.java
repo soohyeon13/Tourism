@@ -5,6 +5,7 @@ import android.os.PersistableBundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -65,7 +66,33 @@ public class KakaoMapActivity extends Fragment {
         marker.setCustomImageAnchor(0.5f,1.0f);
         mapView.addPOIItem(marker);
 
+        //Todo 충분한 공부가 필요(더 많은 기능을 생각해봐야됨)
+        //Todo ViewModel 로 분리 할 수 있는지를 검토
+        MapView.POIItemEventListener poiItemEventListener = new MapView.POIItemEventListener() {
+            @Override
+            public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
+                Toast.makeText(getContext(),"선택되었습니다",Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
+
+            }
+
+            @Override
+            public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
+
+            }
+
+            @Override
+            public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
+
+            }
+        };
+        poiItemEventListener.onPOIItemSelected(mapView,marker);
 
 
     }
 }
+
+
