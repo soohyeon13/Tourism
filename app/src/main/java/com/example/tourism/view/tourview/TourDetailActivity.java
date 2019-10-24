@@ -49,7 +49,7 @@ public class TourDetailActivity extends Fragment implements ImageContract{
                     put("Authorization", "KakaoAK" + " " + getResources().getString(R.string.kakao_REST_API_key));
                 }});
 
-        binding.setViewModel(new TourDetailViewModel(getActivity().getApplication(), Optional.ofNullable(getArguments().getInt("id")).orElse(1),getActivity().getApplicationContext(),new ImageService(kakaoSearch),this));
+        binding.setViewModel(new TourDetailViewModel(getActivity().getApplication(), Optional.ofNullable(getArguments().getInt("id")).orElse(1),getActivity().getApplicationContext(),new ImageService(kakaoSearch,getArguments().getString("name")),this));
 
         viewModel = binding.getViewModel();
         viewModel.loadDetail();

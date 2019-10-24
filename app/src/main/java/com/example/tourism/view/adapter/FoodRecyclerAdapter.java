@@ -29,7 +29,7 @@ public class FoodRecyclerAdapter extends RecyclerView.Adapter<FoodRecyclerAdapte
     private List<FoodEntity> mFood;
     private Callback callback;
     public interface Callback {
-        void callback(int id);
+        void callback(int id,String name);
     }
     public FoodRecyclerAdapter(Context context, FoodViewContract foodViewContract,Callback callback) {
         this.mFood = new ArrayList<>();
@@ -98,7 +98,7 @@ public class FoodRecyclerAdapter extends RecyclerView.Adapter<FoodRecyclerAdapte
                     .override(200,200)
                     .into(imgView);
             Log.d("%^%^%^",String.valueOf(food.getId()));
-            imgView.setOnClickListener(v -> callback.callback(food.getId()));
+            imgView.setOnClickListener(v -> callback.callback(food.getId(),food.getFoodName()));
         }
 
     }

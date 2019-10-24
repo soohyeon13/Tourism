@@ -98,18 +98,20 @@ public class TourActivity extends Fragment implements TourViewContract, Clickabl
     @Override
     public void btnClick(View view) {
         mHashTagText.setText(autoText.getText());
-        tourViewModel.getSelectedCateTour("제주시","동부").observe(this,tours -> tourRecyclerAdapter.setTour(tours));
+        tourViewModel.getSelectedCateTour(autoText.getText().toString().trim()).observe(this,tours -> tourRecyclerAdapter.setTour(tours));
     }
 
-    @Override
-    public void clickItem(int id) {
-        Bundle bundle = new Bundle();
-        bundle.putInt("id",id);
-        navController.navigate(R.id.action_tourActivity_to_tourDetailActivity,bundle);
-    }
 
     @Override
     public void onHashTagClicked(String hashTag) {
         //Todo click event
+    }
+
+    @Override
+    public void clickItem(int id, String name) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("id",id);
+        bundle.putString("name",name);
+        navController.navigate(R.id.action_tourActivity_to_tourDetailActivity,bundle);
     }
 }

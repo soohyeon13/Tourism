@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.tourism.R;
 import com.example.tourism.databinding.ActivityKakaoMapBinding;
+import com.example.tourism.view.adapter.CustomCalloutBalloonAdapter;
 import com.example.tourism.viewmodel.kakaomapviewmodel.KakaoMapViewModel;
 
 import net.daum.mf.map.api.MapPOIItem;
@@ -24,7 +25,7 @@ import net.daum.mf.map.api.MapView;
 import java.util.Objects;
 
 
-public class KakaoMapActivity extends Fragment {
+public class KakaoMapActivity extends Fragment{
 
     private ActivityKakaoMapBinding binding;
     private View view;
@@ -34,10 +35,12 @@ public class KakaoMapActivity extends Fragment {
     private MapPoint point;
     private MapPOIItem marker;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater,R.layout.activity_kakao_map,container,false);
+
         view = binding.getRoot();
         list = Objects.requireNonNull(getArguments()).getDoubleArray("location");
         name = getArguments().getString("name");
@@ -50,8 +53,7 @@ public class KakaoMapActivity extends Fragment {
         mapView = new MapView(getContext());
         ViewGroup mapViewContainer = (ViewGroup) view.findViewById(R.id.map_view);
         mapViewContainer.addView(mapView);
-//        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(list[0],list[1]),true);
-        point = MapPoint.mapPointWithGeoCoord(37.53737528, 127.00557633);
+        point = MapPoint.mapPointWithGeoCoord(list[0], list[1]);
         mapView.setMapCenterPoint(point,true);
         mapView.zoomIn(true);
         mapView.zoomOut(true);
@@ -63,8 +65,9 @@ public class KakaoMapActivity extends Fragment {
         marker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
         marker.setCustomImageResourceId(R.drawable.pin);
         marker.setCustomImageAutoscale(false);
-        marker.setCustomImageAnchor(0.5f,1.0f);
+        marker.setCustomImageAnchor(1.0f,1.0f);
         mapView.addPOIItem(marker);
+        mapView.setCalloutBalloonAdapter(new CustomCalloutBalloonAdapter(getActivity(),name));
 
         //Todo 충분한 공부가 필요(더 많은 기능을 생각해봐야됨)
         //Todo ViewModel 로 분리 할 수 있는지를 검토

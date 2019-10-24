@@ -17,8 +17,11 @@ public interface TourDao {
     @Query("SELECT * FROM tour")
     LiveData<List<TourEntity>> findAll();
 
-    @Query("SELECT * FROM tour WHERE tour_city LIKE :tourCity AND tour_category LIKE :tourCategory ")
-    LiveData<List<TourEntity>> findSelectedCateTour(String tourCity, String tourCategory);
+    @Query("SELECT * FROM tour WHERE tour_category LIKE :tourCategory ")
+    LiveData<List<TourEntity>> findSelectedCateTour(String tourCategory);
+
+    @Query("SELECT * FROM tour WHERE tour_like LIKE :tourLike")
+    LiveData<List<TourEntity>> findTourLikeList(int tourLike);
 
     @Query("SELECT * FROM tour WHERE id =:tourId")
     TourEntity findDetailTour(int tourId);

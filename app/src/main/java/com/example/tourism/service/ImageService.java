@@ -8,15 +8,16 @@ import io.reactivex.Observable;
 
 public class ImageService implements RetrofitService<ImageVO> {
     private final KakaoSearch image;
-
-    public ImageService(KakaoSearch image) {
+    private String name;
+    public ImageService(KakaoSearch image,String name) {
         this.image = image;
+        this.name = name;
     }
 
 
     @SuppressLint("CheckResult")
     @Override
     public Observable<ImageVO> getData() {
-        return image.listImage("제주도 바다");
+        return image.listImage(name);
     }
 }

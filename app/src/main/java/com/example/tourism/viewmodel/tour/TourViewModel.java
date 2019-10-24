@@ -30,7 +30,7 @@ public class TourViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<TourEntity>> getAllTours(){return tourDao.findAll();}
-    public LiveData<List<TourEntity>> getSelectedCateTour(String tourCity,String tourCategory){return tourDao.findSelectedCateTour(tourCity,tourCategory);}
+    public LiveData<List<TourEntity>> getSelectedCateTour(String tourCategory){return tourDao.findSelectedCateTour(tourCategory);}
 
     public void saveTour(TourEntity tourEntity){
         executorService.execute(() -> tourDao.save(tourEntity));

@@ -51,10 +51,6 @@ public class FirstActivity extends AppCompatActivity {
             case R.id.like_list_menu:
                 navController.navigate(R.id.likeMainFragment);
                 return true;
-            case R.id.search_bus_menu:
-                navController.navigate(R.id.busSearchFragment);
-                return true;
-
         }
         return false;
     }

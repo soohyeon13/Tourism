@@ -45,7 +45,7 @@ public class TourListFragment extends Fragment implements Clickable {
         binding.setViewModel(new FragmentFoodListViewModel(Objects.requireNonNull(getActivity()).getApplication()));
         viewModel = binding.getViewModel();
 
-        viewModel.getTourLikeList("제주시","동부").observe(this,like -> adapter.setTour(like));
+        viewModel.getTourLikeList(1).observe(this,like -> adapter.setTour(like));
 
         snapHelper = new LinearSnapHelper();
         recyclerView = binding.fragmentTour;
@@ -62,9 +62,10 @@ public class TourListFragment extends Fragment implements Clickable {
     }
 
     @Override
-    public void clickItem(int id) {
+    public void clickItem(int id, String name) {
         Bundle bundle = new Bundle();
         bundle.putInt("id",id);
+        bundle.putString("name",name);
         navController.navigate(R.id.action_likeMainFragment_to_tourDetailActivity,bundle);
     }
 }

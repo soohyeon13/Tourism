@@ -17,7 +17,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.tourism.R;
@@ -28,12 +27,17 @@ import com.example.tourism.model.WeatherVO;
 import com.example.tourism.service.GPSService;
 import com.example.tourism.service.WeatherService;
 import com.example.tourism.view.TourApplication;
+import com.example.tourism.view.adapter.PagerAdapter;
+import com.example.tourism.view.catefragment.CateFoodFragment;
+import com.example.tourism.view.catefragment.CateTourFragment;
 import com.example.tourism.viewmodel.FirstViewModel;
+import com.google.android.material.tabs.TabLayout;
 
-import java.util.Objects;
 import java.util.Optional;
 
 public class HomeFragment extends Fragment implements FirstViewContract {
+
+    private static final String TAG = HomeFragment.class.getSimpleName();
 
     TextView weatherIcon;
     private Typeface weatherFont;
@@ -43,9 +47,16 @@ public class HomeFragment extends Fragment implements FirstViewContract {
     private NavController navController;
     private NavDirections action;
     private View view;
+    private PagerAdapter adapter;
+
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -60,8 +71,23 @@ public class HomeFragment extends Fragment implements FirstViewContract {
         mViewModel = binding.getViewModel();
         mViewModel.loadWeathers();
 
+
         setupViews();
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        TabFragment();
+    }
+
+    private void TabFragment() {
+        adapter = new PagerAdapter(getChildFragmentManager(),binding.tabLayout.getTabCount());
+        binding.viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout));
+        binding.tabLayout.setupWithViewPager(binding.viewPager);
+        adapter.addFragment(new CateFoodFragment(),"맛집");
+        adapter.addFragment(new CateTourFragment(),"투어");
+        binding.viewPager.setAdapter(adapter);
     }
 
     private void setupViews() {

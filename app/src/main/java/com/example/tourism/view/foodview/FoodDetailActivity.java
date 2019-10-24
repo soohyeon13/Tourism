@@ -53,7 +53,7 @@ public class FoodDetailActivity extends Fragment implements ImageContract {
                 .getData(KakaoSearch.class, new HashMap<String, String>() {{
                     put("Authorization", "KakaoAK" + " " + getResources().getString(R.string.kakao_REST_API_key));
                 }});
-        binding.setViewModel(new FoodDetailViewModel(getActivity().getApplication(), Optional.ofNullable(getArguments().getInt("id")).orElse(1),getActivity().getApplicationContext(),new ImageService(kakaoSearch),this));
+        binding.setViewModel(new FoodDetailViewModel(getActivity().getApplication(), Optional.ofNullable(getArguments().getInt("id")).orElse(1),getActivity().getApplicationContext(),new ImageService(kakaoSearch,getArguments().getString("name")),this));
 
         viewModel = binding.getViewModel();
         viewModel.loadDetail();
@@ -78,8 +78,6 @@ public class FoodDetailActivity extends Fragment implements ImageContract {
         snapHelper.attachToRecyclerView(recyclerView);
         imageRecyclerAdapter = new ImageRecyclerAdapter(getContext(), (ImageContract) this);
         recyclerView.setAdapter(imageRecyclerAdapter);
-
-
     }
 
     @Override

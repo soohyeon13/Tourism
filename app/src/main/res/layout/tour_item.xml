@@ -20,6 +20,7 @@
         <androidx.constraintlayout.utils.widget.ImageFilterView
             android:id="@+id/tourImg"
             android:layout_width="match_parent"
+            android:scaleType="centerCrop"
             android:layout_height="166dp"
             android:src="@drawable/food" />
 

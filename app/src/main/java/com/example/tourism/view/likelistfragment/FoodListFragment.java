@@ -49,7 +49,7 @@ public class FoodListFragment extends Fragment implements Clickable {
         binding.setViewModel(new FragmentFoodListViewModel(Objects.requireNonNull(getActivity()).getApplication()));
         viewModel = binding.getViewModel();
 
-        viewModel.getFoodLikeList("제주시","동부").observe(this,like ->adapter.setFood(like));
+        viewModel.getFoodLikeList(1).observe(this,like ->adapter.setFood(like));
 
         gridLayoutManager = new GridLayoutManager(getActivity(),2);
         snapHelper = new LinearSnapHelper();
@@ -66,9 +66,10 @@ public class FoodListFragment extends Fragment implements Clickable {
     }
 
     @Override
-    public void clickItem(int id) {
+    public void clickItem(int id, String name) {
         Bundle bundle = new Bundle();
         bundle.putInt("id",id);
+        bundle.putString("name",name);
         navController.navigate(R.id.action_likeMainFragment_to_foodDetailActivity,bundle);
     }
 }

@@ -22,6 +22,7 @@
             android:id="@+id/foodImg"
             android:layout_width="match_parent"
             android:layout_height="166dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/food" />
 
         <TextView

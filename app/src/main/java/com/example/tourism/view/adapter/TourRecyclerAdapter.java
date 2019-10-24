@@ -29,7 +29,7 @@ public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapte
     private Callback callback;
     private List<TourEntity> mTour;
     public interface Callback {
-        void callback(int id);
+        void callback(int id,String name);
     }
 
     public TourRecyclerAdapter(Context context, TourViewContract tourViewContract,Callback callBack) {
@@ -95,7 +95,7 @@ public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapte
                     .load(tour.getTourPicture())
                     .override(200,200)
                     .into(imageview);
-            imageview.setOnClickListener(v -> callback.callback(tour.getId()));
+            imageview.setOnClickListener(v -> callback.callback(tour.getId(),tour.getTourName()));
         }
     }
 

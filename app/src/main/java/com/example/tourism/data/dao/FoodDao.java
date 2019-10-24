@@ -18,8 +18,11 @@ public interface FoodDao {
     @Query("SELECT * FROM food")
     LiveData<List<FoodEntity>> findAll();
 
-    @Query("SELECT * FROM food WHERE food_city LIKE :foodCity AND food_category LIKE :foodCategory ")
-    LiveData<List<FoodEntity>> findSelectedCateFood(String foodCity,String foodCategory);
+    @Query("SELECT * FROM food WHERE food_category LIKE :foodCategory ")
+    LiveData<List<FoodEntity>> findSelectedCateFood(String foodCategory);
+
+    @Query("SELECT * FROM food WHERE food_like LIKE :foodLike")
+    LiveData<List<FoodEntity>> findFoodLikeList(int foodLike);
 
     @Query("SELECT * FROM food WHERE id =:foodId")
     FoodEntity findDetailFood(int foodId);

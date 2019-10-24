@@ -51,7 +51,6 @@ public class FoodDetailViewModel extends AndroidViewModel {
         this.imageService = imageService;
         this.imageContract = imageContract;
         imageVOObservable = imageService.getData();
-
     }
 
     public ObservableField<String> getFoodName() { return foodName; }
@@ -78,13 +77,7 @@ public class FoodDetailViewModel extends AndroidViewModel {
         double la = gpsService.getPointFromGeoCoder(foodLocation.get()).y;
         double lo = gpsService.getPointFromGeoCoder(foodLocation.get()).x;
 
-        imageContract.onClick(la,lo,foodLocation.get());
-
-//        Location destination = Location.newBuilder(foodLocation.get(),lo,la).build();
-//        NaviOptions options = NaviOptions.newBuilder().setCoordType(CoordType.WGS84).setVehicleType(VehicleType.FIRST).setRpOption(RpOption.SHORTEST).build();
-//        KakaoNaviParams.Builder builder = KakaoNaviParams.newBuilder(destination).setNaviOptions(options);
-//        KakaoNaviParams params = builder.build();
-//        KakaoNaviService.navigate(context,builder.build());
+        imageContract.onClick(la,lo,foodName.get());
     }
 
     @SuppressLint("CheckResult")

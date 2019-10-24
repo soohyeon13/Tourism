@@ -51,6 +51,7 @@ public class FoodActivity extends Fragment implements FoodViewContract, Clickabl
     private AutoCompleteTextView autoText;
     private View view;
     private NavController navController;
+    private static final String TAG = FoodActivity.class.getSimpleName();
 
 
     @Nullable
@@ -102,22 +103,23 @@ public class FoodActivity extends Fragment implements FoodViewContract, Clickabl
     }
 
     @Override
-    public void clickItem(int id) {
-        //Todo bundle 로 id 값 넘기기
-//        NavDirections action = FoodActivityDirections.actionFoodActivityToFoodDetailActivity();
+    public void clickItem(int id, String name) {
         Bundle bundle = new Bundle();
         bundle.putInt("id",id);
+        bundle.putString("name",name);
         navController.navigate(R.id.action_foodActivity_to_foodDetailActivity,bundle);
     }
 
     @Override
     public void btnClick(View view) {
         mHashTagText.setText(autoText.getText());
-        foodViewModel.getSelectedCateFood("제주시","동부").observe(this,food ->foodRecyclerAdapter.setFood(food));
+        foodViewModel.getSelectedCateFood(autoText.getText().toString().trim()).observe(this,food ->foodRecyclerAdapter.setFood(food));
     }
 
     @Override
     public void onHashTagClicked(String hashTag) {
         //Todo click event
     }
+
+
 }

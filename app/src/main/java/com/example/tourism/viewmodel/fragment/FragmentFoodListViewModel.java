@@ -27,7 +27,7 @@ public class FragmentFoodListViewModel extends AndroidViewModel {
         executorService = Executors.newSingleThreadExecutor();
     }
 
-    public LiveData<List<FoodEntity>> getFoodLikeList(String city, String location){return foodDao.findSelectedCateFood(city,location);}
-    public LiveData<List<TourEntity>> getTourLikeList(String city, String location){return tourDao.findSelectedCateTour(city,location);}
+    public LiveData<List<FoodEntity>> getFoodLikeList(int like){return foodDao.findFoodLikeList(like);}
+    public LiveData<List<TourEntity>> getTourLikeList(int like){return tourDao.findTourLikeList(like);}
 
 }
