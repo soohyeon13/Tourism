@@ -26,6 +26,9 @@ public interface TourDao {
     @Query("SELECT * FROM tour WHERE id =:tourId")
     TourEntity findDetailTour(int tourId);
 
+    @Query("UPDATE tour SET tour_like =:like WHERE id =:id")
+    void likeTourUpdate(int like,int id);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void save(TourEntity tour);
 

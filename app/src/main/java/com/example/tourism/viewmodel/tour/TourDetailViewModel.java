@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.AndroidViewModel;
 
+import com.example.tourism.R;
 import com.example.tourism.contract.ImageContract;
 import com.example.tourism.data.TourEntity;
 import com.example.tourism.data.dao.TourDao;
@@ -33,6 +34,7 @@ public class TourDetailViewModel extends AndroidViewModel {
     public final ObservableField<String> tourLocation = new ObservableField<>();
     public final ObservableField<String> tourTime = new ObservableField<>();
     public final ObservableField<String> tourDescribe = new ObservableField<>();
+    public final ObservableField<Integer> tourImg = new ObservableField<>();
     public final Observable<ImageVO> imageVOObservable;
     private final ImageService imageService;
     private final ImageContract imageContract;
@@ -46,6 +48,7 @@ public class TourDetailViewModel extends AndroidViewModel {
     public ObservableField<String> getTourLocation() { return tourLocation; }
     public ObservableField<String> getTourTime() { return tourTime; }
     public ObservableField<String> getTourDescribe() { return tourDescribe; }
+    public ObservableField<Integer> getTourImg() {return  tourImg;}
 
     public TourDetailViewModel(@NonNull Application application, int id, Context context, ImageService imageService, ImageContract imageContract) {
         super(application);
@@ -58,15 +61,26 @@ public class TourDetailViewModel extends AndroidViewModel {
         imageVOObservable = imageService.getData();
     }
 
-    public TourEntity getDetailTour() {
-        return tourDao.findDetailTour(getId);
-    }
+    public TourEntity getDetailTour() { return tourDao.findDetailTour(getId); }
+    public void updateTourLike(int like) {tourDao.likeTourUpdate(like,getId);}
 
     public void loadDetail() {
+        if (getDetailTour().getTourLike() == 1) tourImg.set(R.drawable.like_color);
+        else if (getDetailTour().getTourLike() == 0) tourImg.set(R.drawable.like);
         tourName.set(getDetailTour().getTourName());
         tourLocation.set(getDetailTour().getTourLocation());
         tourTime.set(getDetailTour().getTourTime());
         tourDescribe.set(getDetailTour().getTourDescribe());
+    }
+
+    public void likeClick(View view) {
+        if (getDetailTour().getTourLike() == 1) {
+            updateTourLike(0);
+            tourImg.set(R.drawable.like);
+        }else if (getDetailTour().getTourLike() == 0) {
+            updateTourLike(1);
+            tourImg.set(R.drawable.like_color);
+        }
     }
 
     public void startKakaoMapView(View v) {

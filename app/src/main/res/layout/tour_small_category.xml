@@ -32,6 +32,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:ems="10"
+            android:textColor="#000"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +69,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:onClick="@{viewModel::btnClick}"
-            android:text="Button"
+            android:text="검색하기"
+            android:backgroundTint="#1A3A59"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_h" />

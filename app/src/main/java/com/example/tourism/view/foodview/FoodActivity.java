@@ -47,7 +47,7 @@ public class FoodActivity extends Fragment implements FoodViewContract, Clickabl
     private FoodViewModel foodViewModel;
     private RecyclerView recyclerView;
 
-    private static final String[] WORDS = new String[] {"애월","제주"};
+    private static final String[] WORDS = new String[] {"애월","제주시","평대"};
     private AutoCompleteTextView autoText;
     private View view;
     private NavController navController;

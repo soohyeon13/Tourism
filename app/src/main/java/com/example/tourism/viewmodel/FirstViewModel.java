@@ -23,6 +23,7 @@ import io.reactivex.schedulers.Schedulers;
 
 
 public class FirstViewModel implements BottomNavigationView.OnNavigationItemSelectedListener{
+    private static final String TAG = FirstViewModel.class.getSimpleName();
     private final GPSService gpsService;
     public final Observable<WeatherVO> weatherObservable;
     public final ObservableField<String> address = new ObservableField<>();
@@ -64,12 +65,14 @@ public class FirstViewModel implements BottomNavigationView.OnNavigationItemSele
                 }, Throwable::printStackTrace);
     }
 
-    public void onFoodClick(View view) {
-        firstViewContract.onClick(view);
-    }
+    public void onFoodClick(View view) { firstViewContract.onClick(view); }
 
     public void onTourClick(View view) {
         firstViewContract.onClick(view);
+    }
+
+    public void onClick(View view) {
+        view.setOnClickListener(v -> Log.d(TAG, "onClick: " + view.getId()));
     }
 
     @Override

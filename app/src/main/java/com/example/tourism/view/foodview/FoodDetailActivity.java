@@ -41,12 +41,12 @@ public class FoodDetailActivity extends Fragment implements ImageContract {
     private ImageRecyclerAdapter imageRecyclerAdapter;
     private View view;
     private NavController navController;
-
+    private ActivityDetailFoodBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ActivityDetailFoodBinding binding = DataBindingUtil.inflate(inflater,R.layout.activity_detail_food,container,false);
+        binding = DataBindingUtil.inflate(inflater,R.layout.activity_detail_food,container,false);
         view = binding.getRoot();
 
         final KakaoSearch kakaoSearch = ((TourApplication) getActivity().getApplication())
@@ -71,6 +71,7 @@ public class FoodDetailActivity extends Fragment implements ImageContract {
     }
 
     private void setipView() {
+//        binding.like.setOnClickListener(this::likeClick);
         SnapHelper snapHelper;
         snapHelper = new LinearSnapHelper();
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.imageRecycler);
@@ -78,6 +79,10 @@ public class FoodDetailActivity extends Fragment implements ImageContract {
         snapHelper.attachToRecyclerView(recyclerView);
         imageRecyclerAdapter = new ImageRecyclerAdapter(getContext(), (ImageContract) this);
         recyclerView.setAdapter(imageRecyclerAdapter);
+    }
+
+    private void likeClick(View view) {
+        view.setBackgroundResource(R.drawable.like_color);
     }
 
     @Override

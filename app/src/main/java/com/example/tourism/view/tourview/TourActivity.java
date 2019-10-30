@@ -43,7 +43,7 @@ public class TourActivity extends Fragment implements TourViewContract, Clickabl
     private TourViewModel tourViewModel;
     private TourRecyclerAdapter tourRecyclerAdapter;
 
-    private static final String[] WORDS = new String[] {"애월","제주"};
+    private static final String[] WORDS = new String[] {"조천","제주시"};
     private AutoCompleteTextView autoText;
     private View view;
     private NavController navController;

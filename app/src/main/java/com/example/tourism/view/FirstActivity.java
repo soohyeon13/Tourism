@@ -32,7 +32,7 @@ public class FirstActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle(" ");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         try {
             NavHostFragment host = Optional.ofNullable((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.view_controller)).orElseThrow(Exception::new);

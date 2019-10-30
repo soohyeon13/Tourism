@@ -25,10 +25,11 @@
             android:scaleType="centerCrop"
             android:src="@drawable/food" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/foodName"
             android:text="음식이름"
             android:textSize="20dp"
+            android:background="#ffffff"
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

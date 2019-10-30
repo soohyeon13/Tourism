@@ -64,10 +64,8 @@ public class HomeFragment extends Fragment implements FirstViewContract {
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.home_fragment, container, false);
         view = binding.getRoot();
-
         final WeatherSearch weatherSearch = ((TourApplication) getActivity().getApplication()).getData(WeatherSearch.class);
         binding.setViewModel(new FirstViewModel(this, new WeatherService(weatherSearch), new GPSService(getContext())));
-
         mViewModel = binding.getViewModel();
         mViewModel.loadWeathers();
 
@@ -82,15 +80,17 @@ public class HomeFragment extends Fragment implements FirstViewContract {
     }
 
     private void TabFragment() {
-        adapter = new PagerAdapter(getChildFragmentManager(),binding.tabLayout.getTabCount());
+        adapter = new PagerAdapter(getChildFragmentManager(), binding.tabLayout.getTabCount());
         binding.viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout));
         binding.tabLayout.setupWithViewPager(binding.viewPager);
-        adapter.addFragment(new CateFoodFragment(),"맛집");
-        adapter.addFragment(new CateTourFragment(),"투어");
+        adapter.addFragment(new CateFoodFragment(), "맛집");
+        adapter.addFragment(new CateTourFragment(), "투어");
         binding.viewPager.setAdapter(adapter);
     }
 
     private void setupViews() {
+
+
         weatherIcon = binding.weatherIconText;
         weatherFont = Typeface.createFromAsset(getActivity().getAssets(), PATH_TO_WEATHER_FONT);
         weatherIcon.setTypeface(weatherFont);
@@ -107,7 +107,7 @@ public class HomeFragment extends Fragment implements FirstViewContract {
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.foodLayout) {
-            action= HomeFragmentDirections.actionHomeFragmentToFoodActivity();
+            action = HomeFragmentDirections.actionHomeFragmentToFoodActivity();
             navController.navigate(action);
         } else {
             action = HomeFragmentDirections.actionHomeFragmentToTourActivity();
@@ -169,8 +169,6 @@ public class HomeFragment extends Fragment implements FirstViewContract {
         super.onActivityCreated(savedInstanceState);
 //        mViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         // TODO: Use the ViewModel
-
-
 
 
     }
