@@ -26,6 +26,9 @@ public interface TourDao {
     @Query("SELECT * FROM tour WHERE id =:tourId")
     TourEntity findDetailTour(int tourId);
 
+    @Query("SELECT * FROM tour WHERE tour_small_category LIKE :tourSmallCate")
+    LiveData<List<TourEntity>> findTourSmallCate(String tourSmallCate);
+
     @Query("UPDATE tour SET tour_like =:like WHERE id =:id")
     void likeTourUpdate(int like,int id);
 

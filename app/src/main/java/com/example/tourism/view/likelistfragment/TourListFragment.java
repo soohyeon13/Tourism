@@ -47,9 +47,7 @@ public class TourListFragment extends Fragment implements Clickable {
 
         viewModel.getTourLikeList(1).observe(this,like -> adapter.setTour(like));
 
-        snapHelper = new LinearSnapHelper();
         recyclerView = binding.fragmentTour;
-        snapHelper.attachToRecyclerView(recyclerView);
         gridLayoutManager = new GridLayoutManager(getActivity(),2);
         recyclerView.setLayoutManager(gridLayoutManager);
         adapter = new TourRecyclerAdapter(getActivity(),this::clickItem);

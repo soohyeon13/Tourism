@@ -52,9 +52,7 @@ public class FoodListFragment extends Fragment implements Clickable {
         viewModel.getFoodLikeList(1).observe(this,like ->adapter.setFood(like));
 
         gridLayoutManager = new GridLayoutManager(getActivity(),2);
-        snapHelper = new LinearSnapHelper();
         recyclerView = binding.foodListRecycler;
-        snapHelper.attachToRecyclerView(recyclerView);
         recyclerView.setLayoutManager(gridLayoutManager);
         adapter = new FoodRecyclerAdapter(getActivity(),this::clickItem);
         recyclerView.setAdapter(adapter);

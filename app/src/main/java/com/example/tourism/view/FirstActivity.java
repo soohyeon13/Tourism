@@ -43,6 +43,7 @@ public class FirstActivity extends AppCompatActivity {
         }
     }
 
+
     public boolean onNaviClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.return_home_menu:

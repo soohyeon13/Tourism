@@ -7,4 +7,5 @@
     <color name="colorBlue">#0000cc</color>
     <color name="colorGray">#F7F7F7</color>
     <color name="fab_color">#001A3A59</color>
+    <color name="androidstatus">#1A3A59</color>
 </resources>

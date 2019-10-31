@@ -6,7 +6,7 @@
     <data>
         <variable
             name="click"
-            type="com.example.tourism.viewmodel.catefragment.CateFragmentViewModel" />
+            type="com.example.tourism.viewmodel.catefragment.FoodCateFragmentViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

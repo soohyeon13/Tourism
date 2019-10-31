@@ -23,20 +23,19 @@
             android:onClick="@{viewModel::onTourClick}"
             android:scaleType="fitXY"
             android:src="@drawable/tour_1"
-            app:layout_constraintEnd_toStartOf="@+id/foodLayout"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/foodLayout"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.utils.widget.ImageFilterView
             android:id="@+id/foodLayout"
             android:layout_width="0dp"
             android:layout_height="130dp"
-            android:layout_marginStart="8dp"
             android:onClick="@{viewModel::onFoodClick}"
             android:scaleType="fitXY"
             android:src="@drawable/food_1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageFilterView7"
+            app:layout_constraintEnd_toStartOf="@+id/imageFilterView7"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 

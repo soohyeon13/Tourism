@@ -33,6 +33,7 @@ import com.volokh.danylo.hashtaghelper.HashTagHelper;
 import java.util.Optional;
 
 public class TourActivity extends Fragment implements TourViewContract, Clickable, HashTagHelper.OnHashTagClickListener {
+    private static final String TAG = TourActivity.class.getSimpleName();
 
     private HashTagHelper mTextHashTagHelper;
     private HashTagHelper mEditTextHashTagHelper;
@@ -43,7 +44,7 @@ public class TourActivity extends Fragment implements TourViewContract, Clickabl
     private TourViewModel tourViewModel;
     private TourRecyclerAdapter tourRecyclerAdapter;
 
-    private static final String[] WORDS = new String[] {"조천","제주시"};
+    private static final String[] WORDS = new String[] {"조천","제주시","성산","구좌","중문","영실","서귀포시"};
     private AutoCompleteTextView autoText;
     private View view;
     private NavController navController;
@@ -53,9 +54,14 @@ public class TourActivity extends Fragment implements TourViewContract, Clickabl
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         TourCategoryActivityBinding binding = DataBindingUtil.inflate(inflater,R.layout.tour_category_activity,container,false);
         view = binding.getRoot();
-        binding.setViewModel(new TourViewModel(getActivity().getApplication(),(TourViewContract)this));
-
+        binding.setViewModel(new TourViewModel(getActivity().getApplication(), this));
         tourViewModel = binding.getViewModel();
+        Log.d(TAG, "onCreateView: " +getArguments().getString("smallTourCate"));
+        if (getArguments().getString("smallTourCate") != null) {
+            tourViewModel
+                    .getTourSmallCate(getArguments().getString("smallTourCate"))
+                    .observe(this, tour -> tourRecyclerAdapter.setTour(tour));
+        }
         setupViews();
 
         return view;

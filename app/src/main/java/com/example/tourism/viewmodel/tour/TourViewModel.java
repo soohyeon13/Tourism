@@ -29,6 +29,7 @@ public class TourViewModel extends AndroidViewModel {
         executorService = Executors.newSingleThreadExecutor();
     }
 
+    public LiveData<List<TourEntity>> getTourSmallCate(String smallCate) {return tourDao.findTourSmallCate(smallCate);}
     public LiveData<List<TourEntity>> getAllTours(){return tourDao.findAll();}
     public LiveData<List<TourEntity>> getSelectedCateTour(String tourCategory){return tourDao.findSelectedCateTour(tourCategory);}
 

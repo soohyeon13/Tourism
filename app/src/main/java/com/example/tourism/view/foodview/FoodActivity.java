@@ -47,22 +47,28 @@ public class FoodActivity extends Fragment implements FoodViewContract, Clickabl
     private FoodViewModel foodViewModel;
     private RecyclerView recyclerView;
 
-    private static final String[] WORDS = new String[] {"애월","제주시","평대"};
+    private static final String[] WORDS = new String[] {"애월","제주시","평대","용담"};
     private AutoCompleteTextView autoText;
     private View view;
     private NavController navController;
     private static final String TAG = FoodActivity.class.getSimpleName();
+    private FoodCategoryActivityBinding binding;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        FoodCategoryActivityBinding binding = DataBindingUtil.inflate(inflater,R.layout.food_category_activity,container,false);
-
+        binding = DataBindingUtil.inflate(inflater,R.layout.food_category_activity,container,false);
         binding.setViewModel(new FoodViewModel(getActivity().getApplication(),this,getContext()));
         view = binding.getRoot();
 
         foodViewModel = binding.getViewModel();
+
+        if (getArguments().getString("smallCate") != null) {
+            foodViewModel
+                    .getFoodSmallCateFood(getArguments().getString("smallCate"))
+                    .observe(this,list -> foodRecyclerAdapter.setFood(list));
+        }
 
         setupViews();
 
@@ -113,7 +119,9 @@ public class FoodActivity extends Fragment implements FoodViewContract, Clickabl
     @Override
     public void btnClick(View view) {
         mHashTagText.setText(autoText.getText());
-        foodViewModel.getSelectedCateFood(autoText.getText().toString().trim()).observe(this,food ->foodRecyclerAdapter.setFood(food));
+        foodViewModel
+                .getSelectedCateFood(autoText.getText().toString().trim())
+                .observe(this,food ->foodRecyclerAdapter.setFood(food));
     }
 
     @Override
